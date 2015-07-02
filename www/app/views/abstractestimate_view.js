@@ -1,4 +1,3 @@
-
 define(['models/estimateitems_util'],function(EstimateModel){
 
 		var AbstractEstimate_View = Backbone.View.extend({

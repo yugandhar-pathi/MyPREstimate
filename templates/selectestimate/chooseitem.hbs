@@ -1,0 +1,34 @@
+<h2>DEFAULT ITEMS FOR CC ROAD ESTIMATION:</h2>			
+<div>
+	<table data-role="table" class="ui-body-d ui-shadow table-stripe ui-responsive">
+	<thead>
+	  <tr>
+	    <th>Sl.No</th>
+	    <th>Item-Code</th>
+	    <th>Description</th>
+	    <th>Choose</th>
+	  </tr>
+	 </thead>
+	 <tbody id="estimateItems"> 
+	  {{#each indexToDatasArray}}
+		  <tr>
+		    <td>{{add @index 1}}</td>
+		    <td>{{this.IndexCode}}</td>
+		    <td>{{this.description}}</td>
+		    <td><input data-table="{{this.TableName}}" type="checkbox" name="itemsSelected" checked id="{{this.IndexCode}}"/></td>
+		  </tr>
+		   {{#each this.subitemsArray}}	  
+		   	  <tr>  
+			    <td></td>
+			    <td>{{this.SlNo}}</td>
+			    <td>{{this.descritpion}}</td>
+			    <td><input type="radio" name="itemsSelected" name="{{../../IndexCode}}" id="{{this.IndexCode}}"/></td> 
+		   	  </tr> 
+		   {{/each}}
+	  {{/each}}
+	  </tbody>
+	</table>
+</div>
+<input type="submit" onclick="window.location.href='#listOfChapters'" value="Add Other Items to Estimate">
+<input type="submit" id="proceedToLeadStmt" value="Proceed To Lead Statement">
+

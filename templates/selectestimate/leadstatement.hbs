@@ -1,0 +1,46 @@
+<table data-role="table" class="ui-body-d ui-shadow table-stripe ui-responsive">
+<thead>
+  <tr>
+  	<th>Sl.No</th>
+  	<th>Description of material</th>
+  	<th>Source of supply</th>
+  	<th>Lead in KM</th>
+  	<th>Initial Cost</th>
+  	<th>Conveyance Charges</th>
+  	<th>Seig-Charges balance</th>
+  	<th>Deduct stacting char</th>
+  	<th>Total Cost</th>
+  	<th>Unit</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+  	<td>1</td>
+  	<td>2</td>
+  	<td>3</td>
+  	<td>4</td>
+  	<td>5</td>
+  	<td>6</td>
+  	<td>7</td>
+  	<td>8</td>
+  	<td>9</td>
+  	<td>10</td>
+  </tr>
+  	{{#each leadMaterials}}
+	  <tr>
+	  	<td>{{add @index 1}}</td>
+	  	<td>{{material}}</td>
+	  	<td style="width:10%"><input type="text" data-id="sourceOfSupply"/></td>
+	  	<td style="width:10%"><input type="text" class='distance' data-index={{@index}} id="distance{{@index}}"/></td>
+	  	<td id="initialCost{{@index}}">{{initialCost}}</td>
+	  	<td id="convCharges{{@index}}"></td>
+	  	<td id="seig-charges{{@index}}">{{seigCharges}}</td>
+	  	<td></td>
+	  	<td id="totalCost{{@index}}"></td>
+	  	<td>{{unit}}</td>
+	  </tr>
+  	{{/each}}
+ </tbody>
+</table>
+
+<input type="submit" id="proceedToDataSheet" value="PROCEED TO DATAS">

@@ -1,0 +1,29 @@
+<div data-theme="d" data-role="header" >
+ 	<a href="#selectestimate" data-icon="arrow-l" data-position="fixed">Back</a>
+	<h1 class="ui-title">Pick Your Choice</h1>
+</div><!-- /header -->
+<div role="main" class="ui-content">
+	<h2>Which method would you like to choose?:</h2>	
+	{{#each indexToTableItems}}
+		<table data-role="table" class="ui-body-d ui-shadow table-stripe ui-responsive">
+			<thead>
+				<tr>
+					<th>{{IndexCode}}</th>
+					<th>{{description}}</th>
+					<th>Choose</th>
+				</tr>
+			</thead>
+			<tbody>
+				{{#each this.subitems}}
+					<tr>
+						<td>{{SlNo}}</td>
+						<td>{{descritpion}}</td>
+						<td><input type="radio" name="{{../IndexCode}}"/></td>
+					</tr>
+				{{/each}}
+			</tbody>
+		</table>
+		<br>
+	{{/each}}
+	<input type="submit" id="proceedToLeadStmt" value="Proceed To Lead Statement">
+</div>

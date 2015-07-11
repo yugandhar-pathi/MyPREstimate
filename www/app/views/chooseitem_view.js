@@ -21,10 +21,13 @@ define(['models/estimateitems_util'],function(EstimateModel){
 								};
 							indexToTableItem.indexCode = ele.id;
 							indexToTableItem.tableName = $(this).data("table");
-							indexToTableMap.push(indexToTableItem);
+							indexToTableMap.push(indexToTableItem);					
 						});	
 				EstimateModel.model.set("selectedItemsForEstimate",indexToTableMap);
-				appRouter.navigate('leadstatement',{trigger:true});
+				//EstimateModel.model.getSubItemsForEstimate();
+				//appRouter.navigate("#leadstatement",{tirgger:true});
+				 appRouter.navigate("#leadstatement",{trigger:true});  
+				
 			},		
 			
 			render : function() {

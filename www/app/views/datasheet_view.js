@@ -60,6 +60,7 @@ define(['models/estimateitems_util'],function(EstimateModel){
 						
 			render : function() {
 				this.$el.html(this.template(EstimateModel.model.attributes));
+				return this;
 			}
 
 		});

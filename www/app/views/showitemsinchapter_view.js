@@ -8,13 +8,12 @@ define(['models/estimateitems_util'],function(EstimateModel){
 			initialize: function() {
 
 		    },
-			
-		     events:{
+			template : Handlebars.templates.selectestimate_showitemsinchapter,			
+		    events:{
 		    	 'click #proceedToItems':'proceedToSelectedItems',
 		    	 'click .description':'displayDetails'    	 
-		     },
-		     
-		     proceedToSelectedItems : function(event){
+		    },		     
+		    proceedToSelectedItems : function(event){
 		    	 var selectedItems = $("#itemsInChapter input:checkbox[name=chosenItems]:checked");
 		    	 var chosenItems = [];
 		    	   
@@ -36,21 +35,20 @@ define(['models/estimateitems_util'],function(EstimateModel){
 		     },
 		     displayDetails:function(event){
 		    	 var selectedRow = event.target.id;
-		    	 var splitId = selectedRow.split('+');
-		    	 var tableName = splitId[0];
-		    	 var rowId =  splitId[1];
+		    	// var indexId = $("#"+selectedRow.substr(-1)).data("indexCode");
 		    	 var options = {
-		    		x:'100px',
-		    		y:'100px',
+		    		//x:'100px',
+		    		//y:'100px',
 		    		transition :'flip',
 		    		positionTo :''
 		    	 };
-		    	 console.log(tableName + ":"+rowId)
+		    	 //console.log(tableName + ":"+rowId)
 		    	 event.preventDefault();
-		    	 $( "#popupBasic" ).popup( "open",options);		    	 
+		    	 $("#itemDetails").empty();
+		    	$("#itemDetails").append($("#"+selectedRow.substr(-1)).html());
+		    	 //$("#RBR-LUCC-1").attr("display","show");
+		    	 $( "#itemDetails" ).popup( "open",options);		    	 
 		     },
-
-			template : Handlebars.templates.selectestimate_showitemsinchapter,
 
 			render : function() {	
 				this.$el.html(this.template(EstimateModel.model.attributes));

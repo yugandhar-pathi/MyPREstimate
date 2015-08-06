@@ -49,6 +49,10 @@ define(['models/estimateitems_util'],function(EstimateModel){
 		    	 //$("#RBR-LUCC-1").attr("display","show");
 		    	 $( "#itemDetails" ).popup( "open",options);		    	 
 		     },
+		     
+		    onShow:function(){
+
+		    },
 
 			render : function() {	
 				this.$el.html(this.template(EstimateModel.model.attributes));

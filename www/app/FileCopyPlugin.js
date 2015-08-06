@@ -5,8 +5,7 @@ cordova.define("org.apache.cordova.FileCopyPlugin.FileCopyPlugin", function(requ
 	}
 	FileCopyPlugin.prototype.Copy = function(aString){ 
 		console.log("fileCopyPlugin.js: showToast"); 
-		
-		exec(function(result){alert("OK" + result);window.localStorage.setItem("isDBCopied", true);}, function(result){alert("Error" + result);} ,"FileCopyPlugin","echo",[aString]);
+		exec(function(result){alert("OK" + result);}, function(result){alert("Error" + result);} ,"FileCopyPlugin","echo",[aString]);
 	}
 	var FileCopyPlugin = new FileCopyPlugin(); 
 	module.exports = FileCopyPlugin;

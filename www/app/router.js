@@ -57,7 +57,7 @@ define(['models/headerfootermodel'], function(HeaderFooterModel) {
 						isFooterRequired : false,
 						isHeaderRequired : true,
 						isBackButtonRequired : true,
-						headerTitle:"Select Data Items",
+						headerTitle:"Select Datas",
 						backButtonHREF:"listOfChapters"
 					}));
 				},
@@ -67,7 +67,7 @@ define(['models/headerfootermodel'], function(HeaderFooterModel) {
 						isFooterRequired : false,
 						isHeaderRequired : true,
 						isBackButtonRequired : false,
-						headerTitle:"Select Item",
+						headerTitle:"Default Datas",
 						backButtonHREF : 'selectestimate'
 					}));
 				},
@@ -124,12 +124,30 @@ define(['models/headerfootermodel'], function(HeaderFooterModel) {
 					        var contentView = new contentView();
 					        contentView.render();
 					        $("#"+pageId+" div[role='main']").append(contentView.$el);
-	
+					       // var myScroll;
+
+
 				    	    $('div[data-role="page"]').bind('pagehide', function (event, ui) {
+						       /* if(pageId == "showitemsinchapter"){
+							         myScroll = new IScroll('#wrapper',{ hScrollbar : false,vScrollbar : true });
+						        }*/
+				    	    	if(pageId == "showitemsinchapter"){
+						           /* $("#tableItems").floatThead({
+						                scrollContainer: function ($table) {
+						                    return $table.closest('#tableContainer');
+						                }/*,
+						                scrollingTop:function($table){
+						                	console.log($table.offset().top);
+						                	return $table.offset().top;
+						                } //,
+						                //useAbsolutePositioning: false
+						            });*/
+				    	    	}
+
 				    	        $(event.currentTarget).remove();
 				    	    });
 				    	    
-					        $.mobile.changePage($(page.el), {changeHash:false, transition: 'slideup'}); 
+					        $.mobile.changePage($(page.el), {changeHash:false, transition: 'none'}); 
 				     });
 				}
 

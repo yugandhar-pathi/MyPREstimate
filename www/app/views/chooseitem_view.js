@@ -2,36 +2,82 @@
 define(['models/estimateitems_util'],function(EstimateModel){
 		var ChooseItem_View = Backbone.View.extend({
 			
-			model:EstimateModel,	
+			model:EstimateModel.model,	
 			
 			template : Handlebars.templates.selectestimate_chooseitem,
 			
 			events:{
-				'tap #proceedToLeadStmt':'proceedToLeadStmt'
+				'tap #proceedToLeadStmt':'proceedToLeadStmt',
+				'tap .dataCode':'displayDeleteOption',
+				//'tap #deleteDataIndex':'deleteIndexFromDefaults'
+			},
+			
+			initialize : function() {
+				this.model.on('reRenderDefaultsView',this.reRender, this);
 			},
 			
 			proceedToLeadStmt : function(){		
 				var selectedItems = $("#estimateItems input:checkbox[name=itemsSelected]:checked");
+				var proceedToLead = true;
 				var indexToTableMap = [];
-				selectedItems.each(function(index,ele)
-						{
+				selectedItems.each(function(index,ele){
 							var indexToTableItem = {
 									"indexCode":"",
-									"tableName":""
+									"tableName":"",
+									"selectedSubItems":[]
 								};
 							indexToTableItem.indexCode = ele.id;
+							var subItems =  $("#estimateItems input:checkbox[name="+ele.id+"]");
+							if(subItems.length){
+								var selectedSubitems = $("#estimateItems input:checkbox[name="+ele.id+"]:checked");
+								if(!selectedSubitems.length){
+									proceedToLead = false;
+									subItems.each(function(subItemIndex,ele){
+										$(this).closest("td").addClass("mandatoryIndicator");
+									});
+									$('.'+ele.id).on('tap',function(event){
+										var subItems = $('.'+ele.id);
+										$(subItems).each(function(subItemIndex,ele){
+											$(this).closest("td").removeClass("mandatoryIndicator");
+										});
+									})
+								}else{
+									selectedSubitems.each(function(subItemIndex,ele){
+										indexToTableItem.selectedSubItems.push($(ele).attr('id')) ;
+									});	
+									console.log(JSON.stringify(indexToTableItem.selectedSubItems));
+								}
+							}
 							indexToTableItem.tableName = $(this).data("table");
 							indexToTableMap.push(indexToTableItem);					
 						});	
 				EstimateModel.model.set("selectedItemsForEstimate",indexToTableMap);
-				//EstimateModel.model.getSubItemsForEstimate();
-				//appRouter.navigate("#leadstatement",{tirgger:true});
-				 appRouter.navigate("#leadstatement",{trigger:true});  
-				
+				if(proceedToLead){
+					EstimateModel.model.getDatasForEstimate();
+					//appRouter.navigate("#leadstatement",{trigger:true});
+				}
 			},		
-			
+			displayDeleteOption : function(event){
+				var self = this;
+	    	 	$("#deleteData").popup( "open", { x: event.pageX, y: event.pageY } );
+	    	 	setTimeout(function(){
+		    	 	$("#deleteDataIndex").data('rowid',$(event.target).text());
+		    	 	$("#deleteDataIndex").on('tap',self.deleteIndexFromDefaults)
+	    	 	},100);
+	    	 	event.preventDefault();
+			},
+			deleteIndexFromDefaults:function(event){
+				$("#deleteData").popup("close");
+				console.log($(event.target).data('rowid'));
+				var dataToDelete = $(event.target).data('rowid');
+				EstimateModel.model.deleteDefaultItem(dataToDelete);
+			},
 			render : function() {
 				this.$el.html(this.template(EstimateModel.model.attributes));
+				return this;
+			},
+			reRender:function(){
+				this.$el.html(this.template(EstimateModel.model.attributes)).trigger("create");
 				return this;
 			}
 		});

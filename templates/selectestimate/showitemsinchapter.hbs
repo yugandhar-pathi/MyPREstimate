@@ -1,96 +1,31 @@
 
-<h2>Select Your Datas From {{selectedTable}}</h2>
-<table data-role="table" class="ui-body-d ui-shadow table-stripe ui-responsive">
-  <thead>
-  <tr>
-    <th>Sl.No</th>
-    <th style="width:15%">Item-Code</th>
-    <th>Description</th>
-    <th>Choose</th>
-  </tr>
-  </thead>
-  <tbody id="itemsInChapter">
-	  {{#each chapterToItemsMap.indexDatas}}
-		  <tr>
-		    <td>{{SNo}}</td>
-		    <td style="width:15%">{{IndexCode}}</td>
-		    <td class="description" id="{{tableName}}{{this.SNo}}" data-indexCode="{{IndexCode}}">{{this.Description}}</td>
-		    <td><input type="checkbox" name="chosenItems" id="{{this.IndexCode}}"></td>
-		  </tr>
-	  {{/each}}
-  </tbody>
-</table>
+<p><strong><i>Datas in {{chapterTitle}}:</i></strong><p>
 
-{{#each indexToItems}} 
-<div style="display:none" id="{{itemIndex}}">
-	<table data-role="table" class="ui-body-d ui-shadow table-stripe ui-responsive">
-		<thead>
-		  <tr>
-		    <th colspan="2">Quantity</th>
-		    <th>Description</th>
-		    <th>Rate</th>
-		    <th colspan="2">Per</th>
-		    <th>Amount</th>
-		  </tr>
-		</thead>
-		<tbody>
-		  	{{#each this.itemsArr}}
-		  		{{#compare @index 0 operator="=="}}
-			      <tr>
-			      	<td><strong>{{IndexCode}}</strong></td>
-			  		<td><strong>{{add ../../itemIndex 1}}</strong></td>
-			  		<td colspan="2"><strong>{{Description}}</strong></td>
-			  		<td></td>
-			  		<td></td>
-			  		<td></td>	
-			  	  </tr>		
-		  		{{else}}
-		  		  {{#isNull SubBullet}}
-					  <tr>
-					    <td>{{Quantity}}</td>
-					    <td>{{Unit}}</td>
-					    {{#compare descType "Normal" operator="=="}}
-					    	<td>{{Description}}</td>
-					    {{else}}
-					    	{{#compare descType "RateOrCost" operator="=="}}
-						    	<td style="color:red"><strong>{{Description}}</strong></td>
-						    {{else}}
-						    	<td><strong>{{Description}}</strong></td>				    	
-						    {{/compare}}			    
-					    {{/compare}}
-					    	<td>{{RateRs}}</td>
-					    {{#isNull Unit}}
-					    	<td></td>
-					    {{else}}
-					    	<td>1</td>
-					    {{/isNull}}
-					    <td>{{Unit}}</td>
-					    {{#isNull Amount}}
-					    	<td>{{Amount}}</td>
-					    {{else}}
-					    	<td>{{renderHTMLwithSplitAmount Amount}}</td>  
-					    {{/isNull}}
-					  </tr>
-				  {{else}}
-					 <tr>
-					    <td>{{Quantity}}</td>
-					    <td><strong>{{SubBullet}}</strong></td>
-					    <td><strong>{{Description}}</strong></td>
-					     <td>{{RateRs}}</td>
-					    <td></td>
-					    <td>{{Unit}}</td>
-					    <td><input type="radio" name="{{ ../../../code}}"</td>
-					  </tr>		  		  
-				  {{/isNull}}
-			  	{{/compare}}
-		  	{{/each}}
-
-		  </tbody>
+ <div id="tableContainer">
+	<table data-role="table" class="table-stroke table-stripe ui-responsive" id="tableItems">
+	  <thead>
+	  <tr>
+	    <th>Sl.No</th>
+	    <th style="width:15%">Item-Code</th>
+	    <th>Description</th>
+	    <th>Choose</th>
+	  </tr>
+	  </thead>
+	  <tbody id="itemsInChapter">
+		  {{#each chapterToItemsMap.indexDatas}}
+			  <tr>
+			    <td>{{SNo}}</td>
+			    <td style="width:15%">{{IndexCode}}</td>
+			    <td class="description" id="{{tableName}}{{this.SNo}}" data-indexCode="{{IndexCode}}">{{this.Description}}</td>
+			    <td><input type="checkbox" name="chosenItems" id="{{this.IndexCode}}"></td>
+			  </tr>
+		  {{/each}}
+	  </tbody>
 	</table>
 </div>
-{{/each}}
 
-<div data-role="popup" id="itemDetails" data-position-to="window">
+
+<div data-role="popup" id="itemDetails" data-position-to="window" class="ui-content">
 	<p>This is a basic popup</p>
 </div>
 <input type="submit" id="proceedToItems" value="Add to My Estimate"/>

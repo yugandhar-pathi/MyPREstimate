@@ -1,0 +1,74 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install',
+1 verbose cli   'grunt-contrib-concat' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.36
+4 verbose node symlink C:\Program Files\nodejs\\node.exe
+5 warn package.json www@1.0.0 No description
+6 warn package.json www@1.0.0 No repository field.
+7 warn package.json www@1.0.0 No README data
+8 verbose readDependencies using package.json deps
+9 verbose cache add [ 'grunt-contrib-concat', null ]
+10 verbose cache add name=undefined spec="grunt-contrib-concat" args=["grunt-contrib-concat",null]
+11 verbose parsed url { protocol: null,
+11 verbose parsed url   slashes: null,
+11 verbose parsed url   auth: null,
+11 verbose parsed url   host: null,
+11 verbose parsed url   port: null,
+11 verbose parsed url   hostname: null,
+11 verbose parsed url   hash: null,
+11 verbose parsed url   search: null,
+11 verbose parsed url   query: null,
+11 verbose parsed url   pathname: 'grunt-contrib-concat',
+11 verbose parsed url   path: 'grunt-contrib-concat',
+11 verbose parsed url   href: 'grunt-contrib-concat' }
+12 silly lockFile 2cb61a47-grunt-contrib-concat grunt-contrib-concat
+13 verbose lock grunt-contrib-concat C:\Users\yu290230\AppData\Roaming\npm-cache\2cb61a47-grunt-contrib-concat.lock
+14 silly lockFile 2cb61a47-grunt-contrib-concat grunt-contrib-concat
+15 silly lockFile 2cb61a47-grunt-contrib-concat grunt-contrib-concat
+16 verbose addNamed [ 'grunt-contrib-concat', '' ]
+17 verbose addNamed [ null, '*' ]
+18 silly lockFile 9f2aab3b-grunt-contrib-concat grunt-contrib-concat@
+19 verbose lock grunt-contrib-concat@ C:\Users\yu290230\AppData\Roaming\npm-cache\9f2aab3b-grunt-contrib-concat.lock
+20 silly addNameRange { name: 'grunt-contrib-concat', range: '*', hasData: false }
+21 verbose request where is /grunt-contrib-concat
+22 verbose request registry https://registry.npmjs.org/
+23 verbose request id ee4d610021fb8e2e
+24 verbose url raw /grunt-contrib-concat
+25 verbose url resolving [ 'https://registry.npmjs.org/', './grunt-contrib-concat' ]
+26 verbose url resolved https://registry.npmjs.org/grunt-contrib-concat
+27 verbose request where is https://registry.npmjs.org/grunt-contrib-concat
+28 info trying registry request attempt 1 at 15:48:43
+29 http GET https://registry.npmjs.org/grunt-contrib-concat
+30 info retry will retry, error on last attempt: Error: connect ECONNREFUSED
+31 info trying registry request attempt 2 at 15:48:54
+32 http GET https://registry.npmjs.org/grunt-contrib-concat
+33 info retry will retry, error on last attempt: Error: connect ECONNREFUSED
+34 info trying registry request attempt 3 at 15:49:55
+35 http GET https://registry.npmjs.org/grunt-contrib-concat
+36 silly lockFile 9f2aab3b-grunt-contrib-concat grunt-contrib-concat@
+37 silly lockFile 9f2aab3b-grunt-contrib-concat grunt-contrib-concat@
+38 error Error: connect ECONNREFUSED
+38 error     at errnoException (net.js:905:11)
+38 error     at Object.afterConnect [as oncomplete] (net.js:896:19)
+38 error  { [Error: connect ECONNREFUSED]
+38 error   code: 'ECONNREFUSED',
+38 error   errno: 'ECONNREFUSED',
+38 error   syscall: 'connect',
+38 error   parent: 'www' }
+39 error If you are behind a proxy, please make sure that the
+39 error 'proxy' config is set properly.  See: 'npm help config'
+40 error System Windows_NT 6.1.7601
+41 error command "C:\\Program Files\\nodejs\\\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "grunt-contrib-concat"
+42 error cwd C:\Users\yu290230\Estimate\platforms\android\assets\www
+43 error node -v v0.10.36
+44 error npm -v 1.4.28
+45 error syscall connect
+46 error code ECONNREFUSED
+47 error errno ECONNREFUSED
+48 error stack Error: connect ECONNREFUSED
+48 error stack     at errnoException (net.js:905:11)
+48 error stack     at Object.afterConnect [as oncomplete] (net.js:896:19)
+49 verbose exit [ 1, true ]

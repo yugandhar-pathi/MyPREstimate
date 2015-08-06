@@ -21,20 +21,22 @@ define([ 'models/base_model'], function(BaseModel) {
 				codeToDatas:"",
 				chapterToItemsMap:"",
 				codeToRates:"",
-				//indexToTableItems:"",
+				
 				indexToDatasArray:"",
+				chapterTitle:"",
 				tableList:['BasesAndSurface','CauAndSubMerBridges','CCPAVEMENT','EECD','Foundation','GEOSYNTHETICS','GranSubBases','HillRoads','Horticulture','LUCANDC','MaintOfRoads','PipeCulverts','ProtectionWorks','Repair','SiteClearence','SubStructure','SuperStructure','TrafficSigns'],
-				leadMaterials : [{
-					"material":"Sand for Mortor",
-					"initialCost":"385",
-					"seigCharges":"40",
-					"unit":"Cum"
-				},{
-					"material":"Sand for Filling",
-					"initialCost":"285",
-					"seigCharges":"40",
-					"unit":"Cum"
-				}],
+				leadMaterialItem:{
+					"material":"",
+					"sourceOfSupply":"",
+					"leadInKM":"",
+					"initialCost":"",
+					"convCharges":"",
+					"seigCharges":"",
+					"totalCost":"",
+					"unit":"",
+					"isMetal":false
+				},
+				listOfLeadMaterials:[]
 			},
 			initialize : function(options) {
 				db = openDatabase('RoadsAndBridges','', 'Test DB', 5 * 1024 * 1024);
@@ -195,12 +197,21 @@ define([ 'models/base_model'], function(BaseModel) {
 				var self= this;
 				var i=0;
 				var codeToDatas = [];
+				//var materialsInSelectedDatas = [];
+				var leadCodes = [];
 				db.transaction(function (tx) {	  
-					    var materialRowIds = [];
+					    //var materialRowIds = [];
 						var getItems = function(){
 						   var sNo = self.get("selectedItemsForEstimate")[i].indexCode.split("-")[2];
 						   var nextSNo = Number(sNo)+1;
 						   var tableName = self.get("selectedItemsForEstimate")[i].tableName;
+						   var selectedSubItems = self.get("selectedItemsForEstimate")[i].selectedSubItems;
+						   var pushAll = true;
+						   var leadMaterialsInDataItem = [];
+						   var metalMeasures = [];
+						   /*if(selectedSubItem != ""){
+							   pushAll = false;
+						   }*/
 						   console.log('SELECT * FROM '+tableName+' WHERE rowid>=(select rowid FROM '+tableName+' WHERE SNo="'+sNo+'") AND rowid<(Select rowid from '+tableName+' where SNo="'+nextSNo+'")');
 						   tx.executeSql('SELECT * FROM '+tableName+' WHERE rowid>=(select rowid FROM '+tableName+' WHERE SNo="'+sNo+'") AND rowid<(Select rowid from '+tableName+' where SNo="'+nextSNo+'")', [], function (tx, results) {
 							   if(results.rows.length > 0){
@@ -211,7 +222,11 @@ define([ 'models/base_model'], function(BaseModel) {
 								   };
 								   var costForItem = 0;
 								   var costForIndex = 0;
+								   //var isMaterial = false;
+								   leadMaterialsInDataItem = [];
+								   metalMeasures = [];
 								   for(var j=0;j<results.rows.length;j++){
+									   
 									   //Loop through all rows for data item
 									   if(results.rows.item(j).Amount != null){
 										   //This is to add amount for all items in a data item.
@@ -245,21 +260,159 @@ define([ 'models/base_model'], function(BaseModel) {
 										   var perUnits = description.substr(description.indexOf('/')+1,description.length);									   
 										   item.Amount = parseInt(costForItem/Number(perUnits));
 									   }
-									   if(item.SubBullet){
+									   if(item.SubBullet ){
 										   //resetting cost for item when it comes across sub bullet
 										   costForItem = 0;
+										   if(selectedSubItems.indexOf(item.SubBullet) != -1 ){
+											   pushAll = true; 
+										   }else{
+											   pushAll = false;
+										   }
+									   }
+
+									   if(j == 0 || pushAll){
+										   codeToData.datas.push(item);
+									   }  
+									   
+									   /*if(pushAll && isMaterial){
+										   if(/^\([a-z]\)/.test(description) || description.indexOf('a+b+c') != -1){
+											   isMaterial = false;
+										   }else{
+											   materialsInSelectedDatas.push(description);
+										   }
+									   }*/
+									   
+									   //code to get list of materials
+									   if(pushAll){
+										   if(description != null && description.indexOf('Material') !=-1 && description.indexOf('Material') < 9){
+											   //List of Labour rows started.
+											   isMaterial = true;
+										   }							   
 									   }
 									   
-									   codeToData.datas.push(item);
+									   if(item.Remarks){
+										   var leadMater = item.Remarks;
+										   if(item.Remarks == "L3"){
+											   var aggr1 = description.indexOf('mm');
+											   var aggr2 = description.substring(aggr1+2).indexOf('mm');
+											   
+											   var metalType1 = description.substring(aggr1-4,aggr1);
+											   if(isNaN(metalType1)){
+												   metalType1 = metalType1.substring(1,metalType1.length);
+											   }
+											   console.log("metalmm is:"+metalType1);
+											   if(!_.contains(metalMeasures, metalType1)){
+												   if(!isNaN(metalType1))
+													   metalMeasures.push(metalType1)
+											   }
+											   
+											   var metalType2 = description.substring(aggr1+aggr2-3,aggr1+aggr2+1);
+											   if(isNaN(metalType2)){
+												   metalType2 = metalType2.substring(1,metalType2.length);
+											   }
+											   console.log("metalmm is:"+metalType2);
+											   
+											   if(!_.contains(metalMeasures, metalType2)){
+												   if(!isNaN(metalType2))
+													   metalMeasures.push(metalType2)
+											   }
+										   }
+										   leadMaterialsInDataItem.push(item.Remarks);	
+									   }
+
 								   }
 								   codeToDatas.push(codeToData);
 							   }
+
+
 							   i++;
+							   //--adding to lead begin----
+							  //check if lead Material's has L1
+							  if( _.contains(leadMaterialsInDataItem, "L1") ){
+								  //check if lead Material's also has L2
+								  if( _.contains(leadMaterialsInDataItem, "L2")){
+									  if(!_.contains(leadCodes, "L1B")){
+										  leadCodes.push("L1B");
+									  }
+								  }else{
+									  //only L1 and no L2
+									  if(!_.contains(leadCodes, "L1A")){
+										  leadCodes.push("L1A");
+									  }
+								  }	  
+							  }
+							  if( _.contains(leadMaterialsInDataItem, "L3") ){
+								  for(var measure in metalMeasures){
+									  var leadMetal = "L3"+metalMeasures[measure]+" "+"mm";
+									  if(!_.contains(leadCodes, leadMetal)){
+										  leadCodes.push(leadMetal);
+									  }
+								  }
+							  }
+							  for(var leadItem in leadMaterialsInDataItem){
+								  if(leadMaterialsInDataItem[leadItem] == "L2"){
+									  if(!_.contains(leadCodes, "L2")){
+										  leadCodes.push("L2");
+									  }
+								  }
+							  }
+							   
+							   //--adding to lead end-----
 							   if(i<self.get("selectedItemsForEstimate").length){
-								   getItems(i);
+								  getItems(i);
 							   }else{
 								   self.set("codeToDatas",codeToDatas);
-								   appRouter.navigate("datasForSelectedItems",{trigger:true});
+								   if(leadCodes.length > 0){
+									   var leadMaterialObjects = [];
+									   for(var code in leadCodes){
+										   var leadMaterialItem = {
+													"material":"",
+													"sourceOfSupply":"",
+													"leadInKM":"",
+													"initialCost":"",
+													"convCharges":"",
+													"seigCharges":"",
+													"totalCost":"",
+													"unit":"",
+													"isMetal":false
+										   }
+										   if(leadCodes[code]=="L1A"){
+											   leadMaterialItem.material = "Sand for Filling";
+											   leadMaterialItem.initialCost = "320";
+											   leadMaterialItem.seigCharges = "20";
+											   leadMaterialItem.unit = "Cum";
+										   }
+										   if(leadCodes[code]=="L1B"){
+											   leadMaterialItem.material = "Sand for Mortor";
+											   leadMaterialItem.initialCost = "320";
+											   leadMaterialItem.seigCharges = "20";
+											   leadMaterialItem.unit = "Cum";
+										   }
+										   if(leadCodes[code]=="L2"){
+											   leadMaterialItem.material = "Cement";
+											   leadMaterialItem.initialCost = "320";
+											   leadMaterialItem.seigCharges = "20";
+											   leadMaterialItem.unit = "Cum";
+										   }
+										   if(leadCodes[code].indexOf("L3") != -1){
+											   leadMaterialItem.material = leadCodes[code].substring(2,leadCodes[code].length)+" H.B.G metal";
+											   leadMaterialItem.initialCost = "320";
+											   leadMaterialItem.seigCharges = "20";
+											   leadMaterialItem.unit = "Cum";
+											   leadMaterialItem.isMetal = true;
+										   }
+										   leadMaterialObjects.push(leadMaterialItem);
+									   }
+									   self.set("listOfLeadMaterials",leadMaterialObjects);
+									   appRouter.navigate("leadstatement",{trigger:true});
+								   }else{
+									   appRouter.navigate("datasForSelectedItems",{trigger:true});
+								   }
+								  
+
+								
+
+								   //console.log(materialsInSelectedDatas.join("\n"));
 							   }
 						   },null);
 						};
@@ -289,7 +442,7 @@ define([ 'models/base_model'], function(BaseModel) {
 				db.transaction(function (tx) {
 					var i = 0;
 					chapterToItem.tableName = selectedTable;
-
+					//alert("selectedTable");
 					tx.executeSql('SELECT * FROM '+selectedTable, [], function (tx, results) {
 						console.log("successfully read");
 						for(var j=0;j<results.rows.length;j++){
@@ -351,7 +504,40 @@ define([ 'models/base_model'], function(BaseModel) {
 					 }, null);
 				});
 
-			}
+			},
+			deleteDefaultItem : function(dataToDelete){
+				var self = this;
+				db.transaction(function (tx) {
+					tx.executeSql('DELETE FROM Defaults where IndexCode="'+dataToDelete+'"', [], function (tx, results) {
+						var defaultDatas = self.get("indexToDatasArray");
+						var newDefaults = [];
+						for(var index in defaultDatas){
+							if(defaultDatas[index].IndexCode != dataToDelete){
+								newDefaults.push(defaultDatas[index])
+							}
+						}
+						self.set("indexToDatasArray",newDefaults);
+						self.trigger("reRenderDefaultsView");
+					});
+				})
+			}/*,
+			getMaterialsTobeConsideredInLead:function(){
+				var self = this;
+				var selectedDatas = this.get("indexToTableItem");
+				db.transaction(function (tx) {
+					tx.executeSql('DELETE FROM Defaults where IndexCode="'+dataToDelete+'"', [], function (tx, results) {
+						var defaultDatas = self.get("indexToDatasArray");
+						var newDefaults = [];
+						for(var index in defaultDatas){
+							if(defaultDatas[index].IndexCode != dataToDelete){
+								newDefaults.push(defaultDatas[index])
+							}
+						}
+						self.set("indexToDatasArray",newDefaults);
+						self.trigger("reRenderDefaultsView");
+					});
+				})
+			}*/
 		});
 
 		_.extend(model.prototype.defaults, BaseModel.prototype.defaults);

@@ -23,7 +23,7 @@
   {{#each codeToRates}}
 	  <tr>
 	    <td>{{add @index 1}}</td>
-	    <td colspan="7">{{description}}</td>
+	    <td colspan="7">{{description}} <div style="float:right" id="addLBD" data-icon="arrow-l" data-index="{{@index}}">Add</div></td>
 	    <td></td>
 	    <td></td>
 	    <td></td>
@@ -33,12 +33,12 @@
 	  <tr>
 	    <td></td>
 	    <td></td>
-	    <td style="width:6%"><input type="number" class="measurement" data-index="{{@index}}" id="Nos1{{@index}}"/></td>
+	    <td style="width:6%"><div id="Nos1{{@index}}"/></td>
 	    <td>X</td>
-	    <td style="width:6%"><input type="number" class="measurement" data-index="{{@index}}" id="Nos2{{@index}}"/></td>
-	    <td style="width:10%"><input type="number" class="measurement" data-index="{{@index}}" id="length{{@index}}"/></td>
-	    <td style="width:10%"><input type="number" class="measurement" data-index="{{@index}}" id="breadth{{@index}}"/></td>
-	    <td style="width:10%"><input type="number" class="measurement" data-index="{{@index}}" id="depth{{@index}}"/></td>
+	    <td style="width:6%"><div id="Nos2{{@index}}"/></td>
+	    <td style="width:10%"><div id="length{{@index}}"></div></td>
+	    <td style="width:10%"><div id="breadth{{@index}}"></div></td>
+	    <td style="width:10%"><div id="depth{{@index}}"></div></td>
 	    <td id="totalUnits{{@index}}"></td>
 	    <td></td>
 	    <td></td>
@@ -63,3 +63,21 @@
 	{{/each}}  
   </tbody>
 </table>
+<div data-role="popup" id="getLBDData" data-arrow="true" class="ui-content">
+ 	<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+ 	<div data-role="fieldset">
+	 	<div class="ui-grid-a">
+			<div class="ui-block-a" style="padding-top:5%;width:50%"><label>Length:</label></div>
+			<div class="ui-block-b"><input type="text" id="length"></div>
+		</div>
+		<div class="ui-grid-a">
+			<div class="ui-block-a" style="padding-top:5%;width:50%"><label>Breadth:</label></div>
+			<div class="ui-block-b"><input type="text" id="breadth"></div>
+		</div>
+		<div class="ui-grid-a">
+			<div class="ui-block-a" style="padding-top:5%;width:50%"><label>Depth:</label></div>
+			<div class="ui-block-b"><input type="text" id="depth"></div>
+		</div>
+	</div>
+	<input type="button" value="Save" id="saveLBD"/>
+</div>

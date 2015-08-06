@@ -12,6 +12,8 @@ require.config({
 		handlebarhelper:'utils/handlebars.helpers',
 		templates : 'template/compiledtemplate',
 		//cordova:'../cordova',
+		iScroll:'../libs/iScroll/jquery.floatThead-slim.min',
+		marionette:'../libs/backbone/backbone.marionette-1.2.0-min'
 	},
 	shim : {
 		jquery : {
@@ -39,10 +41,16 @@ require.config({
 			deps : [ 'lodash' ],
 			exports : 'Backbone'
 
-		}/*,
+		},
 		cordova : {
 			deps : [ 'jquery' ]
-		}*/
+		},
+		iScroll:{
+			deps : ['lodash']
+		},
+		marionette:{
+			deps:['backbone']
+		}
 		
 	}
 
@@ -50,7 +58,7 @@ require.config({
 
 var appRouter = {};
 
-define([ 'jquery','jquerymobile','backbone','handlebars','handlebarhelper','templates'], function() {	
+define([ 'jquery','jquerymobile','backbone','handlebars','handlebarhelper','templates','marionette'/*,'iScroll'/*,'cordova'*/], function() {	
     require([ 'router' ], function(router) {
     	$(document).ready(function () {
     	    console.log('document ready');

@@ -1,4 +1,4 @@
-<h2>DEFAULT ITEMS FOR CC ROAD ESTIMATION:</h2>			
+<p><strong><i>Default datas for CC Road estimation:<i></strong></p>			
 <div>
 	<table data-role="table" class="ui-body-d ui-shadow table-stripe ui-responsive">
 	<thead>
@@ -11,18 +11,18 @@
 	 </thead>
 	 <tbody id="estimateItems"> 
 	  {{#each indexToDatasArray}}
-		  <tr>
+		  <tr class="{{this.IndexCode}}">
 		    <td>{{add @index 1}}</td>
-		    <td>{{this.IndexCode}}</td>
+		    <td><div class="dataCode" style="padding:1px;border:1px dotted blue">{{this.IndexCode}}</div></td>
 		    <td>{{this.description}}</td>
 		    <td><input data-table="{{this.TableName}}" type="checkbox" name="itemsSelected" checked id="{{this.IndexCode}}"/></td>
 		  </tr>
 		   {{#each this.subitemsArray}}	  
-		   	  <tr>  
+		   	  <tr class="{{../IndexCode}}">  
 			    <td></td>
 			    <td>{{this.SlNo}}</td>
 			    <td>{{this.descritpion}}</td>
-			    <td><input type="radio" name="itemsSelected" name="{{../../IndexCode}}" id="{{this.IndexCode}}"/></td> 
+			    <td><input type="checkbox" class="{{../IndexCode}}" name="{{../IndexCode}}" id="{{this.SlNo}}"/></td> 
 		   	  </tr> 
 		   {{/each}}
 	  {{/each}}
@@ -32,3 +32,7 @@
 <input type="submit" onclick="window.location.href='#listOfChapters'" value="Add Other Items to Estimate">
 <input type="submit" id="proceedToLeadStmt" value="Proceed To Lead Statement">
 
+<div data-role="popup" id="deleteData" data-arrow="true" class="ui-content">
+ 	<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+ 	<input type="submit" value="Delete?" id="deleteDataIndex">
+</div>

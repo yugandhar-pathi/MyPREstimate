@@ -15,20 +15,24 @@ define(['models/headerfootermodel'], function(HeaderFooterModel) {
 					"listOfChapters":"displayListOfChapters",
 					"datasInChpater":"displayItemsInChapter",
 					"datasForSelectedItems":"displayDataSheet",
-					'abstractEstimate':'displayAbstractEstimate'
+					'abstractEstimate':'displayAbstractEstimate',
+					'history':'displayHistoryview'
+					
 				},
 				
 				defaultRoute : function() {
 					this.changePage('views/login/login_view',new HeaderFooterModel({
+						isMenuPanelRequired:false
 					}));
 				},
 				
 				selectestimate : function(){
-					this.changePage('views/selectestimate_view',new HeaderFooterModel({
+					this.changePage('views/newestimate_view',new HeaderFooterModel({
 						isFooterRequired : false,
 						isHeaderRequired : true,
 						isBackButtonRequired : false,
-						headerTitle:"Choose Estimate"
+						headerTitle:"New Estimate",
+						isMenuPanelRequired:true
 					}));
 				},
 				
@@ -47,7 +51,7 @@ define(['models/headerfootermodel'], function(HeaderFooterModel) {
 						isFooterRequired : false,
 						isHeaderRequired : true,
 						isBackButtonRequired : true,
-						headerTitle:"Select Chapter",
+						headerTitle:"Datas",
 						backButtonHREF:"pickItemsForEstimate"
 					}));
 				},
@@ -90,11 +94,20 @@ define(['models/headerfootermodel'], function(HeaderFooterModel) {
 						backButtonHREF : 'leadstatement'
 					}));				
 				},	
+				displayHistoryview : function(){
+					this.changePage('views/history_view',new HeaderFooterModel({
+						isFooterRequired : false,
+						isHeaderRequired : true,
+						isBackButtonRequired : false,
+						headerTitle:"Estimate History",
+						backButtonHREF : 'leadstatement'
+					}));					
+				},
 				choosesubitemview : function(){
 					this.changePage('views/choosesubitem_view');						
 				},
 				changePage:function(contentViewPath,headerfootermodel){
-					 require([contentViewPath,'views/layout/page_view','views/layout/header_view'], function(contentView,pageView,headerView) {
+					 require([contentViewPath,'views/layout/page_view','views/layout/header_view','views/layout/menupanel_view'], function(contentView,pageView,headerView,MenuPanel) {
 						 	var splitPath = contentViewPath.split('/');
 						 	var pageId = "";
 						 	if(splitPath.length === 2){
@@ -105,34 +118,29 @@ define(['models/headerfootermodel'], function(HeaderFooterModel) {
 							
 							var transition = $.mobile.defaultPageTransition;	
 							
-							//Page
-							var page = new pageView({model:headerfootermodel});
-						    $(page.el).attr('data-role', 'page');
-						    $(page.el).attr('id', pageId);
-						    $(page.el).attr('data-theme', 'd');
-					        page.render();
-					        $('body').append($(page.el));
-					        
-					        //header
-					        if(headerfootermodel.get("isHeaderRequired")){
-						        var headerView = new headerView({model:headerfootermodel});
-						        headerView.render();
-						        $("#"+pageId+" div[data-role='header']").append(headerView.$el.html());				        	
-					        }
-				        
-					        //content
-					        var contentView = new contentView();
-					        contentView.render();
-					        $("#"+pageId+" div[role='main']").append(contentView.$el);
-					       // var myScroll;
-
+							if(!headerfootermodel.get("isHeaderRequired")){
+								headerView = null;
+							}
+							if(!headerfootermodel.get("isMenuPanelRequired")){
+								MenuPanel = null;
+							}
+							
+							pageView.create({
+											header:headerView,
+											model:headerfootermodel,
+											content:contentView,
+											menuPanel : MenuPanel,
+											pageId:pageId
+											
+											});
+						   
 
 				    	    $('div[data-role="page"]').bind('pagehide', function (event, ui) {
 						       /* if(pageId == "showitemsinchapter"){
 							         myScroll = new IScroll('#wrapper',{ hScrollbar : false,vScrollbar : true });
 						        }*/
-				    	    	if(pageId == "showitemsinchapter"){
-						           /* $("#tableItems").floatThead({
+				    	    	if(pageId == "datasheet"){
+						           /* $("#test").floatThead({
 						                scrollContainer: function ($table) {
 						                    return $table.closest('#tableContainer');
 						                }/*,
@@ -147,7 +155,7 @@ define(['models/headerfootermodel'], function(HeaderFooterModel) {
 				    	        $(event.currentTarget).remove();
 				    	    });
 				    	    
-					        $.mobile.changePage($(page.el), {changeHash:false, transition: 'none'}); 
+				    	    $.mobile.changePage('#'+pageId, {changeHash:false, transition: 'none'}); 
 				     });
 				}
 

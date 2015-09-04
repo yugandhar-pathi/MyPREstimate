@@ -1,8 +1,8 @@
 
-define(['models/estimateitems_util'/*,'FileCopyPlugin'*/],function(EstimateModel){
-		var ChooseItem_View = Backbone.View.extend({
+define(['views/layout/base_itemview','models/estimateitems_util'/*,'FileCopyPlugin'*/],function(BaseItemView,EstimateModel){
+		var ChooseItem_View = BaseItemView.extend({
 			
-			model:EstimateModel,	
+			model:EstimateModel.model,	
 			
 			template : Handlebars.templates.login_login,
 			
@@ -16,7 +16,7 @@ define(['models/estimateitems_util'/*,'FileCopyPlugin'*/],function(EstimateModel
 						 FileCopyPlugin.Copy();
 					 } 
 				  }
-				 document.addEventListener("deviceready", onDeviceReady, false);*/	
+				 document.addEventListener("deviceready", onDeviceReady, false);*/
 			},
 
 			events:{
@@ -31,12 +31,9 @@ define(['models/estimateitems_util'/*,'FileCopyPlugin'*/],function(EstimateModel
 					
 				}
 				//FileCopyPlugin.copy();
-				appRouter.navigate("#selectestimate",{trigger:true})
-			},
-			
-			render : function() {
-				this.$el.html(this.template());
-				return this;
+				appRouter.navigate("#selectestimate",{trigger:true});
+				
+
 			}
 				
 		});

@@ -1,6 +1,6 @@
 
-define(['models/estimateitems_util'],function(EstimateModel){
-		var ChooseItem_View = Backbone.View.extend({
+define(['views/layout/base_itemview','models/estimateitems_util'],function(BaseItemView,EstimateModel){
+		var ChooseItem_View = BaseItemView.extend({
 			
 			model:EstimateModel.model,	
 			
@@ -10,12 +10,16 @@ define(['models/estimateitems_util'],function(EstimateModel){
 				'tap #proceedToLeadStmt':'proceedToLeadStmt',
 				'tap .dataCode':'displayDeleteOption',
 				//'tap #deleteDataIndex':'deleteIndexFromDefaults'
+				'tap #addDatas':'launchDatas'
 			},
 			
 			initialize : function() {
 				this.model.on('reRenderDefaultsView',this.reRender, this);
 			},
-			
+			launchDatas : function(){
+				this.model.set("datasAsService",true);
+				appRouter.navigate("#listOfChapters",{trigger:true});
+			},
 			proceedToLeadStmt : function(){		
 				var selectedItems = $("#estimateItems input:checkbox[name=itemsSelected]:checked");
 				var proceedToLead = true;
@@ -56,7 +60,7 @@ define(['models/estimateitems_util'],function(EstimateModel){
 					EstimateModel.model.getDatasForEstimate();
 					//appRouter.navigate("#leadstatement",{trigger:true});
 				}
-			},		
+			},	
 			displayDeleteOption : function(event){
 				var self = this;
 	    	 	$("#deleteData").popup( "open", { x: event.pageX, y: event.pageY } );
@@ -71,10 +75,6 @@ define(['models/estimateitems_util'],function(EstimateModel){
 				console.log($(event.target).data('rowid'));
 				var dataToDelete = $(event.target).data('rowid');
 				EstimateModel.model.deleteDefaultItem(dataToDelete);
-			},
-			render : function() {
-				this.$el.html(this.template(EstimateModel.model.attributes));
-				return this;
 			},
 			reRender:function(){
 				this.$el.html(this.template(EstimateModel.model.attributes)).trigger("create");

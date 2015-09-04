@@ -2,13 +2,39 @@
 <html class="ui-mobile-rendering">
 <head>
 	<title>Page Title</title>
+	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
 	<link rel="stylesheet" href="css/prtheme.css" /> 
 	<link rel="stylesheet" href="css/jquery.mobile.icons.min.css" />
 	<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" /> 
 	<script src="libs/require/require.js" data-main="app/config.js"></script> 
 	<style>
-
+		
+		.footer-buttons{
+			bottom:0px;
+			position:fixed;
+			width:87%;
+			background-color:#ffffff;
+			z-index:100;
+		}
+		
+		.footer-left {
+			border-right:1px solid black;
+		}
+		
+		.footer-right {
+			text-align:right;
+		}
+		
+		.header-div{
+			text-align:center;
+			top:0px;
+			position:fixed;
+			width:100%;
+			background-color:#ffffff;
+			z-index:100;
+		}
+		
 		.ui-table tr th{
 			border: 1px dotted black;
 		    text-align: center;
@@ -41,16 +67,130 @@
 			border:3px solid red !important;
 		}
 		
+		.tablet-content{
+			padding-left:120px;
+			margin-top:3.2em;
+		}
+		
+		.ui-header{
+		 	margin-left:102px !important; 
+		 }
+		
+		 .ui-header h1{
+		 	margin-left:102px !important; 
+		 }
+		 
+		.menu-panel {
+		  /*box-shadow: -2px 0px 7px rgba(0, 0, 0, 0.8);
+		  border-radius: 2px;*/
+		  display: block;
+		  left: 0;
+		  height: 100%;
+		  /*min-height: 1024px;*/
+		  position: fixed;
+		  top: 0;
+		  width: 102px;
+		  z-index: 10000;
+		}
+		.menu-panel .panel-main-nav {
+		  margin: 27px 10px 0 10px;
+		}
+		.menu-panel .panel-main-nav .tablet-about-app .phone-i {
+		  background-image: url("images/about-the-app-ipad.svg");
+		  background-size: 23px 66px;
+		  width: 23px;
+		  height: 30px;
+		}
+		.menu-panel .panel-main-nav .logout {
+		  position: absolute;
+		  bottom: 10px;
+		  left: 18px;
+		  background-color: rgba(229, 229, 229, 0.2);
+		  padding: 7px 12px;
+		}
+		.menu-panel .panel-main-nav .logout p {
+		  display: inline-table;
+		  padding: 2px 5px 2px 2px;
+		  font-weight: lighter;
+		  font-size: 12px;
+		  width: 100%;
+		  text-align: center;
+		}
+		.menu-panel .panel-main-nav .logout .lock-i {
+		  float: right;
+		}
+		.menu-panel .panel-main-nav .transparent-button {
+		  height: auto;
+		  margin: 10px 0px 0px 0px;
+		  text-align: center;
+		  padding: 10px 3px;
+		  width: auto;
+		  background-color: rgba(229, 229, 229, 0.2);
+		}
+		.menu-panel .panel-main-nav .transparent-button span,
+		.menu-panel .panel-main-nav .transparent-button p {
+		  font-size: 15px;
+		  line-height: 1.4;
+		  font-weight: 400;
+		}
+		.menu-panel .panel-main-nav .transparent-button .icon {
+		  margin: 0 auto 5px auto !important;
+		}
+		.menu-panel .panel-main-nav .panel-sub-nav > div.selected,
+		.menu-panel .panel-main-nav .transparent-button.selected {
+		  background-color: rgba(42, 57, 66, 0.6);
+		  height: 100%;
+		  width: 100%;
+		}
+		
+		.panel-sub-nav {
+		  bottom: 15%;
+		  font-size: 15px;
+		  left: 10%;
+		  position: absolute;
+		  width: 80%;
+		  z-index: 10000;
+		}
+		.panel-sub-nav .icon {
+		  margin-bottom: 2px;
+		}
+		.panel-sub-nav p {
+		  font-size: 0.85em;
+		  font-weight: 400;
+		}
+		
+		.panel-sub-nav > div {
+		  text-align: center;
+		  margin-top: 25%;
+		  padding-top: 10px;
+		  padding-bottom: 10px;
+		}
+		
+		.menu-panel .panel-main-nav .transparent-button .icon {
+		  display: block;
+		  margin: 0 auto 10px auto;
+		}
+		
+		.apmap {
+    	    background-position: 0 0;
+  			background: url("css/images/app/map.jpg");
+  			background-size: auto 50px;
+  			background-repeat: no-repeat;
+  			margin-left: calc(50% - 34px);
+  			height: 50px;
+  			width: auto;
+		}
+		
+		.background-datas{
+			background-image: url("css/images/app/RoadsAndBridges.jpg");
+			background-repeat: no-repeat;
+			background-size : 100% 110%;
+		}
+		
 	</style>
 </head>
 <body>
-<div data-theme="e" data-role="header" >
-	<h1 class="ui-title">Choose Estimate</h1>
-</div><!-- /header -->
 
-<div role="main" class="ui-content" id="pageContent">
-
-</div><!-- /content -->
 
 </body>
 </html>

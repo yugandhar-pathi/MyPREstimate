@@ -21,9 +21,10 @@ define([ 'models/base_model'], function(BaseModel) {
 				codeToDatas:"",
 				chapterToItemsMap:"",
 				codeToRates:"",
-				
+				datasAsService:false,
 				indexToDatasArray:"",
 				chapterTitle:"",
+				selectedDatasToAdd:"",
 				tableList:['BasesAndSurface','CauAndSubMerBridges','CCPAVEMENT','EECD','Foundation','GEOSYNTHETICS','GranSubBases','HillRoads','Horticulture','LUCANDC','MaintOfRoads','PipeCulverts','ProtectionWorks','Repair','SiteClearence','SubStructure','SuperStructure','TrafficSigns'],
 				leadMaterialItem:{
 					"material":"",
@@ -36,7 +37,28 @@ define([ 'models/base_model'], function(BaseModel) {
 					"unit":"",
 					"isMetal":false
 				},
-				listOfLeadMaterials:[]
+				dataItemToLBDsArr : [],
+				dataItemToLBDs:{
+					"dataItem":"",
+					"lbds" : {
+						'length':"",
+						'breadth':"",
+						'depth':"",
+						'totalUnits':"",
+						'quantity':""
+					}
+				},
+				listOfLeadMaterials:[],
+				leadMaterialsFromDB:"",
+				convChargesFromDB:"",
+				nameofthework:"",
+				estimateHistory:"",
+				estimateDetails:{
+					"nameOfWork":"Hello",
+					"Category":"Road",
+					"Type":"Cement Concrete Pavement",
+					"Cost":"12L"
+				}
 			},
 			initialize : function(options) {
 				db = openDatabase('RoadsAndBridges','', 'Test DB', 5 * 1024 * 1024);
@@ -47,6 +69,7 @@ define([ 'models/base_model'], function(BaseModel) {
 				}
 			},
 			getDefaultItemsForCCRoad : function(){
+				this.getDefaultLeadMaterialsFromDB();
 				var indexToDatasArray = [];
 				var self= this;
 				db.transaction(function (tx) {
@@ -55,10 +78,12 @@ define([ 'models/base_model'], function(BaseModel) {
 						console.log("successfully read");
 						var i=0;
 						var getItems = function(){
-						   var sNo = defaultItems.rows.item(i).IndexCode.split("-")[2];
-						   var nextSNo = Number(sNo)+1;
+						   var indexCode = defaultItems.rows.item(i).IndexCode;
+						   var splitArr = indexCode.split("-");
+						   	   splitArr[splitArr.length-1] = Number(splitArr[splitArr.length-1])+1;
+						   var nextIndexCode = splitArr.join("-");	   
 						   var tableName = defaultItems.rows.item(i).TableName;
-						   tx.executeSql('SELECT * FROM '+tableName+' WHERE rowid>=(select rowid FROM '+tableName+' WHERE SNo="'+sNo+'") AND rowid<(Select rowid from '+tableName+' where SNo="'+nextSNo+'")', [], function (tx, results) {
+						   tx.executeSql('SELECT * FROM '+tableName+' WHERE rowid>=(select rowid FROM '+tableName+' WHERE IndexCode="'+indexCode+'") AND rowid<(Select rowid from '+tableName+' where IndexCode="'+nextIndexCode+'")', [], function (tx, results) {
 							   if(results.rows.length > 0){
 
 								   var indexToTableItem = {
@@ -67,7 +92,7 @@ define([ 'models/base_model'], function(BaseModel) {
 											"description":"",
 											"subitemsArray":[]
 								   };
-								   indexToTableItem.IndexCode = defaultItems.rows.item(i).IndexCode;
+								   indexToTableItem.IndexCode = indexCode;
 								   var subitemsArray = [];
 								   for(var j=0;j<results.rows.length;j++){
 									   var item = JSON.parse(JSON.stringify(results.rows.item(j)));
@@ -77,6 +102,13 @@ define([ 'models/base_model'], function(BaseModel) {
 									   }
 									   if(j==0){
 										  indexToTableItem.description = item.Description;  
+									   }else{
+										   if(item.SNo){
+											   subitem.SlNo = item.SNo;
+											   subitem.descritpion = item.Description;
+											   subitemsArray.push(subitem);
+											   console.log("subitems:"+JSON.stringify(subitemsArray));
+										   }
 									   }
 									  
 									   if(item.SubBullet){
@@ -85,6 +117,7 @@ define([ 'models/base_model'], function(BaseModel) {
 										   subitemsArray.push(subitem);
 										   console.log("subitems:"+JSON.stringify(subitemsArray));
 									   }
+									   
 								   }
 								   if(subitemsArray.length > 1){
 									   indexToTableItem.subitemsArray = subitemsArray;
@@ -202,8 +235,14 @@ define([ 'models/base_model'], function(BaseModel) {
 				db.transaction(function (tx) {	  
 					    //var materialRowIds = [];
 						var getItems = function(){
-						   var sNo = self.get("selectedItemsForEstimate")[i].indexCode.split("-")[2];
-						   var nextSNo = Number(sNo)+1;
+							
+						   var indexCode = self.get("selectedItemsForEstimate")[i].indexCode;
+						   var splitArr = indexCode.split("-");
+						   	   splitArr[splitArr.length-1] = Number(splitArr[splitArr.length-1])+1;
+						   var nextIndexCode = splitArr.join("-");	
+							   
+						   //var indexCode = self.get("selectedItemsForEstimate")[i].indexCode.split("-");
+						   //var nextIndexCode = Number(sNo)+1;
 						   var tableName = self.get("selectedItemsForEstimate")[i].tableName;
 						   var selectedSubItems = self.get("selectedItemsForEstimate")[i].selectedSubItems;
 						   var pushAll = true;
@@ -212,8 +251,8 @@ define([ 'models/base_model'], function(BaseModel) {
 						   /*if(selectedSubItem != ""){
 							   pushAll = false;
 						   }*/
-						   console.log('SELECT * FROM '+tableName+' WHERE rowid>=(select rowid FROM '+tableName+' WHERE SNo="'+sNo+'") AND rowid<(Select rowid from '+tableName+' where SNo="'+nextSNo+'")');
-						   tx.executeSql('SELECT * FROM '+tableName+' WHERE rowid>=(select rowid FROM '+tableName+' WHERE SNo="'+sNo+'") AND rowid<(Select rowid from '+tableName+' where SNo="'+nextSNo+'")', [], function (tx, results) {
+						   console.log('SELECT * FROM '+tableName+' WHERE rowid>=(select rowid FROM '+tableName+' WHERE IndexCode="'+indexCode+'") AND rowid<(Select rowid from '+tableName+' where IndexCode="'+nextIndexCode+'")');
+						   tx.executeSql('SELECT * FROM '+tableName+' WHERE rowid>=(select rowid FROM '+tableName+' WHERE IndexCode="'+indexCode+'") AND rowid<(Select rowid from '+tableName+' where IndexCode="'+nextIndexCode+'")', [], function (tx, results) {
 							   if(results.rows.length > 0){
 								   var codeToData = {
 										   code:self.get("selectedItemsForEstimate")[i].indexCode,
@@ -327,9 +366,9 @@ define([ 'models/base_model'], function(BaseModel) {
 
 							   i++;
 							   //--adding to lead begin----
-							  //check if lead Material's has L1
+							  //check if lead Material's has L1 - Sand
 							  if( _.contains(leadMaterialsInDataItem, "L1") ){
-								  //check if lead Material's also has L2
+								  //check if lead Material's also has L2 - Cement
 								  if( _.contains(leadMaterialsInDataItem, "L2")){
 									  if(!_.contains(leadCodes, "L1B")){
 										  leadCodes.push("L1B");
@@ -362,6 +401,9 @@ define([ 'models/base_model'], function(BaseModel) {
 								  getItems(i);
 							   }else{
 								   self.set("codeToDatas",codeToDatas);
+								  
+								   var dbData = "";
+								   var dbLeadMaterials = self.get("leadMaterialsFromDB");
 								   if(leadCodes.length > 0){
 									   var leadMaterialObjects = [];
 									   for(var code in leadCodes){
@@ -374,32 +416,45 @@ define([ 'models/base_model'], function(BaseModel) {
 													"seigCharges":"",
 													"totalCost":"",
 													"unit":"",
-													"isMetal":false
+													"isMetal":false,
+													"code":"",
+													"loadMeans":"ignoreLoad",
+													"unLoadMeans":"ignoreUnLoad",
+													"considerIdleCharges":"no"
 										   }
 										   if(leadCodes[code]=="L1A"){
+											   dbData = dbLeadMaterials.filter(function(obj){ return obj.Quality == "Filling"});
 											   leadMaterialItem.material = "Sand for Filling";
-											   leadMaterialItem.initialCost = "320";
-											   leadMaterialItem.seigCharges = "20";
-											   leadMaterialItem.unit = "Cum";
+											   leadMaterialItem.initialCost = dbData[0].InitialCost;
+											   leadMaterialItem.seigCharges = dbData[0].SeigCharges;
+											   leadMaterialItem.unit = dbData[0].Unit;
+											   leadMaterialItem.code = "L1A";
 										   }
 										   if(leadCodes[code]=="L1B"){
+											   dbData = dbLeadMaterials.filter(function(obj){ return obj.Quality == "Mortor"});
 											   leadMaterialItem.material = "Sand for Mortor";
-											   leadMaterialItem.initialCost = "320";
-											   leadMaterialItem.seigCharges = "20";
-											   leadMaterialItem.unit = "Cum";
+											   leadMaterialItem.initialCost = dbData[0].InitialCost;
+											   leadMaterialItem.seigCharges = dbData[0].SeigCharges;
+											   leadMaterialItem.unit = dbData[0].Unit;
+											   leadMaterialItem.code = "L1B";
 										   }
 										   if(leadCodes[code]=="L2"){
+											   dbData = dbLeadMaterials.filter(function(obj){ return obj.LeadMaterial == "L2"});
 											   leadMaterialItem.material = "Cement";
-											   leadMaterialItem.initialCost = "320";
-											   leadMaterialItem.seigCharges = "20";
-											   leadMaterialItem.unit = "Cum";
+											   leadMaterialItem.initialCost = dbData[0].InitialCost;
+											   leadMaterialItem.seigCharges = dbData[0].SeigCharges;
+											   leadMaterialItem.unit = dbData[0].Unit;
+											   leadMaterialItem.code = "L2";
 										   }
 										   if(leadCodes[code].indexOf("L3") != -1){
 											   leadMaterialItem.material = leadCodes[code].substring(2,leadCodes[code].length)+" H.B.G metal";
-											   leadMaterialItem.initialCost = "320";
-											   leadMaterialItem.seigCharges = "20";
-											   leadMaterialItem.unit = "Cum";
+											   var metalMM = Number(leadMaterialItem.material.substring(0,2));
+											   dbData = dbLeadMaterials.filter(function(obj){ return obj.LeadMaterial == "L3" && Number(obj.Quality) >= metalMM});
+											   leadMaterialItem.initialCost = dbData[0].InitialCost;
+											   leadMaterialItem.seigCharges = dbData[0].SeigCharges;
+											   leadMaterialItem.unit = dbData[0].Unit;
 											   leadMaterialItem.isMetal = true;
+											   leadMaterialItem.code = "L3";
 										   }
 										   leadMaterialObjects.push(leadMaterialItem);
 									   }
@@ -471,13 +526,14 @@ define([ 'models/base_model'], function(BaseModel) {
 
 						thisModel.set("indexToItems",indexToItemsArray);
 						thisModel.set("chapterToItemsMap",chapterToItemsMap);
-						appRouter.navigate("datasInChpater",{trigger:true});
+						//appRouter.navigate("datasInChpater",{trigger:true});
+						thisModel.trigger("itemsReadFromChapter");
 					 }, null);		
 					});
 
 			},
 			addDefaultItemsForEstimate : function(){
-					 var itemsToAdd = this.get("chosenItems");
+					 var itemsToAdd = this.get("selectedDatasToAdd");
 					 var itemsInSql = "";	
 					 var self = this;
 					 for(var i=0;i<itemsToAdd.length;i++){
@@ -520,7 +576,209 @@ define([ 'models/base_model'], function(BaseModel) {
 						self.trigger("reRenderDefaultsView");
 					});
 				})
-			}/*,
+			},
+			getDefaultLeadMaterialsFromDB:function(){
+				var self = this;
+				var leadMaterialDetailsFromDB = [];
+				db.transaction(function (tx) {
+					tx.executeSql('Select * FROM LeadRates', [], function (tx, results) {
+						for(var i=0;i<results.rows.length; i++){
+							leadMaterialDetailsFromDB.push(JSON.parse(JSON.stringify(results.rows.item(i))));
+						}
+						self.set("leadMaterialsFromDB",leadMaterialDetailsFromDB);
+						console.log(leadMaterialDetailsFromDB);
+					});
+				})
+				this.getConvChargesFromDB();
+			},
+			getConvChargesFromDB:function(){
+				var self = this;
+				var convChargesFromDB = [];
+				db.transaction(function (tx) {
+					tx.executeSql('Select * FROM ConvCharges', [], function (tx, results) {
+						for(var i=0;i<results.rows.length; i++){
+							convChargesFromDB.push(JSON.parse(JSON.stringify(results.rows.item(i))));
+						}
+						self.set("convChargesFromDB",convChargesFromDB);
+						console.log(convChargesFromDB);
+					});
+				})
+				
+			},
+
+			saveEstimateDetails : function(estId){
+				var estimateDetails = this.get("estimateDetails");
+				var self = this;
+				db.transaction(function (tx) {
+					//Save Estimate details.
+					tx.executeSql('CREATE TABLE IF NOT EXISTS UserEstimateHistory (EstimateID,nameOfWork,Type,Category,Cost)');
+					var nameOfWork = estimateDetails.nameofthework;
+					var type = estimateDetails.Type;
+					var category = estimateDetails.Category;
+					var cost = estimateDetails.Cost;
+					
+					 console.log('INSERT INTO UserEstimateHistory (EstimateID,nameOfWork,Type,Category,Cost) VALUES ("'+estId+'","'+nameOfWork+'","'+type+'","'+category+'","'+cost+'")');
+				   tx.executeSql('INSERT INTO UserEstimateHistory (EstimateID,nameOfWork,Type,Category,Cost) VALUES ("'+estId+'","'+nameOfWork+'","'+type+'","'+category+'","'+cost+'")');
+				   
+				   //Save Lead Data
+				   var leadMaterials = self.get("listOfLeadMaterials");
+				   tx.executeSql('CREATE TABLE IF NOT EXISTS UserLeadData (EstimateID,material,sourceOfSupply,initialCost,convCharges,seigCharges,totalCost,unit,isMetal,code,loadMeans,unLoadMeans,considerIdleCharges)');
+					for(var material in leadMaterials){
+						var materialRow = leadMaterials[material];
+						var material = materialRow.material;
+						var sourceOfSupply = materialRow.sourceOfSupply;
+						var initialCost = materialRow.initialCost;
+						var convCharges = materialRow.convCharges;
+						var seigCharges = materialRow.seigCharges;
+						var totalCost = materialRow.totalCost;
+						var unit = materialRow.unit;
+						var isMetal = materialRow.isMetal;
+						var code = materialRow.code;
+						var loadMeans = materialRow.loadMeans;
+						var unLoadMeans = materialRow.unLoadMeans;
+						var considerIdleCharges = materialRow.considerIdleCharges;
+						  console.log('INSERT INTO UserLeadData (EstimateID,material,sourceOfSupply,initialCost,convCharges,seigCharges,totalCost,unit,isMetal,code,loadMeans,unLoadMeans,considerIdleCharges) VALUES ("'+estId+'","'+material+'","'+sourceOfSupply+'","'+initialCost+'","'+convCharges+'","'+seigCharges+'","'+totalCost+'","'+unit+'","'+isMetal+'","'+code+'","'+loadMeans+'","'+unLoadMeans+'","'+considerIdleCharges+'")')
+						tx.executeSql('INSERT INTO UserLeadData (EstimateID,material,sourceOfSupply,initialCost,convCharges,seigCharges,totalCost,unit,isMetal,code,loadMeans,unLoadMeans,considerIdleCharges) VALUES ("'+estId+'","'+material+'","'+sourceOfSupply+'","'+initialCost+'","'+convCharges+'","'+seigCharges+'","'+totalCost+'","'+unit+'","'+isMetal+'","'+code+'","'+loadMeans+'","'+unLoadMeans+'","'+considerIdleCharges+'")');		
+					}
+					
+					//Save LBD's
+					tx.executeSql('CREATE TABLE IF NOT EXISTS UserEstimateLBDs (EstimateID,dataCode,NOs,Length,breadth,depth)');
+					var datasToLBDs = self.get("codeToRates");
+					for(var data in datasToLBDs){						
+						var dataCode = '';
+						var NOs = '';
+						var Length = '';
+						var breadth = '';
+						var depth = '';
+						var lbdData = '';
+						if(datasToLBDs[data].subBullets.length > 0){
+							var subBullets = datasToLBDs[data].subBullets;
+							for(var subitem in subBullets){
+								lbdData = subBullets[subitem].lbds;
+								dataCode = lbdData.dataItem +'*'+lbdData.subItem;
+								NOs = lbdData.NOs;
+								Length = lbdData.length;
+								breadth = lbdData.breadth;
+								depth = lbdData.depth;	
+								console.log('INSERT INTO UserEstimateLBDs (EstimateID,dataCode,NOs,Length,breadth,depth) VALUES ("'+estId+'","'+dataCode+'","'+NOs+'","'+Length+'","'+breadth+'","'+depth+'")');
+							  tx.executeSql('INSERT INTO UserEstimateLBDs (EstimateID,dataCode,NOs,Length,breadth,depth) VALUES ("'+estId+'","'+dataCode+'","'+NOs+'","'+Length+'","'+breadth+'","'+depth+'")');
+							}
+						}else{
+							lbdData = datasToLBDs[data].lbds;
+							dataCode = lbdData.dataItem;
+							NOs = lbdData.NOs;
+							Length = lbdData.length;
+							breadth = lbdData.breadth;
+							depth = lbdData.depth;		
+							  console.log('INSERT INTO UserEstimateLBDs (EstimateID,dataCode,NOs,Length,breadth,depth) VALUES ("'+estId+'","'+dataCode+'","'+NOs+'","'+Length+'","'+breadth+'","'+depth+'")');
+							tx.executeSql('INSERT INTO UserEstimateLBDs (EstimateID,dataCode,NOs,Length,breadth,depth) VALUES ("'+estId+'","'+dataCode+'","'+NOs+'","'+Length+'","'+breadth+'","'+depth+'")');
+						}	
+					}
+					
+					//Save Data's
+					tx.executeSql('CREATE TABLE IF NOT EXISTS UserEstimateDatas (EstimateID,data,tableName,removedDatas)');
+					var selectedDatas = self.get("selectedItemsForEstimate");
+					for(var data in selectedDatas){
+						var dataCode = selectedDatas[data].indexCode;
+						var tableName = selectedDatas[data].tableName;
+						var subItemsArr = selectedDatas[data].selectedSubItems;
+						if(subItemsArr.length > 0){
+							for(var subItemsArr in subItemsArr){
+								dataCode += '*'+subItemsArr[subItemsArr]
+							}
+						}
+						console.log('INSERT INTO UserEstimateDatas (EstimateID,data,tableName,removedDatas) VALUES ("'+estId+'","'+dataCode+'","'+'","'+tableName+'","'+'")');
+					  tx.executeSql('INSERT INTO UserEstimateDatas (EstimateID,data,tableName,removedDatas) VALUES ("'+estId+'","'+dataCode+'","'+'","'+tableName+'","'+'")');
+					}
+					
+					
+				});
+			},
+			createCopyOfEstimate : function(newEstId,parentEstId){
+				var self = this;
+				db.transaction(function (tx) {
+					//Read Parent estimate details
+					tx.executeSql('SELECT * FROM UserEstimateHistory', [], function (tx, results) {
+						if(results.rows.length == 1){
+							var estDetails = JSON.parse(JSON.stringify(results.rows.item(0)));
+							self.set("estimateDetails",estDetails);
+						}
+						//Read Lead data
+						tx.executeSql('SELECT * FROM UserLeadData', [], function (tx, results) {
+							var leadDataArr = [];
+							for(var leadData =0;leadData <results.rows.length;leadData++){
+								var leadMaterial = JSON.parse(JSON.stringify(results.rows.item(leadData)));
+								leadDataArr.push( leadMaterial );	
+							}
+							self.set("listOfLeadMaterials",leadDataArr);
+							//Read Data's
+							tx.executeSql('SELECT * FROM UserEstimateLBDs', [], function (tx, results) {
+								var codeToRates = [];
+								for(var lbdData =0;lbdData < results.rows.length;lbdData++){
+									var leadMaterial = JSON.parse(JSON.stringify(results.rows.item(lbdData)));
+									codeToRates.push( leadMaterial );
+								}
+								self.set("codeToRates",codeToRates);
+								//Read Data's
+								tx.executeSql('SELECT * FROM UserEstimateDatas', [], function (tx, results) {
+									var userDatas = [];
+									for(var userData =0;userData < results.rows.length;userData++){
+										var leadMaterial = JSON.parse(JSON.stringify(results.rows.item(userData)));
+										userDatas.push( leadMaterial );
+									}
+									self.set("selectedItemsForEstimate",userDatas);
+									//Creapte copy of Data's
+									self.saveEstimateDetails(newEstId);
+								});
+								
+							});
+							
+						});
+						
+					});
+				})
+			},
+			readEstimateHistory:function(){
+				var estimateHistory = [];
+				var self = this;
+				db.transaction(function (tx) {
+					tx.executeSql('SELECT * FROM UserEstimateHistory', [], function (tx, results) {
+						for(var i=0;i<results.rows.length; i++){
+							estimateHistory.push(JSON.parse(JSON.stringify(results.rows.item(i))));
+						}
+						self.set("estimateHistory",estimateHistory);
+						console.log(estimateHistory);
+						appRouter.navigate("#history",{trigger:true});
+					});
+				})
+			},
+			readDatasForPDF : function(EstimateID){
+				var selectedItemsForEstimate = [];
+				var self = this;
+				db.transaction(function (tx) {
+					tx.executeSql('SELECT * FROM UserEstimateDatas where EstimateID="'+EstimateID+'"', [], function (tx, results) {
+						for(var i=0;i<results.rows.length; i++){
+							var indexToTableItem = {
+									"indexCode":"",
+									"tableName":"",
+									"selectedSubItems":[]
+								};
+							var savedDataItem = JSON.parse(JSON.stringify(results.rows.item(i)));
+							var dataCodes = savedDataItem.data.split('*');
+							indexToTableItem.indexCode = dataCodes[0];
+							indexToTableItem.tableName = savedDataItem.tableName;
+							for(var subItems = 1;subItems<dataCodes.length;subItems++){
+								indexToTableItem.selectedSubItems.push(dataCodes[subItems]);
+							}
+							selectedItemsForEstimate.push(indexToTableItem);
+						}
+						self.set("selectedItemsForEstimate",selectedItemsForEstimate);
+						self.getDatasForEstimate();
+					});
+				})
+			}
+		
+			/*,
 			getMaterialsTobeConsideredInLead:function(){
 				var self = this;
 				var selectedDatas = this.get("indexToTableItem");

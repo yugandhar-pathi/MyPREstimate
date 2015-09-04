@@ -1,36 +1,39 @@
 
-define(['models/estimateitems_util'],function(EstimateModel){
+define(['views/layout/base_itemview','models/estimateitems_util'],function(BaseItemView,EstimateModel){
 
 		var ShowItemsInChapter_View = Backbone.View.extend({
 		    
-			model:EstimateModel,
+			model:EstimateModel.model,
 			
 			initialize: function() {
 
 		    },
 			template : Handlebars.templates.selectestimate_showitemsinchapter,			
 		    events:{
-		    	 'click #proceedToItems':'proceedToSelectedItems',
-		    	 'click .description':'displayDetails'    	 
+		    	 'tap #addToList':'proceedToSelectedItems',
+		    	 'click .description':'displayDetails',
+		    	 'click #backButton':'closePopup',
+		    	 'tap #addToQ':'addDatasToQ'
 		    },		     
-		    proceedToSelectedItems : function(event){
+		    addDatasToQ : function(event){
 		    	 var selectedItems = $("#itemsInChapter input:checkbox[name=chosenItems]:checked");
-		    	 var chosenItems = [];
-		    	   
-				 selectedItems.each(function(index,ele)
-						{
-							var chosenItem = {
-									"indexCode":"",
-									"tableName":""
-								};
-							chosenItem.indexCode = ele.id;
-							chosenItem.tableName = EstimateModel.model.get("selectedTable");
-							chosenItems.push(chosenItem);
-						});	
-					EstimateModel.model.set("chosenItems",chosenItems);
-					console.log(chosenItems);
-		    	 
-					EstimateModel.model.addDefaultItemsForEstimate();
+		    	 var chosenItems = [];  
+				 selectedItems.each(function(index,ele){
+					var chosenItem = {
+							"indexCode":"",
+							"tableName":""
+						};
+					chosenItem.indexCode = ele.id;
+					chosenItem.tableName = EstimateModel.model.get("selectedTable");
+					chosenItems.push(chosenItem);
+				 });	
+				 var selectedList = this.model.get("selectedDatasToAdd");
+				 if(typeof selectedList != 'string' && selectedList.length > 0 ){
+					 chosenItems = chosenItems.concat(selectedList); 
+				 }
+				 this.model.set("selectedDatasToAdd",chosenItems);
+				 console.log(chosenItems);
+				 $("#datasPopup").popup("close");
 
 		     },
 		     displayDetails:function(event){
@@ -49,15 +52,13 @@ define(['models/estimateitems_util'],function(EstimateModel){
 		    	 //$("#RBR-LUCC-1").attr("display","show");
 		    	 $( "#itemDetails" ).popup( "open",options);		    	 
 		     },
-		     
-		    onShow:function(){
-
-		    },
-
-			render : function() {	
-				this.$el.html(this.template(EstimateModel.model.attributes));
-				return this;
-			}
+		     closePopup : function(){
+		    	 $("#datasPopup").popup("close");
+		     },
+		     render: function() {
+		        this.$el.html(this.template(this.model.attributes));
+		        return this;
+		     }
 
 		});
 		return ShowItemsInChapter_View;

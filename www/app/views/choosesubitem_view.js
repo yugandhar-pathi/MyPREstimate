@@ -1,5 +1,5 @@
 
-define(['models/estimateitems_util'],function(EstimateModel){
+define(['views/layout/base_itemview','models/estimateitems_util'],function(BaseItemView,EstimateModel){
 
 		var ChooseSubItem_View = Backbone.View.extend({
 		    
@@ -10,11 +10,7 @@ define(['models/estimateitems_util'],function(EstimateModel){
 			},
 			
 			template : Handlebars.templates.selectestimate_choosesubitem,			
-			
-			render : function() {
-				this.$el.html(this.template(EstimateModel.model.attributes));
-				return this;
-			},
+
 			proceedToLeadStmt : function(){
 				appRouter.navigate('leadstatement',{trigger:true});
 			}

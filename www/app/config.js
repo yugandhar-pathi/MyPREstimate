@@ -11,9 +11,14 @@ require.config({
 		handlebars : '../libs/handlebars/handlebars.runtime-v1.1.2',
 		handlebarhelper:'utils/handlebars.helpers',
 		templates : 'template/compiledtemplate',
-		//cordova:'../cordova',
+		cordova:'../cordova',
 		iScroll:'../libs/iScroll/jquery.floatThead-slim.min',
-		marionette:'../libs/backbone/backbone.marionette-1.2.0-min'
+		marionette:'../libs/backbone/backbone.marionette-1.2.0-min',
+		jspdf:'../libs/jsPDF-master/jspdf.debug',
+		jspdfFromHTML:'../libs/jsPDF-master/jspdf.plugin.from_html',
+		jspdfCell :'../libs/jsPDF-master/jspdf.plugin.cell',
+		jspdfSplitText:'../libs/jsPDF-master/jspdf.plugin.split_text_to_size',
+		fileSaver:'../libs/FileSaver.js-master/FileSaver'
 	},
 	shim : {
 		jquery : {
@@ -50,7 +55,22 @@ require.config({
 		},
 		marionette:{
 			deps:['backbone']
-		}
+		},
+		jspdf:{
+			deps:['jquery']
+		},
+		jspdfFromHTML:{
+			deps:['jspdf']
+		},
+		jspdfCell :{
+			deps:['jspdf']			
+		},
+		jspdfSplitText:{
+			deps:['jspdf']
+		},
+		fileSaver:{
+			deps:['jquery']
+		},
 		
 	}
 
@@ -58,7 +78,7 @@ require.config({
 
 var appRouter = {};
 
-define([ 'jquery','jquerymobile','backbone','handlebars','handlebarhelper','templates','marionette'/*,'iScroll'/*,'cordova'*/], function() {	
+define([ 'jquery','jquerymobile','backbone','handlebars','handlebarhelper','templates','marionette','jspdf','jspdfFromHTML','jspdfCell','jspdfSplitText','fileSaver','iScroll'/*,'cordova'*/], function() {	
     require([ 'router' ], function(router) {
     	$(document).ready(function () {
     	    console.log('document ready');

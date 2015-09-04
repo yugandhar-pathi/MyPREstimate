@@ -10,7 +10,8 @@ define([], function() {
 			isShieldRequired : false,
 			isBackButtonRequired : false,
 			backButtonHREF : '',
-			isLogoutRequired : false
+			isLogoutRequired : false,
+			isMenuPanelRequired:true
 		},
 
 		initialize : function(options) {

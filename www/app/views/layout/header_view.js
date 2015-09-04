@@ -1,14 +1,17 @@
 
-define(['models/headerfootermodel'],function(HeaderFooterModel){
+define([],function(){
 
-		var Header_View = Backbone.View.extend({
-		    			
-			template : Handlebars.templates.layout_header,			
+		var Header_View = Backbone.Marionette.ItemView.extend({
 			
-			render : function() {
-				this.$el.html(this.template(this.model.attributes));
-				return this;
+		    			
+			template : Handlebars.templates.layout_header,
+			
+			attributes : function(){
+				return {
+					'class' : 'header-div'
+				}
 			}
+
 		});
 		return Header_View;
 });

@@ -1,7 +1,7 @@
 
-define(['models/estimateitems_util'],function(EstimateModel){
+define(['views/layout/base_itemview','models/estimateitems_util'],function(BaseItemView,EstimateModel){
 
-		var DataSheet_View = Backbone.View.extend({
+		var DataSheet_View = BaseItemView.extend({
 		    
 			model:EstimateModel.model,
 			
@@ -20,47 +20,70 @@ define(['models/estimateitems_util'],function(EstimateModel){
 				//check if data item has sub-bullets
 				for(var index in codeToDatas){
 					var codeToRate = {
+						dataIndex:"",
 						code : "",
 						description:"",
+						subBullets:[],
 						rate : ""
 					};
+					var subItems = {
+						itemID:"",
+						subItemDesc:"",
+						subItemRate:""
+					};
+
+					
 					var datas = codeToDatas[index].datas;
 					codeToRate.code = codeToDatas[index].code;
-					for(var row in datas){
-						if(row == 0){
+					codeToRate.dataIndex = index;
+					var firstItem = 0;
+					for(var row in datas){		
+						if(row == firstItem){
 							//set first row description
 							codeToRate.description = datas[row].Description;
 						}
 						if(datas[row].Description != null && datas[row].Description.indexOf('Rate per ') != -1){
 							//Rate per Unit
-							codeToRate.rate = datas[row].Amount;
+							if(subItems.subItemDesc != "" && subItems.subItemRate == "" ){
+								subItems.subItemRate = 	datas[row].Amount;
+								codeToRate.subBullets.push(subItems);
+								subItems = {
+										subItemDesc:"",
+										subItemRate:""
+									};
+								
+							}else{
+								codeToRate.rate = datas[row].Amount;
+							}	
 						}
 						if(datas[row].SubBullet){
-							//Index Code is having sub bullet
-							codeToDatas[index].isSubBulletExist = true;
+							subItems.subItemDesc = datas[row].Description;
+							subItems.itemID = datas[row].SubBullet;
+							
 						}
 					}
 					codeToRateArr.push(codeToRate);
 				}
-				console.log(codeToRateArr);
-				
-				//Check how many items has sub bullet exist
-				for(var index in codeToDatas){
-					if(codeToDatas[index].isSubBulletExist){
-						numberOfItemsWithSubBullet++;
-					}
-				}
-				
-				console.log("Number of items with sub bullet is :"+numberOfItemsWithSubBullet);
-				
-				this.model.set("codeToRates",codeToRateArr);
-				
+				console.log(codeToRateArr);				
+				this.model.set("codeToRates",codeToRateArr);		
 				appRouter.navigate("abstractEstimate",{trigger:true})
 			},
-						
-			render : function() {
-				this.$el.html(this.template(EstimateModel.model.attributes));
-				return this;
+			onShow : function(){
+				//var $table = $('#test');
+				/*$('#test').floatThead({
+		                scrollContainer: function ($table) {
+		                    return $table.closest('#tableContainer');
+		                }
+				});*/
+				
+			   /*  $(document).ready(function () {
+			            $("#test").floatThead({
+			                scrollContainer: function ($table) {
+			                    return $table.closest('#tableContainer');
+			                }
+			            });
+			     });*/
+
 			}
 
 		});

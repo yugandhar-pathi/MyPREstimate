@@ -11,7 +11,10 @@ define([], function() {
 			isBackButtonRequired : false,
 			backButtonHREF : '',
 			isLogoutRequired : false,
-			isMenuPanelRequired:true
+			isMenuPanelRequired:true,
+			isRightButtonRequired:false,
+			rightButtonValue:"",
+			rightButtonID:""
 		},
 
 		initialize : function(options) {

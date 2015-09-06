@@ -1,5 +1,5 @@
 
-define(['views/layout/base_itemview','models/estimateitems_util'],function(BaseItemView,EstimateModel){
+define(['views/layout/base_itemview','models/estimateitems_util','views/showitemsinchapter_view'],function(BaseItemView,EstimateModel,chapterView){
 		var ListOfChapters_View = BaseItemView.extend({
 			
 			template : Handlebars.templates.selectestimate_listofchapters,
@@ -8,11 +8,12 @@ define(['views/layout/base_itemview','models/estimateitems_util'],function(BaseI
 			
 			initialize : function(){
 				this.model.on('itemsReadFromChapter',this.fillPopupWithDatas,this);
+				//this.model.set("selectedDatasToAdd",this.model.get("indexToDatasArray"));
 			},
 			 
 		    events:{
 		    	 'tap .listOfChapters':'selectItemsFromChapter',
-		    	 'tap #addToEstimate':'addSelectedDatasToEstimate',
+		    	 //'tap #proceedToEst':'proceedToEstimate',
 		    	 'tap #dataBooks':'changeBackground'
 		    },   
 		     
@@ -27,20 +28,36 @@ define(['views/layout/base_itemview','models/estimateitems_util'],function(BaseI
 		    	var position = $("#tabs").position();
 		    	var xPos = position.left;
 		    	var yPos = position.top;
-		    	$("#datasPopup").off("popupbeforeposition");
+
 		    	$("#datasPopup").on("popupbeforeposition",function(){
-		    		//$("#datasPopup").popup( "option", "positionTo", "window" );
-		    		require(['views/showitemsinchapter_view'], function(contentView) {
-		    			var dataView = new contentView();
-		    			dataView.render();
-		    			$("#datasPopup #datasInChapter").html(dataView.el).trigger("create");
-		    		});
-		    	});				
+			    	$("#datasPopup").off("popupbeforeposition");
+	    			var dataView = new chapterView();
+	    			dataView.render();
+	    			$("#datasPopup #datasInChapter").html(dataView.el).trigger("create");
+		    	});	
+		    	
+		    	var thisModel = this.model;
+		    	$("#datasPopup").off("popupafteropen");
+				$("#datasPopup").on("popupafteropen",function(){
+			    	var selectedTable = thisModel.get("selectedTable");
+	    			var exisitngDatas = thisModel.get("indexToDatasArray");
+	    			if(exisitngDatas){
+	        			var selectedDatasList = exisitngDatas.filter(function(obj){
+	        				return obj.TableName == selectedTable;
+	        			});
+	        			if(selectedDatasList.length){
+	        				for(var data in selectedDatasList){
+	        					$("#"+selectedDatasList[data].IndexCode).prop("checked", true);
+	        				}
+	        			}	   				
+	    			}
+				});
+		    	
 		    	$("#datasPopup").popup("open", {x:xPos,y:yPos,transition:'pop',positionTo:'#tabs'});
 		    },
 		    
-		    addSelectedDatasToEstimate : function(){
-		    	this.model.addDefaultItemsForEstimate();
+		    proceedToEstimate : function(){
+		    	this.model.getDefaultItemsForCCRoad();
 		    },
 		    
 		    changeBackground : function(event){
@@ -57,11 +74,18 @@ define(['views/layout/base_itemview','models/estimateitems_util'],function(BaseI
 		    },
 		    
 		    onShow : function(){
+		    	var self = this;
 		    	$("#listofchapters").addClass('background-datas');
-		    	$("#listofchapters #datas").addClass('selected');
 		    	if(!this.model.get("datasAsService")){
 		    		//hide the back key
 		    		$("#listofchapters #pageBackKey").hide();
+			    	$("#listofchapters #datas").addClass('selected');
+		    	}else{
+		    		$("#listofchapters #newEstimate").addClass('selected');
+		    		$("#listofchapters #pageBackKey input").off('tap')
+		    		$("#listofchapters #pageBackKey input").on('tap',function(){
+		    			self.model.getDefaultItemsForCCRoad();
+		    		});
 		    	}
 		    }
 

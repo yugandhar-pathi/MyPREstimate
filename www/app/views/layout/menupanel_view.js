@@ -21,7 +21,7 @@ define(['views/layout/base_itemview','models/estimateitems_util'],function(BaseI
 			},
 			
 			displayDatas:function(event){
-				this.model.set("");
+				this.model.set("datasAsService",false);
 				appRouter.navigate("#listOfChapters",{trigger:true}); 
 			},
 			displayHistory : function(event){

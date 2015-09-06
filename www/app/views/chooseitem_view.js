@@ -76,6 +76,9 @@ define(['views/layout/base_itemview','models/estimateitems_util'],function(BaseI
 				var dataToDelete = $(event.target).data('rowid');
 				EstimateModel.model.deleteDefaultItem(dataToDelete);
 			},
+			onShow:function(){
+				$("#chooseitem #newEstimate").addClass('selected');
+			},
 			reRender:function(){
 				this.$el.html(this.template(EstimateModel.model.attributes)).trigger("create");
 				return this;

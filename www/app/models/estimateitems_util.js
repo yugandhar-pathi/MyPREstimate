@@ -1,6 +1,6 @@
 
 
-define([ 'models/base_model'], function(BaseModel) {
+define([ 'models/base_model','views/utilities/datas_util'], function(BaseModel,DatasUtil) {
 
 	var App = {};
 
@@ -24,7 +24,7 @@ define([ 'models/base_model'], function(BaseModel) {
 				datasAsService:false,
 				indexToDatasArray:"",
 				chapterTitle:"",
-				selectedDatasToAdd:"",
+				//selectedDatasToAdd:"",
 				tableList:['BasesAndSurface','CauAndSubMerBridges','CCPAVEMENT','EECD','Foundation','GEOSYNTHETICS','GranSubBases','HillRoads','Horticulture','LUCANDC','MaintOfRoads','PipeCulverts','ProtectionWorks','Repair','SiteClearence','SubStructure','SuperStructure','TrafficSigns'],
 				leadMaterialItem:{
 					"material":"",
@@ -67,6 +67,7 @@ define([ 'models/base_model'], function(BaseModel) {
 				}else{
 					console.log("+++++++++++++"+db);
 				}
+				this.set('db',db);
 			},
 			getDefaultItemsForCCRoad : function(){
 				this.getDefaultLeadMaterialsFromDB();
@@ -265,40 +266,8 @@ define([ 'models/base_model'], function(BaseModel) {
 								   leadMaterialsInDataItem = [];
 								   metalMeasures = [];
 								   for(var j=0;j<results.rows.length;j++){
-									   
-									   //Loop through all rows for data item
-									   if(results.rows.item(j).Amount != null){
-										   //This is to add amount for all items in a data item.
-										   costForItem += Number(results.rows.item(j).Amount);
-									   }
 									   var item = JSON.parse(JSON.stringify(results.rows.item(j)));
 									   var description = item.Description;
-									   if(description=="a\)\?\?Labour"){
-										   //to correct display of sub heading - not coming correct from database
-										   item.Description = "a\) Labour";
-									   }
-									   var test =  /^[a-z]\)|^[a-z]\&[a-z]\)/.test(description);
-									   if(test){
-										   //To display subheading in bold.
-										   item.descType = "SubHeading";
-									   }else{
-										   var test =  /^Cost\sfor|^Rate\sper/.test(description);
-										   if(test){
-											   //to display Rate or Cost items in bold Red
-											   item.descType = "RateOrCost"; 
-										   }else{
-											   item.descType = "Normal";
-										   }
-									   }
-									   if(description != null && (description.indexOf('Cost for ') != -1 || description.indexOf('Cost  for ') != -1 ) && costForItem > 0){
-										   item.Amount = costForItem;
-										   costForIndex = j; //To update Rate per Unit
-									   }
-									   if(description != null && description.indexOf('Rate per ') != -1 && j == costForIndex+1){
-										   //updating amount per unit
-										   var perUnits = description.substr(description.indexOf('/')+1,description.length);									   
-										   item.Amount = parseInt(costForItem/Number(perUnits));
-									   }
 									   if(item.SubBullet ){
 										   //resetting cost for item when it comes across sub bullet
 										   costForItem = 0;
@@ -319,7 +288,7 @@ define([ 'models/base_model'], function(BaseModel) {
 										   }else{
 											   materialsInSelectedDatas.push(description);
 										   }
-									   }*/
+									   }
 									   
 									   //code to get list of materials
 									   if(pushAll){
@@ -327,7 +296,7 @@ define([ 'models/base_model'], function(BaseModel) {
 											   //List of Labour rows started.
 											   isMaterial = true;
 										   }							   
-									   }
+									   }*/
 									   
 									   if(item.Remarks){
 										   var leadMater = item.Remarks;
@@ -360,6 +329,7 @@ define([ 'models/base_model'], function(BaseModel) {
 									   }
 
 								   }
+								   DatasUtil.beuatifyDatas(codeToData.datas);
 								   codeToDatas.push(codeToData);
 							   }
 
@@ -538,7 +508,7 @@ define([ 'models/base_model'], function(BaseModel) {
 					 var self = this;
 					 for(var i=0;i<itemsToAdd.length;i++){
 						 if(i==0){
-							 itemsInSql += "INSERT INTO '\Defaults\' Select \'CCROAD\' AS \'EstimationType\',"+"\'"+ itemsToAdd[i].tableName +"' AS \'TableName\',"+"\'"+itemsToAdd[i].indexCode+"' AS \'IndexCode\'"; 
+							 itemsInSql += "INSERT INTO '\Defaults\' Select \'CCROAD\' AS \'EstimationType\',"+"\'"+ itemsToAdd[i].TableName +"' AS \'TableName\',"+"\'"+itemsToAdd[i].IndexCode+"' AS \'IndexCode\'"; 
 						 }else{
 							 itemsInSql +=  "UNION SELECT \'CCROAD\',"+"\'"+itemsToAdd[i].tableName+"\'"+","+"\'"+itemsToAdd[i].indexCode+"\'";	 
 						 }

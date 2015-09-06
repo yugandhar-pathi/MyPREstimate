@@ -52,7 +52,7 @@ define(['models/headerfootermodel'], function(HeaderFooterModel) {
 						isHeaderRequired : true,
 						isBackButtonRequired : true,
 						headerTitle:"Datas",
-						backButtonHREF:"pickItemsForEstimate"
+						backButtonHREF:""
 					}));
 				},
 				
@@ -65,7 +65,9 @@ define(['models/headerfootermodel'], function(HeaderFooterModel) {
 						backButtonHREF:"listOfChapters"
 					}));
 				},
-				
+				fetchDefaults : function(){
+					self.model.getDefaultItemsForCCRoad();
+				},
 				pickItemsForEstimate : function(){
 					this.changePage('views/chooseitem_view',new HeaderFooterModel({
 						isFooterRequired : false,

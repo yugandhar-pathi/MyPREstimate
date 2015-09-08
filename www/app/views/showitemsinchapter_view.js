@@ -20,44 +20,48 @@ define(['views/layout/base_itemview','models/estimateitems_util','views/datacode
 		    	 var chosenItems = [];  
 		    	 var selectedTable = EstimateModel.model.get("selectedTable");
 				 selectedItems.each(function(index,ele){
-				   var chosenItem = {
+				  /* var chosenItem = {
 						    "TableName":"",
 							"IndexCode":"",
 							"description":"",
 							"subitemsArray":[]
 				   };
 				   chosenItem.IndexCode = ele.id;
-				   chosenItem.TableName = selectedTable;
-				   chosenItems.push(chosenItem);
+				   chosenItem.TableName = selectedTable;*/
+				   chosenItems.push(ele.id);
 				 });	
-				 /*var selectedList = this.model.get("selectedDatasToAdd");
-				 if(typeof selectedList != 'string' && selectedList.length > 0 ){
-					 chosenItems = chosenItems.concat(selectedList); 
-				 }
-				 this.model.set("selectedDatasToAdd",chosenItems);
-				 console.log(chosenItems);*/
+
 				 var exisitngDatas = this.model.get("indexToDatasArray");
+				 var exisitngDataItems = [];
+	 			 for(var i=0;i<exisitngDatas.length;i++){
+	 				exisitngDataItems.push(exisitngDatas[i].IndexCode);
+				 }
+	 			 var preSelectedDatasList = []; 
     			 if(exisitngDatas){
-        			var preSelectedDatasList = exisitngDatas.filter(function(obj){
+        			var preSelectedDatas = exisitngDatas.filter(function(obj){
         				return obj.TableName == selectedTable;
         			});
-        			
-        			if(preSelectedDatasList.length == 0 && chosenItems.length == 0){
-        				//error
-        				return;
-        			}
-        			if(preSelectedDatasList.length == 0 && chosenItems.length > 0){
-        				this.updateSelectedDatasToEstimate(chosenItems)
-        			}
-        			if(preSelectedDatasList.length > 0 && chosenItems.length == 0){
-        				//delete all
-        				this.deleteSelectedDatasFromEstimate(preSelectedDatasList);
-        			}
-        			if(preSelectedDatasList.length != 0 && chosenItems.length != 0){
-        				//compare
-        			}
-        			
+	   	 			for(var i=0;i<preSelectedDatas.length;i++){
+	   	 				preSelectedDatasList.push(preSelectedDatas[i].IndexCode);
+	 				}
     			 }
+	    			if(preSelectedDatasList.length == 0 && chosenItems.length == 0){
+	    				//error
+	    				return;
+	    			}
+	    			if(preSelectedDatasList.length == 0 && chosenItems.length > 0){
+	    				var updatedList = exisitngDataItems.concat(chosenItems); 
+	    				this.updateSelectedDatasToEstimate(datasArr);
+	    			}
+	    			if(preSelectedDatasList.length > 0 && chosenItems.length == 0){
+	    				//delete all
+	    				exisitngDatas = _.difference(exisitngDataItems, preSelectedDatasList);
+	    				this.updateSelectedDatasToEstimate(exisitngDatas);
+	    			}
+	    			if(preSelectedDatasList.length != 0 && chosenItems.length != 0){
+	    				//compare
+	    				
+	    			} 
 
 		     },
 		     deleteSelectedDatasFromEstimate:function(itemsToDelete){
@@ -75,19 +79,11 @@ define(['views/layout/base_itemview','models/estimateitems_util','views/datacode
 					 });
 				})
 		     },
-		     updateSelectedDatasToEstimate : function(itemsToAdd){
-				 var itemsInSql = "";	
-				 var self = this;
-				 for(var i=0;i<itemsToAdd.length;i++){
-					 if(i==0){
-						 itemsInSql += "INSERT INTO '\Defaults\' Select \'CCROAD\' AS \'EstimationType\',"+"\'"+ itemsToAdd[i].TableName +"' AS \'TableName\',"+"\'"+itemsToAdd[i].IndexCode+"' AS \'IndexCode\'"; 
-					 }else{
-						 itemsInSql +=  "UNION SELECT \'CCROAD\',"+"\'"+itemsToAdd[i].TableName+"\'"+","+"\'"+itemsToAdd[i].IndexCode+"\'";	 
-					 }
-				 }	 
-				 console.log(itemsInSql);
+		     updateSelectedDatasToEstimate : function(itemsToUpdate){
+		    	 itemsToUpdate = itemsToUpdate.join(",");
+		    	 var type = this.model.get("estType");
 				 this.model.get('db').transaction(function (tx) {	 
-					 tx.executeSql(itemsInSql,function(){},function(){
+					 tx.executeSql('UPDATE DefaultDatas SET Datas=? WHERE Type=?',[itemsToUpdate,type],function(){
 						 $("#datasPopup").popup("close");
 					 });
 				 },function(){

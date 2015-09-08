@@ -17,7 +17,8 @@ define(['views/layout/base_itemview','models/estimateitems_util'],function(BaseI
 			events:{
 				'tap #newEstimate':'startEstimate',
 				'tap #datas':'displayDatas',
-				'tap #historyOption':'displayHistory'
+				'tap #historyOption':'displayHistory',
+				'tap #logout':'logoutApp'
 			},
 			
 			displayDatas:function(event){
@@ -32,6 +33,9 @@ define(['views/layout/base_itemview','models/estimateitems_util'],function(BaseI
 			},
 			onShow : function(){
 				$("#newEstimate").addClass('selected');
+			},
+			logoutApp : function(){
+				appRouter.navigate("",{trigger:true});
 			}
 		});
 		return MenuPanel_View

@@ -51,7 +51,6 @@ define(['models/estimateitems_util'],function(EstimateModel){
 				
 				onRender : function() {
 					console.log("reach layout render complete");
-
 					
 					if(_opts.menuPanel){
 						var menuPanel = new _opts.menuPanel();
@@ -66,7 +65,9 @@ define(['models/estimateitems_util'],function(EstimateModel){
 					var contentView = new _opts.content();	
 					this.contentRegion.show(contentView);
 					
-
+					if(!_opts.menuPanel){
+						$("#"+_opts.pageId+" div[role='main']").removeClass('tablet-content');	
+					}
 					
 				}
 			}))(_opts);

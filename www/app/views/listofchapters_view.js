@@ -84,7 +84,7 @@ define(['views/layout/base_itemview','models/estimateitems_util','views/showitem
 		    		$("#listofchapters #newEstimate").addClass('selected');
 		    		$("#listofchapters #pageBackKey input").off('tap')
 		    		$("#listofchapters #pageBackKey input").on('tap',function(){
-		    			self.model.getDefaultItemsForCCRoad();
+		    			self.model.getDefaultDatas();
 		    		});
 		    	}
 		    }

@@ -2,6 +2,7 @@ define([],function(){
 	var datas_util = {
 			beuatifyDatas:function(dataList){
 				var costForItem = 0;
+				var costForIndex = 0;
 				for(var j=0;j<dataList.length;j++){
 						var item = dataList[j];
 					   //Loop through all rows for data item
@@ -37,6 +38,96 @@ define([],function(){
 						   item.Amount = parseInt(costForItem/Number(perUnits));
 					   }
 				}   
+			},
+			getTableName : function(dataCode){
+				var keyToTableMap = {
+						//Roads And Bridges
+						"RBR":{
+							"LUCC":"LUCANDC",
+							"STCL":"SiteClearence",
+							"EECD":"EECD",
+							"SBBS":"GranSubBases",
+							"BASC":"BasesAndSurface",
+							
+							"CCPV":"CCPAVEMENT",
+							"CWSB":"CauAndSubMerBridges",
+							"HLRD":"HillRoads",
+							"PCVT":"PipeCulverts",
+							"TSRA":"TrafficSigns",
+							
+							"FNDN":"Foundation",
+							"SBST":"SubStructure",
+							"SPST":"SuperStructure",
+							"PTWK":"ProtectionWorks",
+							"MTRD":"MaintOfRoads",
+							
+							"GSRE":"GEOSYNTHETICS",
+							"HRTC":"Horticulture",
+							"RPRH":"Repair"
+						},
+						//Buildings
+						"CSTN" : {
+							"1":"Mortar",
+							"2":"Earthwork",
+							"3":"ConcreteDampProof",
+							"4":"BarInFoundation",
+							"5":"Brickwork",
+							
+							"6":"StoneMasonary",
+							"7":"Pointing",
+							"8":"Plastering",
+							"9":"Flooring",
+							"10":"RoofingAndCeiling",
+							
+							"11":"WhiteWashing",
+							"12":"PaintingAndVarnishing",
+							"13":"WoodWork",
+							"14":"DismantlingAndDemolition",
+							"15":"MISCELLANEOUS",
+							
+							"16":"ANTETERMITETREATMENT",
+							"17":"Centring"
+						},
+						//Electrical
+						"ELEC":{
+							"1":"CONDUITLAYING",
+							"2":"WIRING",
+							"3":"RUNOFMAINS",
+							"4":"SWITCHGEAR",
+							"5":"EARTHING",
+							
+							"6":"SERVICEMAINS",
+							"7":"STREETLIGHT",
+							"8":"INTERNALLUMINAIRE",
+							"9":"ACANDREFRIGERATION",
+							"10":"WATERHEATERS",
+							
+							"11":"WATERPUMPS",
+							"12":"BUSBARS",
+							"13":"SWAGEDPOLES",
+							"14":"CONTROLPANEL",
+							"15":"CABLES",
+							
+							"16":"TEMPORARY",
+							"16":"GENERATORS",
+							"18":"REPAIRSTOMOTORS"
+						}
+
+				};
+				var splitDataArr = dataCode.split("-");
+				var dataBook = splitDataArr[0];
+				if(dataBook == "RBR"){
+					var tableKey = splitDataArr[1];
+					return keyToTableMap[dataBook][tableKey];
+				}
+				
+				var dataBook = splitDataArr[1];
+				if(dataBook == "CSTN"){
+					return keyToTableMap[dataBook][splitDataArr[2]];
+				}else if(dataBook == "ELEC"){
+					return keyToTableMap[dataBook][splitDataArr[2]];
+				}
+				
 			}
 	};
 	return datas_util;

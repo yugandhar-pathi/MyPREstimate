@@ -7,6 +7,7 @@ define(['views/layout/base_itemview','models/estimateitems_util'/*,'FileCopyPlug
 			template : Handlebars.templates.login_login,
 			
 			initialize:function(){
+				//$( "#login" ).button("disable");
 				/*console.log("control reaches initialize function");
 				 function onDeviceReady() {
 					 console.log("time to call fileCopyplugin");
@@ -20,7 +21,9 @@ define(['views/layout/base_itemview','models/estimateitems_util'/*,'FileCopyPlug
 			},
 
 			events:{
-				'tap #login':'login'
+				'tap #login':'login',
+				'input #username':'enableLoginButton',
+				'input #password':'enableLoginButton'
 			},
 			
 			login:function(){
@@ -32,8 +35,19 @@ define(['views/layout/base_itemview','models/estimateitems_util'/*,'FileCopyPlug
 				}
 				//FileCopyPlugin.copy();
 				appRouter.navigate("#selectestimate",{trigger:true});
-				
+				//EstimateModel.model.saveEstimateDetails(1);
 
+			},
+			enableLoginButton : function(){
+				var userid = $("#username").val();
+				var password = $("#password").val();			
+				if(userid != "" && password != ""){
+					$("#login").button("enable");
+				}
+			},
+			onShow:function(){
+				$("#username").val("");
+				$("#password").val("");
 			}
 				
 		});

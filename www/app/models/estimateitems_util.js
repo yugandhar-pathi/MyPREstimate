@@ -24,6 +24,8 @@ define([ 'models/base_model','views/utilities/datas_util'], function(BaseModel,D
 				datasAsService:false,
 				indexToDatasArray:"",
 				chapterTitle:"",
+				estCategory:"",
+				estType:"",
 				//selectedDatasToAdd:"",
 				tableList:['BasesAndSurface','CauAndSubMerBridges','CCPAVEMENT','EECD','Foundation','GEOSYNTHETICS','GranSubBases','HillRoads','Horticulture','LUCANDC','MaintOfRoads','PipeCulverts','ProtectionWorks','Repair','SiteClearence','SubStructure','SuperStructure','TrafficSigns'],
 				leadMaterialItem:{
@@ -69,21 +71,24 @@ define([ 'models/base_model','views/utilities/datas_util'], function(BaseModel,D
 				}
 				this.set('db',db);
 			},
-			getDefaultItemsForCCRoad : function(){
-				this.getDefaultLeadMaterialsFromDB();
+			getDefaultDatas : function(){
+				//this.getDefaultLeadMaterialsFromDB();
+				var category =  this.get("estCategory");
+				var type =  this.get("estType");
 				var indexToDatasArray = [];
 				var self= this;
 				db.transaction(function (tx) {
 					  //Read default items
-					  tx.executeSql('SELECT * FROM DEFAULTS WHERE EstimationType = "CCROAD"', [], function (tx, defaultItems) {
+					  tx.executeSql('SELECT DATAS FROM DefaultDatas WHERE Category='+'"'+category+'"'+' AND Type = '+'"'+type+'"', [], function (tx, defaultItems) {
 						console.log("successfully read");
-						var i=0;
-						var getItems = function(){
-						   var indexCode = defaultItems.rows.item(i).IndexCode;
+						var defDatas = defaultItems.rows[0].Datas.split(",");
+						var i = 0;
+						var getItems = function(indexCode){
+						   //var indexCode = defaultItems.rows..IndexCode;
 						   var splitArr = indexCode.split("-");
 						   	   splitArr[splitArr.length-1] = Number(splitArr[splitArr.length-1])+1;
 						   var nextIndexCode = splitArr.join("-");	   
-						   var tableName = defaultItems.rows.item(i).TableName;
+						   var tableName = DatasUtil.getTableName(indexCode);
 						   tx.executeSql('SELECT * FROM '+tableName+' WHERE rowid>=(select rowid FROM '+tableName+' WHERE IndexCode="'+indexCode+'") AND rowid<(Select rowid from '+tableName+' where IndexCode="'+nextIndexCode+'")', [], function (tx, results) {
 							   if(results.rows.length > 0){
 
@@ -127,8 +132,8 @@ define([ 'models/base_model','views/utilities/datas_util'], function(BaseModel,D
 								   indexToDatasArray.push(indexToTableItem);
 							   }
 							   i++;
-							   if(i<defaultItems.rows.length){
-								   getItems(i);
+							   if(i<defDatas.length){
+								   getItems(defDatas[i]);
 							   }else{
 								   self.set("indexToDatasArray",indexToDatasArray);
 								   appRouter.navigate("#pickItemsForEstimate",{trigger:true});  					   
@@ -155,7 +160,7 @@ define([ 'models/base_model','views/utilities/datas_util'], function(BaseModel,D
 							   }
 						   },null);*/
 						};
-						getItems(i);
+						getItems(defDatas[0]);
 	
 					  }, null);
 				});
@@ -261,7 +266,7 @@ define([ 'models/base_model','views/utilities/datas_util'], function(BaseModel,D
 								   		   datas:[]
 								   };
 								   var costForItem = 0;
-								   var costForIndex = 0;
+								   
 								   //var isMaterial = false;
 								   leadMaterialsInDataItem = [];
 								   metalMeasures = [];
@@ -576,94 +581,7 @@ define([ 'models/base_model','views/utilities/datas_util'], function(BaseModel,D
 				
 			},
 
-			saveEstimateDetails : function(estId){
-				var estimateDetails = this.get("estimateDetails");
-				var self = this;
-				db.transaction(function (tx) {
-					//Save Estimate details.
-					tx.executeSql('CREATE TABLE IF NOT EXISTS UserEstimateHistory (EstimateID,nameOfWork,Type,Category,Cost)');
-					var nameOfWork = estimateDetails.nameofthework;
-					var type = estimateDetails.Type;
-					var category = estimateDetails.Category;
-					var cost = estimateDetails.Cost;
-					
-					 console.log('INSERT INTO UserEstimateHistory (EstimateID,nameOfWork,Type,Category,Cost) VALUES ("'+estId+'","'+nameOfWork+'","'+type+'","'+category+'","'+cost+'")');
-				   tx.executeSql('INSERT INTO UserEstimateHistory (EstimateID,nameOfWork,Type,Category,Cost) VALUES ("'+estId+'","'+nameOfWork+'","'+type+'","'+category+'","'+cost+'")');
-				   
-				   //Save Lead Data
-				   var leadMaterials = self.get("listOfLeadMaterials");
-				   tx.executeSql('CREATE TABLE IF NOT EXISTS UserLeadData (EstimateID,material,sourceOfSupply,initialCost,convCharges,seigCharges,totalCost,unit,isMetal,code,loadMeans,unLoadMeans,considerIdleCharges)');
-					for(var material in leadMaterials){
-						var materialRow = leadMaterials[material];
-						var material = materialRow.material;
-						var sourceOfSupply = materialRow.sourceOfSupply;
-						var initialCost = materialRow.initialCost;
-						var convCharges = materialRow.convCharges;
-						var seigCharges = materialRow.seigCharges;
-						var totalCost = materialRow.totalCost;
-						var unit = materialRow.unit;
-						var isMetal = materialRow.isMetal;
-						var code = materialRow.code;
-						var loadMeans = materialRow.loadMeans;
-						var unLoadMeans = materialRow.unLoadMeans;
-						var considerIdleCharges = materialRow.considerIdleCharges;
-						  console.log('INSERT INTO UserLeadData (EstimateID,material,sourceOfSupply,initialCost,convCharges,seigCharges,totalCost,unit,isMetal,code,loadMeans,unLoadMeans,considerIdleCharges) VALUES ("'+estId+'","'+material+'","'+sourceOfSupply+'","'+initialCost+'","'+convCharges+'","'+seigCharges+'","'+totalCost+'","'+unit+'","'+isMetal+'","'+code+'","'+loadMeans+'","'+unLoadMeans+'","'+considerIdleCharges+'")')
-						tx.executeSql('INSERT INTO UserLeadData (EstimateID,material,sourceOfSupply,initialCost,convCharges,seigCharges,totalCost,unit,isMetal,code,loadMeans,unLoadMeans,considerIdleCharges) VALUES ("'+estId+'","'+material+'","'+sourceOfSupply+'","'+initialCost+'","'+convCharges+'","'+seigCharges+'","'+totalCost+'","'+unit+'","'+isMetal+'","'+code+'","'+loadMeans+'","'+unLoadMeans+'","'+considerIdleCharges+'")');		
-					}
-					
-					//Save LBD's
-					tx.executeSql('CREATE TABLE IF NOT EXISTS UserEstimateLBDs (EstimateID,dataCode,NOs,Length,breadth,depth)');
-					var datasToLBDs = self.get("codeToRates");
-					for(var data in datasToLBDs){						
-						var dataCode = '';
-						var NOs = '';
-						var Length = '';
-						var breadth = '';
-						var depth = '';
-						var lbdData = '';
-						if(datasToLBDs[data].subBullets.length > 0){
-							var subBullets = datasToLBDs[data].subBullets;
-							for(var subitem in subBullets){
-								lbdData = subBullets[subitem].lbds;
-								dataCode = lbdData.dataItem +'*'+lbdData.subItem;
-								NOs = lbdData.NOs;
-								Length = lbdData.length;
-								breadth = lbdData.breadth;
-								depth = lbdData.depth;	
-								console.log('INSERT INTO UserEstimateLBDs (EstimateID,dataCode,NOs,Length,breadth,depth) VALUES ("'+estId+'","'+dataCode+'","'+NOs+'","'+Length+'","'+breadth+'","'+depth+'")');
-							  tx.executeSql('INSERT INTO UserEstimateLBDs (EstimateID,dataCode,NOs,Length,breadth,depth) VALUES ("'+estId+'","'+dataCode+'","'+NOs+'","'+Length+'","'+breadth+'","'+depth+'")');
-							}
-						}else{
-							lbdData = datasToLBDs[data].lbds;
-							dataCode = lbdData.dataItem;
-							NOs = lbdData.NOs;
-							Length = lbdData.length;
-							breadth = lbdData.breadth;
-							depth = lbdData.depth;		
-							  console.log('INSERT INTO UserEstimateLBDs (EstimateID,dataCode,NOs,Length,breadth,depth) VALUES ("'+estId+'","'+dataCode+'","'+NOs+'","'+Length+'","'+breadth+'","'+depth+'")');
-							tx.executeSql('INSERT INTO UserEstimateLBDs (EstimateID,dataCode,NOs,Length,breadth,depth) VALUES ("'+estId+'","'+dataCode+'","'+NOs+'","'+Length+'","'+breadth+'","'+depth+'")');
-						}	
-					}
-					
-					//Save Data's
-					tx.executeSql('CREATE TABLE IF NOT EXISTS UserEstimateDatas (EstimateID,data,tableName,removedDatas)');
-					var selectedDatas = self.get("selectedItemsForEstimate");
-					for(var data in selectedDatas){
-						var dataCode = selectedDatas[data].indexCode;
-						var tableName = selectedDatas[data].tableName;
-						var subItemsArr = selectedDatas[data].selectedSubItems;
-						if(subItemsArr.length > 0){
-							for(var subItemsArr in subItemsArr){
-								dataCode += '*'+subItemsArr[subItemsArr]
-							}
-						}
-						console.log('INSERT INTO UserEstimateDatas (EstimateID,data,tableName,removedDatas) VALUES ("'+estId+'","'+dataCode+'","'+'","'+tableName+'","'+'")');
-					  tx.executeSql('INSERT INTO UserEstimateDatas (EstimateID,data,tableName,removedDatas) VALUES ("'+estId+'","'+dataCode+'","'+'","'+tableName+'","'+'")');
-					}
-					
-					
-				});
-			},
+			
 			createCopyOfEstimate : function(newEstId,parentEstId){
 				var self = this;
 				db.transaction(function (tx) {
@@ -746,7 +664,7 @@ define([ 'models/base_model','views/utilities/datas_util'], function(BaseModel,D
 						self.getDatasForEstimate();
 					});
 				})
-			}
+			},
 		
 			/*,
 			getMaterialsTobeConsideredInLead:function(){

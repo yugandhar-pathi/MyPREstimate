@@ -72,7 +72,7 @@ define(['models/headerfootermodel'], function(HeaderFooterModel) {
 					this.changePage('views/chooseitem_view',new HeaderFooterModel({
 						isFooterRequired : false,
 						isHeaderRequired : true,
-						isBackButtonRequired : false,
+						isBackButtonRequired : true,
 						headerTitle:"Default Datas",
 						backButtonHREF : 'selectestimate'
 					}));

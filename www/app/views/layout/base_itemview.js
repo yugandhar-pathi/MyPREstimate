@@ -2,7 +2,7 @@
 define([], function() {
 
 	var Base_ItemView = Backbone.Marionette.ItemView.extend({
-
+		
 		attributes : function() {
 			return {
 				'role' : 'main',

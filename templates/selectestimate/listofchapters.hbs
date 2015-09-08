@@ -1,31 +1,115 @@
-<p><strong><i>From which chapter do you wish to select ?</i></strong></p>
-<div class="ui-grid-b">
-	<div class="ui-block-a listOfChapters"><div data-table="LUCANDC" class="ui-bar ui-bar-a" style="height:70px">1.LOADING, UNLOADING, CARRIAGE and CRUSHING OF MATERIALS</div></div>
-	<div class="ui-block-b listOfChapters"><div data-table="SiteClearence" class="ui-bar ui-bar-a" style="height:70px">2.SITE CLEARANCE</div></div>
-	<div class="ui-block-c listOfChapters"><div data-table="EECD" class="ui-bar ui-bar-a" style="height:70px">3.EARTHWORK, EROSION CONTROL AND DRAINAGE</div></div>
-</div><!-- /grid-b -->
-<div class="ui-grid-b">
-	<div class="ui-block-a listOfChapters"><div data-table="GranSubBases" class="ui-bar ui-bar-d" style="height:70px">4.GRANULAR SUB-BASES, BASES (NON-BITUMINOUS) AND SHOULDERS</div></div>
-	<div class="ui-block-b listOfChapters"><div data-table="BasesAndSurface" class="ui-bar ui-bar-d" style="height:70px">5.BASES AND SURFACE COURSES (BITUMINOUS)</div></div>
-	<div class="ui-block-c listOfChapters"><div data-table="CCPAVEMENT" class="ui-bar ui-bar-d" style="height:70px">6.CEMENT CONCRETE PAVEMENT</div></div>
-</div><!-- /grid-b -->
-<div class="ui-grid-b">
-	<div class="ui-block-a listOfChapters" ><div data-table="CauAndSubMerBridges" class="ui-bar ui-bar-c" style="height:70px">7.CAUSEWAY AND SUBMERSIBLE BRIDGES</div></div>
-	<div class="ui-block-b listOfChapters" ><div data-table="HillRoads" class="ui-bar ui-bar-c" style="height:70px">8.HILL ROADS</div></div>
-	<div class="ui-block-c listOfChapters" ><div data-table="PipeCulverts" class="ui-bar ui-bar-c" style="height:70px">9.PIPE CULVERTS</div></div>
-</div><!-- /grid-b -->
-<div class="ui-grid-b">
-	<div class="ui-block-a listOfChapters"><div data-table="TrafficSigns" class="ui-bar ui-bar-d" style="height:70px">10.TRAFFIC SIGNS, MARKINGS AND OTHER ROAD APPURTENANCES</div></div>
-	<div class="ui-block-b listOfChapters"><div data-table="Foundation" class="ui-bar ui-bar-d" style="height:70px">11.FOUNDATION</div></div>
-	<div class="ui-block-c listOfChapters"><div data-table="SubStructure" class="ui-bar ui-bar-d" style="height:70px">12.SUBSTRUCTURE</div></div>
-</div><!-- /grid-b -->
-<div class="ui-grid-b">
-	<div class="ui-block-a listOfChapters"><div data-table="SuperStructure" class="ui-bar ui-bar-a" style="height:70px">13.SUPERSTRUCTURE</div></div>
-	<div class="ui-block-b listOfChapters"><div data-table="ProtectionWorks" class="ui-bar ui-bar-a" style="height:70px">14.PROTECTION WORKS</div></div>
-	<div class="ui-block-c listOfChapters"><div data-table="MaintOfRoads" class="ui-bar ui-bar-a" style="height:70px">15.MAINTENANCE OF ROADS</div></div>
-</div><!-- /grid-b -->
-<div class="ui-grid-b">
-	<div class="ui-block-a listOfChapters"><div data-table="GEOSYNTHETICS" class="ui-bar ui-bar-d" style="height:70px">16.GEOSYNTHETICS AND REINFORCED EARTH</div></div>
-	<div class="ui-block-b listOfChapters"><div data-table="Horticulture" class="ui-bar ui-bar-d" style="height:70px">17.Horticulture</div></div>
-	<div class="ui-block-c listOfChapters"><div data-table="Repair" class="ui-bar ui-bar-d" style="height:70px">18.REPAIR AND REHABILITATION</div></div>
-</div><!-- /grid-b -->
+
+<!-- <p><strong><i>From which chapter do you wish to select ?</i></strong></p> -->
+
+<div data-role="tabs" id="tabs">
+	 <div data-role="navbar">
+	 	<ul id="dataBooks">
+		  <li id="RAndB"><a href="#RoadsNBridges" data-ajax="false" class="ui-btn-active">Roads And Bridges</a></li>
+		  <li id="Build"><a href="#buildings" data-ajax="false">Buildings</a></li>
+		  <li id="electricItems"><a href="#elecItems" data-ajax="false">Electrical Items</a></li>
+		</ul>
+	 </div>
+	 <div id="RoadsNBridges" style="margin-top:2%">
+		<div class="ui-grid-b">
+			<div class="ui-block-a listOfChapters"><div data-table="LUCANDC" class="ui-bar ui-bar-a" style="height:70px">1.LOADING, UNLOADING, CARRIAGE and CRUSHING OF MATERIALS</div></div>
+			<div class="ui-block-b listOfChapters"><div data-table="SiteClearence" class="ui-bar ui-bar-a" style="height:70px">2.SITE CLEARANCE</div></div>
+			<div class="ui-block-c listOfChapters"><div data-table="EECD" class="ui-bar ui-bar-a" style="height:70px">3.EARTHWORK, EROSION CONTROL AND DRAINAGE</div></div>
+		</div><!-- /grid-b -->
+		<div class="ui-grid-b">
+			<div class="ui-block-a listOfChapters"><div data-table="GranSubBases" class="ui-bar ui-bar-d" style="height:70px">4.GRANULAR SUB-BASES, BASES (NON-BITUMINOUS) AND SHOULDERS</div></div>
+			<div class="ui-block-b listOfChapters"><div data-table="BasesAndSurface" class="ui-bar ui-bar-d" style="height:70px">5.BASES AND SURFACE COURSES (BITUMINOUS)</div></div>
+			<div class="ui-block-c listOfChapters"><div data-table="CCPAVEMENT" class="ui-bar ui-bar-d" style="height:70px">6.CEMENT CONCRETE PAVEMENT</div></div>
+		</div><!-- /grid-b -->
+		<div class="ui-grid-b">
+			<div class="ui-block-a listOfChapters" ><div data-table="CauAndSubMerBridges" class="ui-bar ui-bar-c" style="height:70px">7.CAUSEWAY AND SUBMERSIBLE BRIDGES</div></div>
+			<div class="ui-block-b listOfChapters" ><div data-table="HillRoads" class="ui-bar ui-bar-c" style="height:70px">8.HILL ROADS</div></div>
+			<div class="ui-block-c listOfChapters" ><div data-table="PipeCulverts" class="ui-bar ui-bar-c" style="height:70px">9.PIPE CULVERTS</div></div>
+		</div><!-- /grid-b -->
+		<div class="ui-grid-b">
+			<div class="ui-block-a listOfChapters"><div data-table="TrafficSigns" class="ui-bar ui-bar-d" style="height:70px">10.TRAFFIC SIGNS, MARKINGS AND OTHER ROAD APPURTENANCES</div></div>
+			<div class="ui-block-b listOfChapters"><div data-table="Foundation" class="ui-bar ui-bar-d" style="height:70px">11.FOUNDATION</div></div>
+			<div class="ui-block-c listOfChapters"><div data-table="SubStructure" class="ui-bar ui-bar-d" style="height:70px">12.SUBSTRUCTURE</div></div>
+		</div><!-- /grid-b -->
+		<div class="ui-grid-b">
+			<div class="ui-block-a listOfChapters"><div data-table="SuperStructure" class="ui-bar ui-bar-a" style="height:70px">13.SUPERSTRUCTURE</div></div>
+			<div class="ui-block-b listOfChapters"><div data-table="ProtectionWorks" class="ui-bar ui-bar-a" style="height:70px">14.PROTECTION WORKS</div></div>
+			<div class="ui-block-c listOfChapters"><div data-table="MaintOfRoads" class="ui-bar ui-bar-a" style="height:70px">15.MAINTENANCE OF ROADS</div></div>
+		</div><!-- /grid-b -->
+		<div class="ui-grid-b">
+			<div class="ui-block-a listOfChapters"><div data-table="GEOSYNTHETICS" class="ui-bar ui-bar-d" style="height:70px">16.GEOSYNTHETICS AND REINFORCED EARTH</div></div>
+			<div class="ui-block-b listOfChapters"><div data-table="Horticulture" class="ui-bar ui-bar-d" style="height:70px">17.Horticulture</div></div>
+			<div class="ui-block-c listOfChapters"><div data-table="Repair" class="ui-bar ui-bar-d" style="height:70px">18.REPAIR AND REHABILITATION</div></div>
+		</div><!-- /grid-b -->
+	</div>
+	<div id ="buildings" style="margin-top:2%">
+		<div class="ui-grid-b">
+			<div class="ui-block-a listOfChapters"><div data-table="Mortar" class="ui-bar ui-bar-a" style="height:70px">1.MORTARS</div></div>
+			<div class="ui-block-b listOfChapters"><div data-table="Earthwork" class="ui-bar ui-bar-a" style="height:70px">2.EARTH WORK EXCAVATION FOR FOUNDATIONS</div></div>
+			<div class="ui-block-c listOfChapters"><div data-table="ConcreteDampProof" class="ui-bar ui-bar-a" style="height:70px">3.CONCRETE, DAMP PROOF COURSE & REINFORCEMENT</div></div>
+		</div><!-- /grid-b -->
+		<div class="ui-grid-b">
+			<div class="ui-block-a listOfChapters"><div data-table="BarInFoundation" class="ui-bar ui-bar-d" style="height:70px">4.Supplying, fitting and placing HYSD bar reinforcement in foundation</div></div>
+			<div class="ui-block-b listOfChapters"><div data-table="Brickwork" class="ui-bar ui-bar-d" style="height:70px">5.BRICK WORK, HONEY - COMBWORK</div></div>
+			<div class="ui-block-c listOfChapters"><div data-table="StoneMasonary" class="ui-bar ui-bar-d" style="height:70px">6.STONE MASONRY, DAMP PROOF COURSE, DRY STONE PACKING, QUARRY RUBBISH & GRAVEL BACKING</div></div>
+		</div><!-- /grid-b -->
+		<div class="ui-grid-b">
+			<div class="ui-block-a listOfChapters" ><div data-table="Pointing" class="ui-bar ui-bar-c" style="height:70px">7.POINTING</div></div>
+			<div class="ui-block-b listOfChapters" ><div data-table="Plastering" class="ui-bar ui-bar-c" style="height:70px">8.PLASTERING</div></div>
+			<div class="ui-block-c listOfChapters" ><div data-table="Flooring" class="ui-bar ui-bar-c" style="height:70px">9.FLOORING</div></div>
+		</div><!-- /grid-b -->
+		<div class="ui-grid-b">
+			<div class="ui-block-a listOfChapters"><div data-table="RoofingAndCeiling" class="ui-bar ui-bar-d" style="height:70px">10.ROOFING & CEILING</div></div>
+			<div class="ui-block-b listOfChapters"><div data-table="WhiteWashing" class="ui-bar ui-bar-d" style="height:70px">11.WHITE WASHING, COLOUR WASHING & DISTEMPERING</div></div>
+			<div class="ui-block-c listOfChapters"><div data-table="PaintingAndVarnishing" class="ui-bar ui-bar-d" style="height:70px">12.PAINTING & VARNISHING</div></div>
+		</div><!-- /grid-b -->
+		<div class="ui-grid-b">
+			<div class="ui-block-a listOfChapters"><div data-table="WoodWork" class="ui-bar ui-bar-a" style="height:70px">13.WOOD WORK, ALUMINUM DOORS, WINDOWS, VENTILATORS Etc.,</div></div>
+			<div class="ui-block-b listOfChapters"><div data-table="DismantlingAndDemolition" class="ui-bar ui-bar-a" style="height:70px">14.DISMANTLING & DEMOLITION</div></div>
+			<div class="ui-block-c listOfChapters"><div data-table="MISCELLANEOUS" class="ui-bar ui-bar-a" style="height:70px">15.MISCELLANEOUS BUILDING ITEMS </div></div>
+		</div><!-- /grid-b -->
+		<div class="ui-grid-b">
+			<div class="ui-block-a listOfChapters"><div data-table="ANTETERMITETREATMENT" class="ui-bar ui-bar-d" style="height:70px">16.ANTE-TERMITE TREATMENT</div></div>
+			<div class="ui-block-b listOfChapters"><div data-table="Centring" class="ui-bar ui-bar-d" style="height:70px">17.CENTERING, FORM WORK etc.</div></div>
+			<div class="ui-block-c listOfChapters"><div data-table="" class="ui-bar ui-bar-d" style="height:70px">18.User Defined Data's</div></div>
+		</div><!-- /grid-b -->
+	</div>
+	<div id ="elecItems" style="margin-top:2%">
+		<div class="ui-grid-b">
+			<div class="ui-block-a listOfChapters"><div data-table="CONDUITLAYING" class="ui-bar ui-bar-a" style="height:70px">1.CONDUIT LAYING</div></div>
+			<div class="ui-block-b listOfChapters"><div data-table="WIRING" class="ui-bar ui-bar-a" style="height:70px">2.WIRING</div></div>
+			<div class="ui-block-c listOfChapters"><div data-table="RUNOFMAINS" class="ui-bar ui-bar-a" style="height:70px">3.RUN OF MAINS</div></div>
+		</div><!-- /grid-b -->
+		<div class="ui-grid-b">
+			<div class="ui-block-a listOfChapters"><div data-table="SWITCHGEAR" class="ui-bar ui-bar-d" style="height:70px">4.SWITCH GEAR & MCB DISTRIBUTION BOARD</div></div>
+			<div class="ui-block-b listOfChapters"><div data-table="EARTHING" class="ui-bar ui-bar-d" style="height:70px">5.EARTHING</div></div>
+			<div class="ui-block-c listOfChapters"><div data-table="SERVICEMAINS" class="ui-bar ui-bar-d" style="height:70px">6.SERVICE MAINS & LTOH LINES</div></div>
+		</div><!-- /grid-b -->
+		<div class="ui-grid-b">
+			<div class="ui-block-a listOfChapters" ><div data-table="STREETLIGHT" class="ui-bar ui-bar-c" style="height:70px">7.STREET LIGHT LUMINARIES</div></div>
+			<div class="ui-block-b listOfChapters" ><div data-table="INTERNALLUMINAIRE" class="ui-bar ui-bar-c" style="height:70px">8.INTERNAL LUMINAIRE</div></div>
+			<div class="ui-block-c listOfChapters" ><div data-table="ACANDREFRIGERATION" class="ui-bar ui-bar-c" style="height:70px">9.AC AND REFRIGERATION , FANS</div></div>
+		</div><!-- /grid-b -->
+		<div class="ui-grid-b">
+			<div class="ui-block-a listOfChapters"><div data-table="WATERHEATERS" class="ui-bar ui-bar-d" style="height:70px">10.WATER HEATERS</div></div>
+			<div class="ui-block-b listOfChapters"><div data-table="WATERPUMPS" class="ui-bar ui-bar-d" style="height:70px">11.WATER PUMPS</div></div>
+			<div class="ui-block-c listOfChapters"><div data-table="BUSBARS" class="ui-bar ui-bar-d" style="height:70px">12.BUS BARS</div></div>
+		</div><!-- /grid-b -->
+		<div class="ui-grid-b">
+			<div class="ui-block-a listOfChapters"><div data-table="SWAGEDPOLES" class="ui-bar ui-bar-a" style="height:70px">13.SWAGED POLES</div></div>
+			<div class="ui-block-b listOfChapters"><div data-table="CONTROLPANEL" class="ui-bar ui-bar-a" style="height:70px">14.CONTROL PANEL & METERING EQUIPMENT</div></div>
+			<div class="ui-block-c listOfChapters"><div data-table="CABLES" class="ui-bar ui-bar-a" style="height:70px">15.CABLES / CABLE GLANDS / LUGS</div></div>
+		</div><!-- /grid-b -->
+		<div class="ui-grid-b">
+			<div class="ui-block-a listOfChapters"><div data-table="TEMPORARY" class="ui-bar ui-bar-d" style="height:70px">16.TEMPORARY ILLUMINATION</div></div>
+			<div class="ui-block-b listOfChapters"><div data-table="GENERATORS" class="ui-bar ui-bar-d" style="height:70px">17.GENERATORS AND TRANSFORMERS</div></div>
+			<div class="ui-block-c listOfChapters"><div data-table="REPAIRSTOMOTORS" class="ui-bar ui-bar-d" style="height:70px">18.REPAIRS TO MOTORS & REWINDING</div></div>
+		</div><!-- /grid-b -->
+	</div>
+</div>
+
+<div data-role="popup" id="datasPopup" class="ui-content" data-overlay-theme="b" style="width:800px;height:450px;overflow-x:hidden">
+	<div id="datasInChapter"></div>
+</div>
+<div data-role="popup" id="detailsPopup" class="ui-content" data-overlay-theme="b" style="width:800px;height:450px;overflow-y:scroll;overflow-x:hidden">
+	<div id="dataCodeDetails"></div>
+</div>

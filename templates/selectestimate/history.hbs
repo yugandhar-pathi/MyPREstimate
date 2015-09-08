@@ -1,0 +1,33 @@
+<p><strong><i>List of estimates you created:</i></strong><p>
+
+ <div id="tableContainer">
+	<table data-role="table" class="table-stroke table-stripe ui-responsive">
+	  <thead>
+	  <tr>
+	    <th>Sl.No</th>
+	    <th>Type of the work</th>
+	    <th>Name of the work</th>
+	    <th>Cost</th>
+	  </tr>
+	  </thead>
+	  <tbody id="listOfEstimates">
+		  {{#each estimateHistory}}
+			  <tr data-estId="{{EstimateID}}">
+			    <td>{{add @index 1}}</td>
+			    <td>{{Type}}</td>
+			    <td>{{nameOfWork}}</td>
+			    <td>{{Cost}}</td>
+			  </tr>
+		  {{/each}}
+	  </tbody>
+	</table>
+</div>	
+<div data-role="popup" id="histOptions" data-arrow="true" class="ui-content ui-bar-d" style="width:120%">
+ 	<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+ 	<ul data-role="listview" id="listOfOptions" data-icon="false">
+ 		<li>Create Copy</li>
+ 		<li>Edit</li>	
+ 		<li>e-mail</li>
+ 		<li>Delete</li>
+ 	</ul>
+</div>

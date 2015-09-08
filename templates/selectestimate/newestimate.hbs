@@ -1,0 +1,60 @@
+<div class="ui-bar-c" id="0">
+	<div class="ui-grid-a" style="margin:1em">
+		<div class="ui-block-a">
+			<h2>Category<sup style="color:red"><b>*</b></sup><i>:&nbsp;<span id="selCategory"></span></i></h2>
+		</div>
+		<div class="ui-block-b">
+			<div style="margin-top:0.8em">
+				<input type="button" data-inline="true" data-theme="d" data-mini="true" value="Select" id="selectCategory"/>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="ui-bar-c" id="1">
+	<div class="ui-grid-a" style="margin:1em">
+		<div class="ui-block-a">
+			<h2>Type<sup style="color:red"><b>*</b></sup><i>:&nbsp;<span id="selType"></span></i></h2>
+		</div>
+		<div class="ui-block-b">
+			<div style="margin-top:0.8em">
+				<input type="button" data-inline="true" data-theme="d" data-mini="true" value="Select" id="selectType"/>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="ui-bar-c" id="2">
+	<div class="ui-grid-a" style="margin:1em">
+		<div class="ui-block-a" style="width:30%">
+			<h2>Name of the work<sup style="color:red"><b>*</b></sup>:&nbsp;</h2>
+		</div>
+		<div class="ui-block-b" style="width:70%;">
+			<div style="margin-top:0.8em">
+				<textarea name="textarea" id="nameOfWork"></textarea>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="footer-buttons">
+	<hr />
+	<div class="ui-grid-a">
+		<div class="ui-block-a footer-left">
+			<input type="button" value="Clear Selection" data-inline="true"/>
+		</div>
+		<div class="ui-block-b footer-right">
+			<input type="button" data-inline="true" data-icon="arrow-r" data-iconpos="right" value="Proceed To Estimate" id="displayDefaults"/>
+		</div>
+	</div>
+</div>
+
+
+<div data-role="popup" id="selectPopup" data-arrow="true" class="ui-content ui-bar-d">
+ 	<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+ 	<ul data-role="listview" id="listOfOptions" data-icon="false">
+ 	</ul>
+</div>
+
+
+
+

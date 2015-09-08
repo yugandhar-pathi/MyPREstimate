@@ -1,94 +1,225 @@
-<table data-role="table" class="ui-body-d ui-shadow table-stripe ui-responsive">
-<thead>
-  <tr>
-  	<th>Sl.No</th>
-  	<th>Description of material</th>
-  	<th>Source of supply</th>
-  	<th>Lead in KM</th>
-  	<th>Initial Cost</th>
-  	<th>Conveyance Charges</th>
-  	<th>Seig-Charges balance</th>
-  	<th>Deduct stacting char</th>
-  	<th>Total Cost</th>
-  	<th>Unit</th>
-  </tr>
- </thead>
- <tbody>
-  <tr>
-  	<td>1</td>
-  	<td>2</td>
-  	<td>3</td>
-  	<td>4</td>
-  	<td>5</td>
-  	<td>6</td>
-  	<td>7</td>
-  	<td>8</td>
-  	<td>9</td>
-  	<td>10</td>
-  </tr>
-  {{#each listOfLeadMaterials}}
-    <tr class="leadRows">
-    	{{#if isMetal}}
-	  		<td rowspan="3">{{add @index 1}}</td>
-	  		<td rowspan="3"><div class="material" style="padding:1px;border:1px dotted blue" id="{{@index}}">{{material}}</div></td>
-	  	{{else}}
-	  		<td>{{add @index 1}}</td>
-	  		<td><div class="material" style="padding:1px;border:1px dotted blue" id="{{@index}}">{{material}}</div></td>
-	  	{{/if}}
-  		<td><div id="source{{@index}}">{{sourceOfSupply}}</div></td>
-	  	{{#if isMetal}}
-		  	<td rowspan="3"><div id="distance{{@index}}">{{leadInKM}}</div></td>
-		{{else}}
-		  	<td><div id="distance{{@index}}">{{leadInKM}}</div></td>		
-		{{/if}}
-		<td><div id="initialCost{{@index}}">{{initialCost}}</div></td>
-		{{#if isMetal}}
-		  	<td rowspan="3"><div id="convCharges{{@index}}">{{convCharges}}</div></td>
-		  	<td rowspan="3"><div id="seigCharges{{@index}}">{{seigCharges}}</div></td>
-		  	<td rowspan="3"></td>
-		  	<td rowspan="3"><div id="totalCost{{@index}}">{{totalCost}}</div></td>
-		  	<td rowspan="3"><div id="unit{{@index}}">{{unit}}</div></td>	
-	  	{{else}}
-		  	<td><div id="convCharges{{@index}}">{{convCharges}}</div></td>
-		  	<td><div id="seigCharges{{@index}}">{{seigCharges}}</div></td>
-		  	<td></td>
-		  	<td><div id="totalCost{{@index}}">{{totalCost}}</div></td>
-		  	<td><div id="unit{{@index}}">{{unit}}</div></td>	
-	  	{{/if}}
-  	</tr>
-  	{{#if isMetal}}
-  	  <tr>
-	  	<td>Blasting charges</td>	  	
-	  	<td>70</td>	
-  	  </tr>
-  	  <tr>
-	  	<td>Machine crushing</td>	 
-	  	<td>246</td>	 	
-  	  </tr>
-  	{{/if}}
-  {{/each}}
 
- </tbody>
-</table>
-
-<input type="submit" id="proceedToDataSheet" value="PROCEED TO DATAS">
-
-<div data-role="popup" id="getData" data-arrow="true" class="ui-content">
- 	<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
- 	<div data-role="fieldset">
-	 	<div class="ui-grid-a">
-			<div class="ui-block-a" style="padding-top:5%;width:50%"><label>Source Of Supply<sup style="color:red"><b>*</b></sup>:</div>
-			<div class="ui-block-b"><input type="text" id="sourceOfSupply"></div>
-		</div><!-- /grid-b -->
-		<div class="ui-grid-a">
-			<div class="ui-block-a" style="padding-top:5%;width:50%"><label>Lead in KM<sup style="color:red"><b>*</b></sup>:</div>
-			<div class="ui-block-b"><input type="text" id="distance"></div>
-		</div><!-- /grid-b -->
-		<div class="ui-grid-b" class="ui-content" style="padding-top:5%">
-			<div class="ui-block-a"><label>Lift By<sup style="color:red"><b>*</b></sup>:</div>
-			<div class="ui-block-b"><div class="ui-grid-a"><div class="ui-block-a"><label style="padding-top:1%">Manual</label></div><div class="ui-block-b" style="padding-top:3%"><input type="radio" name="liftMeans"></div></div></div>
-			<div class="ui-block-c"><div class="ui-grid-a"><div class="ui-block-a"><label style="padding-top:1%">Machine</label></div><div class="ui-block-b" style="padding-top:3%"><input type="radio" name="liftMeans"></div></div></div>
-		</div><!-- /grid-b -->
+	<div class="ui-grid-a" style="border:1px dotted black">
+		<div class="ui-block-a" style="width:30%;border-right:1px dotted black">
+			<p><strong><i>Name of the work:</i></strong></p>
+		</div>
+		<div class="ui-block-b">
+			<p>{{nameofthework}}</p>		
+		</div>
 	</div>
-	<input type="button" value="Save" id="saveLeadData"/>
-</div>
+	
+	<div id="myPdf">
+		<table data-role="table" style="margin-top:2%" class="ui-body-d ui-shadow table-stripe ui-responsive">
+		<thead>
+		  <tr>
+		  	<th>Sl.No</th>
+		  	<th>Description of material</th>
+		  	<th>Source of supply</th>
+		  	<th>Lead in KM</th>
+		  	<th>Initial Cost</th>
+		  	<th>Conveyance Charges</th>
+		  	<th>Seig-Charges balance</th>
+		  	<th>Loading/Unloading charges</th>
+		  	<th>Total Cost</th>
+		  	<th>Unit</th>
+		  </tr>
+		 </thead>
+		 <tbody>
+		  <tr>
+		  	<td>1</td>
+		  	<td>2</td>
+		  	<td>3</td>
+		  	<td>4</td>
+		  	<td>5</td>
+		  	<td>6</td>
+		  	<td>7</td>
+		  	<td>8</td>
+		  	<td>9</td>
+		  	<td>10</td>
+		  </tr>
+		  {{#each listOfLeadMaterials}}
+		    <tr class="leadRows">
+		    	{{#if isMetal}}
+			  		<td rowspan="3">{{add @index 1}}</td>
+			  		<td rowspan="3"><div class="material info-button" data-code="{{code}}" id="{{@index}}">{{material}}</div></td>
+			  	{{else}}
+			  		<td>{{add @index 1}}</td>
+			  		<td><div class="material info-button" data-code="{{code}}" id="{{@index}}">{{material}}</div></td>
+			  	{{/if}}
+		  		<td><div id="source{{@index}}">{{sourceOfSupply}}</div></td>
+			  	{{#if isMetal}}
+				  	<td rowspan="3"><div id="distance{{@index}}">{{leadInKM}}</div></td>
+				{{else}}
+				  	<td><div id="distance{{@index}}">{{leadInKM}}</div></td>		
+				{{/if}}
+				<td><div id="initialCost{{@index}}">{{decimalFormat initialCost}}</div></td>
+				{{#if isMetal}}
+				  	<td rowspan="3"><div id="convCharges{{@index}}">{{decimalFormat convCharges}}</div></td>
+				  	<td rowspan="3"><div id="seigCharges{{@index}}">{{decimalFormat seigCharges}}</div></td>
+				  	<td rowspan="3"><div id="LUC{{@index}}"></div></td>
+				  	<td rowspan="3"><div id="totalCost{{@index}}">{{decimalFormat totalCost}}</div></td>
+				  	<td rowspan="3"><div id="unit{{@index}}">{{unit}}</div></td>	
+			  	{{else}}
+				  	<td><div id="convCharges{{@index}}">{{decimalFormat convCharges}}</div></td>
+				  	<td><div id="seigCharges{{@index}}">{{decimalFormat seigCharges}}</div></td>
+				  	<td><div id="LUC{{@index}}"></div></td>
+				  	<td><div id="totalCost{{@index}}">{{decimalFormat totalCost}}</div></td>
+				  	<td><div id="unit{{@index}}">{{unit}}</div></td>	
+			  	{{/if}}
+		  	</tr>
+		  	{{#if isMetal}}
+		  	  <tr>
+			  	<td>Blasting charges</td>	  	
+			  	<td>70</td>	
+		  	  </tr>
+		  	  <tr>
+			  	<td>Machine crushing</td>	 
+			  	<td>246</td>	 	
+		  	  </tr>
+		  	{{/if}}
+		  {{/each}}
+		
+		 </tbody>
+		</table>
+	</div>
+	<input type="submit" id="proceedToDataSheet" value="PROCEED TO DATAS">
+	
+	<div data-role="popup" id="getData" data-arrow="true" class="ui-content" style="width:120%" data-overlay-theme="b">
+	 	<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+	 	<P id="mandatoryText" style="color:red"><i><strong>Please enter all mandatory* fields</strong></i></p>
+	 	<div data-role="fieldset">
+		 	<div class="ui-grid-a">
+				<div class="ui-block-a" style="padding-top:5%;width:50%"><label>Source Of Supply<sup style="color:red"><b>*</b></sup>:</div>
+				<div class="ui-block-b"><input type="text" id="sourceOfSupply"></div>
+			</div><!-- /grid-b -->
+			<div class="ui-grid-a">
+				<div class="ui-block-a" style="padding-top:5%;width:50%"><label>Lead in KM<sup style="color:red"><b>*</b></sup>:</div>
+				<div class="ui-block-b"><input type="text" id="distance"></div>
+			</div><!-- /grid-b -->
+			<div class="ui-grid-c" class="ui-content" style="padding-top:5%" id="loadMeans">
+				<div class="ui-block-a">
+					<label>Loading Charges<sup style="color:red"><b>*</b></sup>:</label>
+				</div>
+				<div class="ui-block-b">
+					<div class="ui-grid-a">
+						<div class="ui-block-a">
+							<label style="padding-top:2%;float:right">Ignore</label>
+						</div>
+						<div class="ui-block-b" style="padding-top:4%">
+							<input type="radio" name="loadMeans" value="ignoreLoad">
+						</div>
+					</div>
+				</div>
+				<div class="ui-block-c">
+					<div class="ui-grid-a">
+						<div class="ui-block-a">
+							<label style="padding-top:2%;float:right">Manual</label>
+						</div>
+						<div class="ui-block-b" style="padding-top:4%">
+							<input type="radio" name="loadMeans" value="manual">
+						</div>
+					</div>
+				</div>
+				<div class="ui-block-d">
+					<div class="ui-grid-a" id="machineryMeans">
+						<div class="ui-block-a">
+							<label style="padding-top:2%;float:right">M/C</label>
+						</div>
+						<div class="ui-block-b" style="padding-top:4%">
+							<input type="radio" name="loadMeans" value="machinery">
+						</div>
+					</div>
+				</div>
+			</div><!-- /grid-c -->
+			<div class="ui-grid-c" class="ui-content" style="padding-top:5%;" id="loadIdleCharges">
+				<div class="ui-block-a">
+					<label>Truck Idle Charges(Load)<sup style="color:red"><b>*</b></sup>:</label>
+				</div>
+				<div class="ui-block-c" id="noIdleCharges">
+					<div class="ui-grid-a">
+						<div class="ui-block-a">
+							<label style="padding-top:4%;float:right">No</label>
+						</div>
+						<div class="ui-block-b" style="padding-top:5%">
+							<input type="radio" name="LIC" value="no">
+						</div>
+					</div>
+				</div>
+				<div class="ui-block-b">
+					<div class="ui-grid-a">
+						<div class="ui-block-a">
+							<label style="padding-top:4%;float:right">Yes</label>
+						</div>
+						<div class="ui-block-b" style="padding-top:5%">
+							<input type="radio" name="LIC" value="yes">
+						</div>
+					</div>
+				</div>
+				<div class="ui-block-d">
+				</div>
+			</div><!-- /grid-c -->
+			<div class="ui-grid-c" class="ui-content" style="padding-top:5%" id="unloadMeans">
+				<div class="ui-block-a">
+					<label>Unloading Charges<sup style="color:red"><b>*</b></sup>:</label>
+				</div>
+				<div class="ui-block-d">
+					<div class="ui-grid-a">
+						<div class="ui-block-a">
+							<label style="padding-top:2%;float:right">Ignore</label>
+						</div>
+						<div class="ui-block-b" style="padding-top:4%">
+							<input type="radio" name="unLoadMeans" value="ignoreUnLoad">
+						</div>
+					</div>
+				</div>
+				<div class="ui-block-b">
+					<div class="ui-grid-a">
+						<div class="ui-block-a">
+							<label style="padding-top:2%;float:right">Manual</label>
+						</div>
+						<div class="ui-block-b" style="padding-top:4%">
+							<input type="radio" name="unLoadMeans" value="manualUnLoad">
+						</div>
+					</div>
+				</div>
+				<div class="ui-block-c">
+					<div class="ui-grid-a" id="machineryMeans">
+						<div class="ui-block-a">
+							<label style="padding-top:2%;float:right">M/C</label>
+						</div>
+						<div class="ui-block-b" style="padding-top:4%">
+							<input type="radio" name="unLoadMeans" value="machineryUnLoad">
+						</div>
+					</div>
+				</div>
+			</div><!-- /grid-c -->
+			<div class="ui-grid-c" class="ui-content" style="padding-top:5%;" id="unloadIdleCharges">
+				<div class="ui-block-a">
+					<label>Truck Idle Charges<sup style="color:red"><b>*</b></sup>:</label>
+				</div>
+				<div class="ui-block-c" id="noIdleCharges">
+					<div class="ui-grid-a">
+						<div class="ui-block-a">
+							<label style="padding-top:4%;float:right">No</label>
+						</div>
+						<div class="ui-block-b" style="padding-top:5%">
+							<input type="radio" name="UIC" value="no">
+						</div>
+					</div>
+				</div>
+				<div class="ui-block-b">
+					<div class="ui-grid-a">
+						<div class="ui-block-a">
+							<label style="padding-top:4%;float:right">Yes</label>
+						</div>
+						<div class="ui-block-b" style="padding-top:5%">
+							<input type="radio" name="UIC" value="yes">
+						</div>
+					</div>
+				</div>
+				<div class="ui-block-d">
+				</div>
+			</div><!-- /grid-c -->
+		</div>
+		<input type="button" value="Save" id="saveLeadData"/>
+	</div>

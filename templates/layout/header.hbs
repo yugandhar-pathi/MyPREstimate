@@ -1,4 +1,23 @@
-{{#if isBackButtonRequired}}
-	<a href="#{{backButtonHREF}}" data-icon="arrow-l">Back</a>
-{{/if}}
-<h1>{{headerTitle}}</h1>
+
+	<div class="ui-grid-b" style="padding-left:120px;margin-top:0.7em">
+		<div class="ui-block-a" style="width:15%">
+			{{#if isBackButtonRequired}}
+				<div id="pageBackKey" style="float:left;margin-top:-0.3em">
+					<input type="button" data-inline="true" onclick="window.location.href='#{{backButtonHREF}}'"  data-icon="back" data-mini="true" data-iconpos="notext" />
+				</div>
+			{{/if}}
+		</div>
+		<div class="ui-block-b" style="width:70%">
+			<h2 style= "display:inline">{{headerTitle}}</h2>
+		</div>
+		<div class="ui-block-c" style="width:15%">
+			{{#if isRightButtonRequired}}
+				<div id="rightButton" style="margin-top:-0.3em">
+					<input type="button" id="{{rightButtonID}}" data-inline="true" data-mini="true" value="{{rightButtonValue}}"/>
+				</div>
+			{{/if}}
+		</div>
+	</div>
+
+<hr />
+

@@ -1,5 +1,6 @@
+
 <p><strong><i>Default datas for CC Road estimation:<i></strong></p>			
-<div>
+<div id="testPdf">
 	<table data-role="table" class="ui-body-d ui-shadow table-stripe ui-responsive">
 	<thead>
 	  <tr>
@@ -13,7 +14,7 @@
 	  {{#each indexToDatasArray}}
 		  <tr class="{{this.IndexCode}}">
 		    <td>{{add @index 1}}</td>
-		    <td><div class="dataCode" style="padding:1px;border:1px dotted blue">{{this.IndexCode}}</div></td>
+		    <td><div class="dataCode info-button">{{this.IndexCode}}</div></td>
 		    <td>{{this.description}}</td>
 		    <td><input data-table="{{this.TableName}}" type="checkbox" name="itemsSelected" checked id="{{this.IndexCode}}"/></td>
 		  </tr>
@@ -29,8 +30,23 @@
 	  </tbody>
 	</table>
 </div>
-<input type="submit" onclick="window.location.href='#listOfChapters'" value="Add Other Items to Estimate">
-<input type="submit" id="proceedToLeadStmt" value="Proceed To Lead Statement">
+
+<br/>
+<br/>
+<br/>
+<br/>
+
+<div class="footer-buttons">
+	<hr />
+	<div class="ui-grid-a">
+		<div class="ui-block-a footer-left">
+			<input type="button" id="addDatas" data-icon="plus" data-iconpos="left" value="Add More Datas" data-inline="true"/>
+		</div>
+		<div class="ui-block-b footer-right">
+			<input type="button" data-inline="true" data-icon="arrow-r" data-iconpos="right" value="Proceed To Lead" id="proceedToLeadStmt"/>
+		</div>
+	</div>
+</div>
 
 <div data-role="popup" id="deleteData" data-arrow="true" class="ui-content">
  	<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>

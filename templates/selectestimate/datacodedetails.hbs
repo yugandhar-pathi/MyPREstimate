@@ -1,0 +1,83 @@
+<div class="ui-grid-b" style="margin-top:0.7em">
+	<div class="ui-block-a" style="width:15%;">
+		<div style="margin-top:-0.3em">
+			<input type="button" id="backToPopup" data-inline="true" data-icon="back" data-mini="true" data-iconpos="notext" />
+		</div>
+	</div>
+	<div class="ui-block-b" style="width:70%;text-align:center">
+		<h2 style= "display:inline;">{{dataCodeDetails.indexCode}}</h2>
+	</div>
+	<div class="ui-block-c" style="width:15%">
+
+	</div>
+</div>
+
+<hr />
+
+
+	<table data-role="table" class="ui-body-d ui-shadow table-stripe ui-responsive">
+		<thead>
+		  <tr>
+		    <th colspan="2">Quantity</th>
+		    <th>Description</th>
+		    <th>Rate</th>
+		    <th colspan="2">Per</th>
+		    <th>Amount</th>
+		  </tr>
+		</thead>
+		<tbody>
+		  	{{#each dataCodeDetails.itemsArr}}
+		  		{{#compare @index 0 operator="=="}}
+			      <tr>
+			      	<td><strong>{{IndexCode}}</strong></td>
+			  		<td><strong>{{add ../../itemIndex 1}}</strong></td>
+			  		<td colspan="2"><strong>{{Description}}</strong></td>
+			  		<td></td>
+			  		<td></td>
+			  		<td></td>	
+			  	  </tr>		
+		  		{{else}}
+		  		  {{#isNull SubBullet}}
+					  <tr>
+					    <td>{{Quantity}}</td>
+					    <td>{{Unit}}</td>
+					    {{#compare descType "Normal" operator="=="}}
+					    	<td>{{Description}}</td>
+					    {{else}}
+					    	{{#compare descType "RateOrCost" operator="=="}}
+						    	<td style="color:red"><strong>{{Description}}</strong></td>
+						    {{else}}
+						    	<td><strong>{{Description}}</strong></td>				    	
+						    {{/compare}}			    
+					    {{/compare}}
+					    	<td>{{RateRs}}</td>
+					    {{#isNull Unit}}
+					    	<td></td>
+					    {{else}}
+					    	<td>1</td>
+					    {{/isNull}}
+					    <td>{{Unit}}</td>
+					    {{#isNull Amount}}
+					    	<td>{{Amount}}</td>
+					    {{else}}
+					    	<td>{{renderHTMLwithSplitAmount Amount}}</td>  
+					    {{/isNull}}
+					  </tr>
+				  {{else}}
+					 <tr>
+					    <td>{{Quantity}}</td>
+					    <td><strong>{{SubBullet}}</strong></td>
+					    <td><strong>{{Description}}</strong></td>
+					     <td>{{RateRs}}</td>
+					    <td></td>
+					    <td>{{Unit}}</td>
+					    <td><input type="radio" name="{{ ../../../code}}"</td>
+					  </tr>		  		  
+				  {{/isNull}}
+			  	{{/compare}}
+		  	{{/each}}
+
+		  </tbody>
+	</table>
+
+

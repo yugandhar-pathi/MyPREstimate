@@ -1,14 +1,45 @@
+<!--
+<div style="text-align:center">
+		<div style="float:left;margin-top:-0.3em">
+			<input type="button" id="backButton" data-inline="true" data-icon="back" data-mini="true" data-iconpos="notext" />
+		</div>
+		<h2 style= "display:inline">{{chapterTitle}}</h2>
+		<div style="float:right;margin-top:-0.5em"">
+			<input type="button" id="addToQ" value="Add To Q" data-inline="true" data-icon="plus" data-mini="true" data-iconpos="right" />
+		</div>
+	<hr />
+</div>
+-->
+<div class="ui-grid-b" style="margin-top:0.7em">
+	<div class="ui-block-a" style="width:15%;">
+		<div style="margin-top:-0.3em">
+			<input type="button" id="backButton" data-inline="true" data-icon="back" data-mini="true" data-iconpos="notext" />
+		</div>
+	</div>
+	<div class="ui-block-b" style="width:70%;text-align:center">
+		<h2 style= "display:inline;">{{chapterTitle}}</h2>
+	</div>
+	<div class="ui-block-c" style="width:15%">
+		{{#if datasAsService}}
+			<div style="float:right;margin-top:-0.3em">
+				<input type="button" id="updateEst" value="Update Est" data-inline="true" data-icon="plus" data-mini="true" data-iconpos="right" />
+			</div>
+		{{/if}}
+	</div>
+</div>
 
-<p><strong><i>Datas in {{chapterTitle}}:</i></strong><p>
+<hr />
 
- <div id="tableContainer">
+ <div id="tableContainer" style="padding-top:2em">
 	<table data-role="table" class="table-stroke table-stripe ui-responsive" id="tableItems">
 	  <thead>
 	  <tr>
 	    <th>Sl.No</th>
 	    <th style="width:15%">Item-Code</th>
 	    <th>Description</th>
-	    <th>Choose</th>
+	    {{#if datasAsService}}
+	    	<th>Choose</th>
+	    {{/if}}
 	  </tr>
 	  </thead>
 	  <tbody id="itemsInChapter">
@@ -16,19 +47,16 @@
 			  <tr>
 			    <td>{{SNo}}</td>
 			    <td style="width:15%">{{IndexCode}}</td>
-			    <td class="description" id="{{tableName}}{{this.SNo}}" data-indexCode="{{IndexCode}}">{{this.Description}}</td>
-			    <td><input type="checkbox" name="chosenItems" id="{{this.IndexCode}}"></td>
+			    <td class="description"><div data-indexcode="{{IndexCode}}" class="info-button">{{this.Description}}</div></td>
+			    {{#if ../datasAsService}}
+			   		<td><input type="checkbox" name="chosenItems" id="{{this.IndexCode}}"></td>
+			    {{/if}}
 			  </tr>
 		  {{/each}}
 	  </tbody>
 	</table>
 </div>
-
-
-<div data-role="popup" id="itemDetails" data-position-to="window" class="ui-content">
-	<p>This is a basic popup</p>
-</div>
-<input type="submit" id="proceedToItems" value="Add to My Estimate"/>
+	
 
 	
 

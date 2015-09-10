@@ -1,5 +1,4 @@
 
-
 define([ 'models/base_model','views/utilities/datas_util'], function(BaseModel,DatasUtil) {
 
 	var App = {};
@@ -69,10 +68,11 @@ define([ 'models/base_model','views/utilities/datas_util'], function(BaseModel,D
 				}else{
 					console.log("+++++++++++++"+db);
 				}
+				this.getDefaultLeadMaterialsFromDB();
 				this.set('db',db);
 			},
 			getDefaultDatas : function(){
-				//this.getDefaultLeadMaterialsFromDB();
+				
 				var category =  this.get("estCategory");
 				var type =  this.get("estType");
 				var indexToDatasArray = [];
@@ -81,7 +81,8 @@ define([ 'models/base_model','views/utilities/datas_util'], function(BaseModel,D
 					  //Read default items
 					  tx.executeSql('SELECT DATAS FROM DefaultDatas WHERE Category='+'"'+category+'"'+' AND Type = '+'"'+type+'"', [], function (tx, defaultItems) {
 						console.log("successfully read");
-						var defDatas = defaultItems.rows[0].Datas.split(",");
+						var defDatas = defaultItems.rows.item(0).Datas.split(",");
+						console.log(defaultItems.rows.item(0).Datas);
 						var i = 0;
 						var getItems = function(indexCode){
 						   //var indexCode = defaultItems.rows..IndexCode;

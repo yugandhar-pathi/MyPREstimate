@@ -8,7 +8,6 @@ define(['views/layout/base_itemview','models/estimateitems_util','views/showitem
 			
 			initialize : function(){
 				this.model.on('itemsReadFromChapter',this.fillPopupWithDatas,this);
-				//this.model.set("selectedDatasToAdd",this.model.get("indexToDatasArray"));
 			},
 			 
 		    events:{
@@ -57,7 +56,7 @@ define(['views/layout/base_itemview','models/estimateitems_util','views/showitem
 		    },
 		    
 		    proceedToEstimate : function(){
-		    	this.model.getDefaultItemsForCCRoad();
+		    	this.model.getDefaultDatas();
 		    },
 		    
 		    changeBackground : function(event){
@@ -82,8 +81,8 @@ define(['views/layout/base_itemview','models/estimateitems_util','views/showitem
 			    	$("#listofchapters #datas").addClass('selected');
 		    	}else{
 		    		$("#listofchapters #newEstimate").addClass('selected');
-		    		$("#listofchapters #pageBackKey input").off('tap')
-		    		$("#listofchapters #pageBackKey input").on('tap',function(){
+		    		$("#listofchapters #pageBackKey input").off('click')
+		    		$("#listofchapters #pageBackKey input").on('click',function(){
 		    			self.model.getDefaultDatas();
 		    		});
 		    	}

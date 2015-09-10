@@ -63,11 +63,15 @@ define(['views/layout/base_itemview','models/estimateitems_util'],function(BaseI
 			},	
 			displayDeleteOption : function(event){
 				var self = this;
-	    	 	$("#deleteData").popup( "open", { x: event.pageX, y: event.pageY } );
-	    	 	setTimeout(function(){
+				var xPos = Math.round($(event.target).offset().left) + $(event.target).width();
+				var yPos = Math.round($(event.target).offset().top) + $(event.target).height()/2;
+	    	 	
+	    	 	$("#deleteData").off("popupbeforeposition");
+	    	 	$("#deleteData").on('popupbeforeposition',function(){
 		    	 	$("#deleteDataIndex").data('rowid',$(event.target).text());
 		    	 	$("#deleteDataIndex").on('tap',self.deleteIndexFromDefaults)
-	    	 	},100);
+	    	 	});
+	    	 	$("#deleteData").popup( "open", { x: xPos, y: yPos } );
 	    	 	event.preventDefault();
 			},
 			deleteIndexFromDefaults:function(event){

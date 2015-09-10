@@ -109,25 +109,29 @@ define([],function(){
 							"15":"CABLES",
 							
 							"16":"TEMPORARY",
-							"16":"GENERATORS",
+							"17":"GENERATORS",
 							"18":"REPAIRSTOMOTORS"
 						}
 
 				};
 				var splitDataArr = dataCode.split("-");
-				var dataBook = splitDataArr[0];
+				var dataBook = splitDataArr[0].toUpperCase();;
 				if(dataBook == "RBR"){
 					var tableKey = splitDataArr[1];
 					return keyToTableMap[dataBook][tableKey];
 				}
-				
-				var dataBook = splitDataArr[1];
+				dataBook = splitDataArr[1].toUpperCase();
 				if(dataBook == "CSTN"){
 					return keyToTableMap[dataBook][splitDataArr[2]];
-				}else if(dataBook == "ELEC"){
-					return keyToTableMap[dataBook][splitDataArr[2]];
 				}
-				
+				dataBook = dataCode.toUpperCase();
+				dataBook = dataBook.substring(dataBook.indexOf('ELEC'),dataBook.length);
+				splitDataArr = dataBook.split("-");
+				dataBook = splitDataArr[0];
+				if(dataBook == "ELEC"){
+					var tableKey = splitDataArr[1];
+					return keyToTableMap[dataBook][tableKey];
+				}
 			}
 	};
 	return datas_util;

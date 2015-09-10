@@ -20,15 +20,15 @@ define(['views/layout/base_itemview','models/estimateitems_util','views/datacode
 		    	 var chosenItems = [];  
 		    	 var selectedTable = EstimateModel.model.get("selectedTable");
 				 selectedItems.each(function(index,ele){
-				  /* var chosenItem = {
+					 var chosenItem = {
 						    "TableName":"",
 							"IndexCode":"",
 							"description":"",
 							"subitemsArray":[]
-				   };
-				   chosenItem.IndexCode = ele.id;
-				   chosenItem.TableName = selectedTable;*/
-				   chosenItems.push(ele.id);
+					  };
+					  chosenItem.IndexCode = ele.id;
+					  chosenItem.TableName = selectedTable;
+					  chosenItems.push(chosenItem);
 				 });	
 
 				 var exisitngDatas = this.model.get("indexToDatasArray");
@@ -36,6 +36,12 @@ define(['views/layout/base_itemview','models/estimateitems_util','views/datacode
 	 			 for(var i=0;i<exisitngDatas.length;i++){
 	 				exisitngDataItems.push(exisitngDatas[i].IndexCode);
 				 }
+	 			 
+	 			 var chosenDatas = [];
+	 			 for(var i=0;i<chosenItems.length;i++){
+	 				chosenDatas.push(chosenItems[i].IndexCode);
+				 }
+	 			 
 	 			 var preSelectedDatasList = []; 
     			 if(exisitngDatas){
         			var preSelectedDatas = exisitngDatas.filter(function(obj){
@@ -45,39 +51,60 @@ define(['views/layout/base_itemview','models/estimateitems_util','views/datacode
 	   	 				preSelectedDatasList.push(preSelectedDatas[i].IndexCode);
 	 				}
     			 }
-	    			if(preSelectedDatasList.length == 0 && chosenItems.length == 0){
-	    				//error
-	    				return;
-	    			}
-	    			if(preSelectedDatasList.length == 0 && chosenItems.length > 0){
-	    				var updatedList = exisitngDataItems.concat(chosenItems); 
-	    				this.updateSelectedDatasToEstimate(datasArr);
-	    			}
-	    			if(preSelectedDatasList.length > 0 && chosenItems.length == 0){
-	    				//delete all
-	    				exisitngDatas = _.difference(exisitngDataItems, preSelectedDatasList);
-	    				this.updateSelectedDatasToEstimate(exisitngDatas);
-	    			}
-	    			if(preSelectedDatasList.length != 0 && chosenItems.length != 0){
-	    				//compare
-	    				
-	    			} 
+    			if(preSelectedDatasList.length == 0 && chosenDatas.length == 0){
+    				//no change
+    				$("#noChangeText").show();
+    				return;
+    			}
+    			if(preSelectedDatasList.length == 0 && chosenDatas.length > 0){
+    				var updatedDatas = exisitngDatas.concat(chosenItems);
+    				this.model.set("indexToDatasArray",updatedDatas);
+    				
+    				var updatedList = exisitngDataItems.concat(chosenDatas); 
+    				this.updateSelectedDatasToEstimate(updatedList);
+    				return;
+    			}
+    			if(preSelectedDatasList.length > 0 && chosenDatas.length == 0){
+    				//delete all
+    				var updatedDatas = exisitngDatas.filter(function(obj){
+    					return preSelectedDatasList.indexOf(obj.IndexCode) == -1;
+    				});
+    				this.model.set("indexToDatasArray",updatedDatas);
+    				
+    				var updatedList = _.difference(exisitngDataItems, preSelectedDatasList);
+    				this.updateSelectedDatasToEstimate(updatedList);
+    				return;
+    			}
+    			if(preSelectedDatasList.length != 0 && chosenItems.length != 0){
+    				//compare
+    				var updatedList = [];
+    				if(chosenItems.length <= preSelectedDatasList.length){
+    					updatedList = _.difference(preSelectedDatasList, chosenDatas);
+    				}
+    				if(chosenItems.length > preSelectedDatasList.length){
+    					updatedList = _.difference(chosenDatas, preSelectedDatasList);
+    				}
 
-		     },
-		     deleteSelectedDatasFromEstimate:function(itemsToDelete){
-	    		 var indexList = "\("
-				 for(var j=0;j<itemsToDelete.length;j++){
-					 indexList += '"'+itemsToDelete[j].IndexCode+'"';
-					 if(j<itemsToDelete.length-1){
-						 indexList += "," 
-					 }
-				 }	
-	    		 indexList += "\)"
-		    	 this.model.get('db').transaction(function (tx) {
-					 tx.executeSql('DELETE FROM Defaults where EstimationType="CCROAD" AND IndexCode in '+indexList, [], function (tx, results) {
-						 $("#datasPopup").popup("close");
-					 });
-				})
+    				if(updatedList.length == 0){
+        				//no change
+        				$("#noChangeText").show();
+        				return;
+    				}
+    				//Remove old list 
+    				updatedList = _.difference(exisitngDataItems, preSelectedDatasList);
+    				//add new list.
+    				updatedList = updatedList.concat(chosenDatas);
+    				
+    				var updatedDatas = exisitngDatas.filter(function(obj){
+    					return preSelectedDatasList.indexOf(obj.IndexCode) == -1;
+    				});
+    				updatedDatas = updatedDatas.concat(chosenItems);
+    				this.model.set("indexToDatasArray",updatedDatas);
+    				
+    				
+    				this.updateSelectedDatasToEstimate(updatedList);
+    			} 
+
 		     },
 		     updateSelectedDatasToEstimate : function(itemsToUpdate){
 		    	 itemsToUpdate = itemsToUpdate.join(",");
@@ -117,23 +144,8 @@ define(['views/layout/base_itemview','models/estimateitems_util','views/datacode
 			    		$("#detailsPopup").popup("open", {x:xPos,y:yPos,transition:'pop',positionTo:'#tabs'});
 			    	});
 			    	$("#datasPopup").popup("close");	
-			    	//$("#datasPopup").popup("destroy");	    	
-		    	 }
-
-		    	 /*
-		    	// var indexId = $("#"+selectedRow.substr(-1)).data("indexCode");
-		    	var options = {
-		    		//x:'100px',
-		    		//y:'100px',
-		    		transition :'flip',
-		    		positionTo :''
-		    	};
-		    	 //console.log(tableName + ":"+rowId)
-		    	event.preventDefault();
-		    	$("#itemDetails").empty();
-		    	$("#itemDetails").append($("#"+selectedRow.substr(-1)).html());
-		    	 //$("#RBR-LUCC-1").attr("display","show");
-		    	$( "#itemDetails" ).popup( "open",options);	*/	    	 
+			    	//$("#datasPopup").popup("destroy"); -- did not work	
+		    	 }   	 
 		     },
 		     closePopup : function(){
 		    	 $("#datasPopup").popup("close");

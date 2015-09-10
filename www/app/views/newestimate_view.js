@@ -20,7 +20,7 @@ define(['views/layout/base_itemview','models/estimateitems_util'],function(BaseI
 			 displayDefaults : function(event){
 				 this.model.set("estCategory",$("#selCategory").text());
 				 this.model.set("estType",$("#selType").text());
-				 this.model.set("nameofthework",$("#nameOfwork").val());
+				 this.model.set("nameofthework",$("#nameOfWork").val());
 				 this.model.getDefaultDatas();
 			 },
 			 fillPopUp: function(list){
@@ -62,33 +62,39 @@ define(['views/layout/base_itemview','models/estimateitems_util'],function(BaseI
 				});
 			 },
 			 dispayCategoryPopUp : function(event){
+				event.preventDefault();
 				var self = this;
+				var xPos = Math.round($("#selectCategory").offset().left) + $("#selectCategory").width();
+				var yPos = Math.round($("#selectCategory").offset().top) + $("#selectCategory").height()/2;
 				$("#selectPopup").off( "popupbeforeposition");
 				 if(this.categoryList.length == 0){
 					this.model.get("db").transaction(function (tx) {
 						tx.executeSql('SELECT DISTINCT Category From DefaultDatas', [], function (tx, results) {
 							for(var i = 0;i<results.rows.length;i++){
-								self.categoryList.push(results.rows[i].Category);
+								self.categoryList.push(results.rows.item(i).Category);
 							}	
 							$("#selectPopup").on( "popupbeforeposition", self.fillPopUp(self.categoryList));
-							$("#selectPopup").popup( "open", { x: event.pageX, y: event.pageY } );
+							$("#selectPopup").popup( "open",{ x: xPos, y: yPos } );
 						});
 					})				 
 				 }else{
 					$("#selectPopup").on( "popupbeforeposition", self.fillPopUp(self.categoryList));
-					$("#selectPopup").popup( "open", { x: event.pageX, y: event.pageY } );
+					$("#selectPopup").popup( "open", { x: xPos, y: yPos } );
 				 }
 			 },
 			 displayTypePopUp : function(event){
+				event.preventDefault();
 				var self = this;
 				var typeList = [];
+				var xPos = Math.round($("#selectType").offset().left) + $("#selectType").width();
+				var yPos = Math.round($("#selectType").offset().top) + $("#selectType").height()/2;
 				this.model.get("db").transaction(function (tx) {
 					tx.executeSql('SELECT DISTINCT Type From DefaultDatas where Category='+'"'+$("#selCategory").text()+'"', [], function (tx, results) {
 						for(var i = 0;i<results.rows.length;i++){
-							typeList.push(results.rows[i].Type);
+							typeList.push(results.rows.item(i).Type);
 						}	
 						$("#selectPopup").on( "popupbeforeposition", self.fillTypePopUp(typeList));
-						$("#selectPopup").popup( "open", { x: event.pageX, y: event.pageY } );
+						$("#selectPopup").popup( "open", { x: xPos, y: yPos } );
 					});
 				})				 
 			 },

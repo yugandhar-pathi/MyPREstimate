@@ -12,6 +12,7 @@ define([ 'models/base_model','views/utilities/datas_util'], function(BaseModel,D
 			defaults : {
 				db:null,
 				defualtItems:"",
+				defaultDatasFromDB:[],
 				selectedTable:"",
 				tableToItemMap:"",
 				testItems:"",
@@ -83,86 +84,88 @@ define([ 'models/base_model','views/utilities/datas_util'], function(BaseModel,D
 						console.log("successfully read");
 						var defDatas = defaultItems.rows.item(0).Datas.split(",");
 						console.log(defaultItems.rows.item(0).Datas);
+						self.set("defaultDatasFromDB",defDatas);
 						var i = 0;
-						var getItems = function(indexCode){
-						   //var indexCode = defaultItems.rows..IndexCode;
-						   var splitArr = indexCode.split("-");
-						   	   splitArr[splitArr.length-1] = Number(splitArr[splitArr.length-1])+1;
-						   var nextIndexCode = splitArr.join("-");	   
-						   var tableName = DatasUtil.getTableName(indexCode);
-						   tx.executeSql('SELECT * FROM '+tableName+' WHERE rowid>=(select rowid FROM '+tableName+' WHERE IndexCode="'+indexCode+'") AND rowid<(Select rowid from '+tableName+' where IndexCode="'+nextIndexCode+'")', [], function (tx, results) {
-							   if(results.rows.length > 0){
+						if(defDatas.length > 0){
+							var getItems = function(indexCode){
+								   //var indexCode = defaultItems.rows..IndexCode;
+								   var splitArr = indexCode.split("-");
+								   	   splitArr[splitArr.length-1] = Number(splitArr[splitArr.length-1])+1;
+								   var nextIndexCode = splitArr.join("-");	   
+								   var tableName = DatasUtil.getTableName(indexCode);
+								   tx.executeSql('SELECT * FROM '+tableName+' WHERE rowid>=(select rowid FROM '+tableName+' WHERE IndexCode="'+indexCode+'") AND rowid<(Select rowid from '+tableName+' where IndexCode="'+nextIndexCode+'")', [], function (tx, results) {
+									   if(results.rows.length > 0){
 
-								   var indexToTableItem = {
-										    "TableName":tableName,
-											"IndexCode":"",
-											"description":"",
-											"subitemsArray":[]
-								   };
-								   indexToTableItem.IndexCode = indexCode;
-								   var subitemsArray = [];
-								   for(var j=0;j<results.rows.length;j++){
-									   var item = JSON.parse(JSON.stringify(results.rows.item(j)));
-									   var subitem = {
-											"SlNo":"",
-											"descritpion":""
-									   }
-									   if(j==0){
-										  indexToTableItem.description = item.Description;  
-									   }else{
-										   if(item.SNo){
-											   subitem.SlNo = item.SNo;
-											   subitem.descritpion = item.Description;
-											   subitemsArray.push(subitem);
-											   console.log("subitems:"+JSON.stringify(subitemsArray));
+										   var indexToTableItem = {
+												    "TableName":tableName,
+													"IndexCode":"",
+													"description":"",
+													"subitemsArray":[]
+										   };
+										   indexToTableItem.IndexCode = indexCode;
+										   var subitemsArray = [];
+										   for(var j=0;j<results.rows.length;j++){
+											   var item = JSON.parse(JSON.stringify(results.rows.item(j)));
+											   var subitem = {
+													"SlNo":"",
+													"descritpion":""
+											   }
+											   if(j==0){
+												  indexToTableItem.description = item.Description;  
+											   }else{
+												   if(item.SNo){
+													   subitem.SlNo = item.SNo;
+													   subitem.descritpion = item.Description;
+													   subitemsArray.push(subitem);
+													   console.log("subitems:"+JSON.stringify(subitemsArray));
+												   }
+											   }
+											  
+											   if(item.SubBullet){
+												   subitem.SlNo = item.SubBullet;
+												   subitem.descritpion = item.Description;
+												   subitemsArray.push(subitem);
+												   console.log("subitems:"+JSON.stringify(subitemsArray));
+											   }
+											   
 										   }
+										   if(subitemsArray.length > 1){
+											   indexToTableItem.subitemsArray = subitemsArray;
+											   console.log("indexToTableItem:"+JSON.stringify(indexToTableItem));
+										   }
+										   indexToDatasArray.push(indexToTableItem);
 									   }
-									  
-									   if(item.SubBullet){
-										   subitem.SlNo = item.SubBullet;
-										   subitem.descritpion = item.Description;
-										   subitemsArray.push(subitem);
-										   console.log("subitems:"+JSON.stringify(subitemsArray));
+									   i++;
+									   if(i<defDatas.length){
+										   getItems(defDatas[i]);
+									   }else{
+										   self.set("indexToDatasArray",indexToDatasArray);
+										   appRouter.navigate("#pickItemsForEstimate",{trigger:true});  					   
 									   }
+								   },null);
+								   
+								   
+								   /*console.log('SELECT * FROM '+ results.rows.item(i).TableName +' WHERE IndexCode = '+'"'+results.rows.item(i).IndexCode+'"');
+								   tx.executeSql('SELECT * FROM '+ results.rows.item(i).TableName +' WHERE IndexCode = '+'"'+results.rows.item(i).IndexCode+'"', [], function (tx, items) {
 									   
-								   }
-								   if(subitemsArray.length > 1){
-									   indexToTableItem.subitemsArray = subitemsArray;
-									   console.log("indexToTableItem:"+JSON.stringify(indexToTableItem));
-								   }
-								   indexToDatasArray.push(indexToTableItem);
-							   }
-							   i++;
-							   if(i<defDatas.length){
-								   getItems(defDatas[i]);
-							   }else{
-								   self.set("indexToDatasArray",indexToDatasArray);
-								   appRouter.navigate("#pickItemsForEstimate",{trigger:true});  					   
-							   }
-						   },null);
-						   
-						   
-						   /*console.log('SELECT * FROM '+ results.rows.item(i).TableName +' WHERE IndexCode = '+'"'+results.rows.item(i).IndexCode+'"');
-						   tx.executeSql('SELECT * FROM '+ results.rows.item(i).TableName +' WHERE IndexCode = '+'"'+results.rows.item(i).IndexCode+'"', [], function (tx, items) {
-							   
-							   if(items.rows.length > 0){
-								   console.log(items.rows.item(0));
-								   var item = items.rows.item(0);
-								   item.TableName = results.rows.item(i).TableName;
-								   ccroaddefualtItems.push(item);
-							   }
-							   i++;
-							   if(i<results.rows.length){
-								   getItems(i);
-							   }else{
-								   console.log(ccroaddefualtItems);
-								   self.set("defualtItems",ccroaddefualtItems);
-								   appRouter.navigate("pickItemsForEstimate",{trigger:true});
-							   }
-						   },null);*/
-						};
-						getItems(defDatas[0]);
-	
+									   if(items.rows.length > 0){
+										   console.log(items.rows.item(0));
+										   var item = items.rows.item(0);
+										   item.TableName = results.rows.item(i).TableName;
+										   ccroaddefualtItems.push(item);
+									   }
+									   i++;
+									   if(i<results.rows.length){
+										   getItems(i);
+									   }else{
+										   console.log(ccroaddefualtItems);
+										   self.set("defualtItems",ccroaddefualtItems);
+										   appRouter.navigate("pickItemsForEstimate",{trigger:true});
+									   }
+								   },null);*/
+								};
+								getItems(defDatas[0]);
+						}
 					  }, null);
 				});
 
@@ -539,8 +542,14 @@ define([ 'models/base_model','views/utilities/datas_util'], function(BaseModel,D
 			},
 			deleteDefaultItem : function(dataToDelete){
 				var self = this;
+				var dataToDel = [];
+				dataToDel.push(dataToDelete);
+				var updatedList =  _.difference(this.get("defaultDatasFromDB"), dataToDel);
+				this.set("defaultDatasFromDB",updatedList);
+				var itemsToUpdate = updatedList.join(",");
+				var type = this.get("estType");
 				db.transaction(function (tx) {
-					tx.executeSql('DELETE FROM Defaults where IndexCode="'+dataToDelete+'"', [], function (tx, results) {
+					tx.executeSql('UPDATE DefaultDatas SET Datas=? WHERE Type=?',[itemsToUpdate,type], function (tx, results) {
 						var defaultDatas = self.get("indexToDatasArray");
 						var newDefaults = [];
 						for(var index in defaultDatas){

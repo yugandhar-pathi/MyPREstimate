@@ -1,5 +1,5 @@
 
-define(['views/layout/base_itemview','models/estimateitems_util'],function(BaseItemView,EstimateModel){
+define(['views/layout/base_itemview','models/estimateitems_util','views/newestimateoptions_view'],function(BaseItemView,EstimateModel,EstOptionsPopUp){
 
 		var EstimateItem_View = BaseItemView.extend({
 		    
@@ -13,25 +13,53 @@ define(['views/layout/base_itemview','models/estimateitems_util'],function(BaseI
 				 'tap #selectType':'displayTypePopUp'
 			 },
 			 
-			 categoryList:[],
 			 
-			 typeList : [],
+			 isNewCategory : false,
 			 
 			 displayDefaults : function(event){
-				 this.model.set("estCategory",$("#selCategory").text());
-				 this.model.set("estType",$("#selType").text());
+				 var selCategory = $("#selCategory").text();
+				 var selType = $("#selType").text();
+				 this.model.set("estCategory",selCategory);
+				 this.model.set("estType",selType);
 				 this.model.set("nameofthework",$("#nameOfWork").val());
-				 this.model.getDefaultDatas();
+				 if(this.isNewCategory){
+					 this.model.set("defaultDatasFromDB",[]);
+					 this.model.set("indexToDatasArray:","");
+					 this.model.get("db").transaction(function (tx) {	 
+						 tx.executeSql('Insert into DefaultDatas ("Category","Type","Datas") Values(?,?,?)',[selCategory,selType,""],function(){
+							 appRouter.navigate("#pickItemsForEstimate",{trigger:true});
+						 });
+					 },function(){
+						 console.log("error occured in adding items to defualt datas")
+					 });
+				 }else{
+					 this.model.getDefaultDatas();
+				 }
+				 
 			 },
-			 fillPopUp: function(list){
+			 fillPopUp: function(list,self){
 				$("#listOfOptions").empty();
-				for(var i = 0;i<list.length;i++){
-					$("#listOfOptions").append('<li>'+list[i]+'</li>');
-				}
-				$("#listOfOptions").listview('refresh');
-				$("#listOfOptions").off('tap');
-				$("#listOfOptions").on('tap',function(event){
-					var selectedCategory = $(event.target).closest('li').text();
+
+				var OptionsPopUp = new EstOptionsPopUp();
+				$("#listOfOptions").html(OptionsPopUp.template({estOptions:list})).trigger('create');
+				$("#optionSelected").off('tap');
+				$("#optionSelected").on('tap',function(event){
+					var selectedCategory = $("#listOfOptions input[name=estOption]:checked").val();
+					if(selectedCategory == "Other"){
+						selectedCategory = $("#otherOpt").val();
+						if(selectedCategory){
+							self.isNewCategory = true;
+						}else{
+							$(".errorText").hide();
+							$("#categMissing").show();
+							return;
+						}
+					}
+					if(selectedCategory == undefined){
+						$(".errorText").hide();
+						$("#selectOption").show();
+						return;
+					}
 					$("#selCategory").text(selectedCategory);
 					if($("#1").is(":visible")){
 						$("#selType").text("");
@@ -45,16 +73,29 @@ define(['views/layout/base_itemview','models/estimateitems_util'],function(BaseI
 					$("#selectPopup").popup("close");
 				});
 			 },
-			 fillTypePopUp: function(list){
+			 fillTypePopUp: function(list,self){
 				$("#listOfOptions").empty();
-				for(var i = 0;i<list.length;i++){
-					$("#listOfOptions").append('<li>'+list[i]+'</li>');
-				}
-				$("#listOfOptions").listview('refresh');
-				$("#listOfOptions").off('tap');
-				$("#listOfOptions").on('tap',function(event){
-					var selectedCategory = $(event.target).closest('li').text();
-					$("#selType").text(selectedCategory);
+				var OptionsPopUp = new EstOptionsPopUp();
+				$("#listOfOptions").html(OptionsPopUp.template({estOptions:list})).trigger('create');
+				$("#optionSelected").off('tap');
+				$("#optionSelected").on('tap',function(event){
+					var selType = $("#listOfOptions input[name=estOption]:checked").val();
+					if(selType == "Other"){
+						selType = $("#otherOpt").val();
+						if(selType){
+							self.isNewCategory = true;
+						}else{
+							$(".errorText").hide();
+							$("#categMissing").show();
+							return;
+						}
+					}
+					if(selType == undefined){
+						$(".errorText").hide();
+						$("#selectOption").show();
+						return;
+					}
+					$("#selType").text(selType);
 					$("#2").slideDown('1000');
 					$("#1 .ui-block-b input").val("Change");
 					$("#1 .ui-block-b input").button('refresh');
@@ -63,24 +104,20 @@ define(['views/layout/base_itemview','models/estimateitems_util'],function(BaseI
 			 },
 			 dispayCategoryPopUp : function(event){
 				event.preventDefault();
+				var categoryList = [];
 				var self = this;
 				var xPos = Math.round($("#selectCategory").offset().left) + $("#selectCategory").width();
 				var yPos = Math.round($("#selectCategory").offset().top) + $("#selectCategory").height()/2;
 				$("#selectPopup").off( "popupbeforeposition");
-				 if(this.categoryList.length == 0){
-					this.model.get("db").transaction(function (tx) {
-						tx.executeSql('SELECT DISTINCT Category From DefaultDatas', [], function (tx, results) {
-							for(var i = 0;i<results.rows.length;i++){
-								self.categoryList.push(results.rows.item(i).Category);
-							}	
-							$("#selectPopup").on( "popupbeforeposition", self.fillPopUp(self.categoryList));
-							$("#selectPopup").popup( "open",{ x: xPos, y: yPos } );
-						});
-					})				 
-				 }else{
-					$("#selectPopup").on( "popupbeforeposition", self.fillPopUp(self.categoryList));
-					$("#selectPopup").popup( "open", { x: xPos, y: yPos } );
-				 }
+				this.model.get("db").transaction(function (tx) {
+					tx.executeSql('SELECT DISTINCT Category From DefaultDatas', [], function (tx, results) {
+						for(var i = 0;i<results.rows.length;i++){
+							categoryList.push(results.rows.item(i).Category);
+						}	
+						$("#selectPopup").on( "popupbeforeposition", self.fillPopUp(categoryList,self));
+						$("#selectPopup").popup( "open",{ x: xPos, y: yPos } );
+					});
+				})				 
 			 },
 			 displayTypePopUp : function(event){
 				event.preventDefault();
@@ -93,7 +130,7 @@ define(['views/layout/base_itemview','models/estimateitems_util'],function(BaseI
 						for(var i = 0;i<results.rows.length;i++){
 							typeList.push(results.rows.item(i).Type);
 						}	
-						$("#selectPopup").on( "popupbeforeposition", self.fillTypePopUp(typeList));
+						$("#selectPopup").on( "popupbeforeposition", self.fillTypePopUp(typeList,self));
 						$("#selectPopup").popup( "open", { x: xPos, y: yPos } );
 					});
 				})				 

@@ -425,41 +425,61 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 function program1(depth0,data) {
   
+  var buffer = "", stack1;
+  buffer += "		\r\n	<div>\r\n		<table data-role=\"table\" class=\"ui-body-d ui-shadow table-stripe ui-responsive\">\r\n		<thead>\r\n		  <tr>\r\n		    <th>Sl.No</th>\r\n		    <th>Item-Code</th>\r\n		    <th>Description</th>\r\n		    <th>Choose</th>\r\n		  </tr>\r\n		 </thead>\r\n		 <tbody id=\"estimateItems\"> \r\n		  ";
+  stack1 = helpers.each.call(depth0, (depth0 && depth0.indexToDatasArray), {hash:{},inverse:self.noop,fn:self.program(2, program2, data),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\r\n		  </tbody>\r\n		</table>\r\n	</div>\r\n";
+  return buffer;
+  }
+function program2(depth0,data) {
+  
   var buffer = "", stack1, helper, options;
-  buffer += "\r\n		  <tr class=\""
+  buffer += "\r\n			  <tr class=\""
     + escapeExpression(((stack1 = (depth0 && depth0.IndexCode)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\">\r\n		    <td>"
+    + "\">\r\n			    <td>"
     + escapeExpression((helper = helpers.add || (depth0 && depth0.add),options={hash:{},data:data},helper ? helper.call(depth0, (data == null || data === false ? data : data.index), 1, options) : helperMissing.call(depth0, "add", (data == null || data === false ? data : data.index), 1, options)))
-    + "</td>\r\n		    <td><div class=\"dataCode info-button\">"
+    + "</td>\r\n			    <td><div class=\"dataCode info-button\">"
     + escapeExpression(((stack1 = (depth0 && depth0.IndexCode)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</div></td>\r\n		    <td>"
+    + "</div></td>\r\n			    <td>"
     + escapeExpression(((stack1 = (depth0 && depth0.description)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</td>\r\n		    <td><input data-table=\""
+    + "</td>\r\n			    <td><input data-table=\""
     + escapeExpression(((stack1 = (depth0 && depth0.TableName)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\" type=\"checkbox\" name=\"itemsSelected\" checked id=\""
     + escapeExpression(((stack1 = (depth0 && depth0.IndexCode)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\"/></td>\r\n		  </tr>\r\n		   ";
-  stack1 = helpers.each.call(depth0, (depth0 && depth0.subitemsArray), {hash:{},inverse:self.noop,fn:self.programWithDepth(2, program2, data, depth0),data:data});
+    + "\"/></td>\r\n			  </tr>\r\n			   ";
+  stack1 = helpers.each.call(depth0, (depth0 && depth0.subitemsArray), {hash:{},inverse:self.noop,fn:self.programWithDepth(3, program3, data, depth0),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n	  ";
+  buffer += "\r\n		  ";
   return buffer;
   }
-function program2(depth0,data,depth1) {
+function program3(depth0,data,depth1) {
   
   var buffer = "", stack1;
-  buffer += "	  \r\n		   	  <tr class=\""
+  buffer += "	  \r\n			   	  <tr class=\""
     + escapeExpression(((stack1 = (depth1 && depth1.IndexCode)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\">  \r\n			    <td></td>\r\n			    <td>"
+    + "\">  \r\n				    <td></td>\r\n				    <td>"
     + escapeExpression(((stack1 = (depth0 && depth0.SlNo)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</td>\r\n			    <td>"
+    + "</td>\r\n				    <td>"
     + escapeExpression(((stack1 = (depth0 && depth0.descritpion)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</td>\r\n			    <td><input type=\"checkbox\" class=\""
+    + "</td>\r\n				    <td><input type=\"checkbox\" class=\""
     + escapeExpression(((stack1 = (depth1 && depth1.IndexCode)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\" name=\""
     + escapeExpression(((stack1 = (depth1 && depth1.IndexCode)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\" id=\""
     + escapeExpression(((stack1 = (depth0 && depth0.SlNo)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\"/></td> \r\n		   	  </tr> \r\n		   ";
+    + "\"/></td> \r\n			   	  </tr> \r\n			   ";
+  return buffer;
+  }
+
+function program5(depth0,data) {
+  
+  var buffer = "", stack1, helper;
+  buffer += "\r\n	<h2>There are no default data's for ";
+  if (helper = helpers.estType) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.estType); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + ".</h2>\r\n";
   return buffer;
   }
 
@@ -467,10 +487,10 @@ function program2(depth0,data,depth1) {
   if (helper = helpers.estType) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.estType); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + ":<i></strong></p>			\r\n<div id=\"testPdf\">\r\n	<table data-role=\"table\" class=\"ui-body-d ui-shadow table-stripe ui-responsive\">\r\n	<thead>\r\n	  <tr>\r\n	    <th>Sl.No</th>\r\n	    <th>Item-Code</th>\r\n	    <th>Description</th>\r\n	    <th>Choose</th>\r\n	  </tr>\r\n	 </thead>\r\n	 <tbody id=\"estimateItems\"> \r\n	  ";
-  stack1 = helpers.each.call(depth0, (depth0 && depth0.indexToDatasArray), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
+    + ":<i></strong></p>	\r\n";
+  stack1 = helpers['if'].call(depth0, ((stack1 = (depth0 && depth0.defaultDatasFromDB)),stack1 == null || stack1 === false ? stack1 : stack1.length), {hash:{},inverse:self.program(5, program5, data),fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n	  </tbody>\r\n	</table>\r\n</div>\r\n\r\n<br/>\r\n<br/>\r\n<br/>\r\n<br/>\r\n\r\n<div class=\"footer-buttons\">\r\n	<hr />\r\n	<div class=\"ui-grid-a\">\r\n		<div class=\"ui-block-a footer-left\">\r\n			<input type=\"button\" id=\"addDatas\" data-icon=\"plus\" data-iconpos=\"left\" value=\"Add More Datas\" data-inline=\"true\"/>\r\n		</div>\r\n		<div class=\"ui-block-b footer-right\">\r\n			<input type=\"button\" data-inline=\"true\" data-icon=\"arrow-r\" data-iconpos=\"right\" value=\"Proceed To Lead\" id=\"proceedToLeadStmt\"/>\r\n		</div>\r\n	</div>\r\n</div>\r\n\r\n<div data-role=\"popup\" id=\"deleteData\" data-arrow=\"true\" class=\"ui-content\">\r\n 	<a href=\"#\" data-rel=\"back\" class=\"ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right\">Close</a>\r\n 	<input type=\"submit\" value=\"Delete?\" id=\"deleteDataIndex\">\r\n</div>\r\n";
+  buffer += "\r\n<br/>\r\n<br/>\r\n<br/>\r\n<br/>\r\n\r\n<div class=\"footer-buttons\">\r\n	<hr />\r\n	<div class=\"ui-grid-a\">\r\n		<div class=\"ui-block-a footer-left\">\r\n			<input type=\"button\" id=\"addDatas\" data-icon=\"plus\" data-iconpos=\"left\" value=\"Add More Datas\" data-inline=\"true\"/>\r\n		</div>\r\n		<div class=\"ui-block-b footer-right\">\r\n			<input type=\"button\" data-inline=\"true\" data-icon=\"arrow-r\" data-iconpos=\"right\" value=\"Proceed To Lead\" id=\"proceedToLeadStmt\"/>\r\n		</div>\r\n	</div>\r\n</div>\r\n\r\n<div data-role=\"popup\" id=\"deleteData\" data-arrow=\"true\" class=\"ui-content\">\r\n 	<a href=\"#\" data-rel=\"back\" class=\"ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right\">Close</a>\r\n 	<input type=\"submit\" value=\"Delete?\" id=\"deleteDataIndex\">\r\n</div>\r\n";
   return buffer;
   });
 
@@ -1123,7 +1143,30 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
 
 
-  return "<div class=\"ui-bar-c\" id=\"0\">\r\n	<div class=\"ui-grid-a\" style=\"margin:1em\">\r\n		<div class=\"ui-block-a\">\r\n			<h2>Category<sup style=\"color:red\"><b>*</b></sup><i>:&nbsp;<span id=\"selCategory\"></span></i></h2>\r\n		</div>\r\n		<div class=\"ui-block-b\">\r\n			<div style=\"margin-top:0.8em\">\r\n				<input type=\"button\" data-inline=\"true\" data-theme=\"d\" data-mini=\"true\" value=\"Select\" id=\"selectCategory\"/>\r\n			</div>\r\n		</div>\r\n	</div>\r\n</div>\r\n<div class=\"ui-bar-c\" id=\"1\">\r\n	<div class=\"ui-grid-a\" style=\"margin:1em\">\r\n		<div class=\"ui-block-a\">\r\n			<h2>Type<sup style=\"color:red\"><b>*</b></sup><i>:&nbsp;<span id=\"selType\"></span></i></h2>\r\n		</div>\r\n		<div class=\"ui-block-b\">\r\n			<div style=\"margin-top:0.8em\">\r\n				<input type=\"button\" data-inline=\"true\" data-theme=\"d\" data-mini=\"true\" value=\"Select\" id=\"selectType\"/>\r\n			</div>\r\n		</div>\r\n	</div>\r\n</div>\r\n<div class=\"ui-bar-c\" id=\"2\">\r\n	<div class=\"ui-grid-a\" style=\"margin:1em\">\r\n		<div class=\"ui-block-a\" style=\"width:30%\">\r\n			<h2>Name of the work<sup style=\"color:red\"><b>*</b></sup>:&nbsp;</h2>\r\n		</div>\r\n		<div class=\"ui-block-b\" style=\"width:70%;\">\r\n			<div style=\"margin-top:0.8em\">\r\n				<textarea id=\"nameOfWork\"></textarea>\r\n			</div>\r\n		</div>\r\n	</div>\r\n</div>\r\n\r\n\r\n<div class=\"footer-buttons\">\r\n	<hr />\r\n	<div class=\"ui-grid-a\">\r\n		<div class=\"ui-block-a footer-left\">\r\n			<input type=\"button\" value=\"Clear Selection\" data-inline=\"true\"/>\r\n		</div>\r\n		<div class=\"ui-block-b footer-right\">\r\n			<input type=\"button\" data-inline=\"true\" data-icon=\"arrow-r\" data-iconpos=\"right\" value=\"Proceed To Estimate\" id=\"displayDefaults\"/>\r\n		</div>\r\n	</div>\r\n</div>\r\n\r\n\r\n<div data-role=\"popup\" id=\"selectPopup\" data-arrow=\"true\" class=\"ui-content ui-bar-d\">\r\n 	<a href=\"#\" data-rel=\"back\" class=\"ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right\">Close</a>\r\n 	<ul data-role=\"listview\" id=\"listOfOptions\" data-icon=\"false\">\r\n 	</ul>\r\n</div>\r\n\r\n\r\n\r\n\r\n";
+  return "<div class=\"ui-bar-c\" id=\"0\">\r\n	<div class=\"ui-grid-a\" style=\"margin:1em\">\r\n		<div class=\"ui-block-a\">\r\n			<h2>Category<sup style=\"color:red\"><b>*</b></sup><i>:&nbsp;<span id=\"selCategory\"></span></i></h2>\r\n		</div>\r\n		<div class=\"ui-block-b\">\r\n			<div style=\"margin-top:0.8em\">\r\n				<input type=\"button\" data-inline=\"true\" data-theme=\"d\" data-mini=\"true\" value=\"Select\" id=\"selectCategory\"/>\r\n			</div>\r\n		</div>\r\n	</div>\r\n</div>\r\n<div class=\"ui-bar-c\" id=\"1\">\r\n	<div class=\"ui-grid-a\" style=\"margin:1em\">\r\n		<div class=\"ui-block-a\">\r\n			<h2>Type<sup style=\"color:red\"><b>*</b></sup><i>:&nbsp;<span id=\"selType\"></span></i></h2>\r\n		</div>\r\n		<div class=\"ui-block-b\">\r\n			<div style=\"margin-top:0.8em\">\r\n				<input type=\"button\" data-inline=\"true\" data-theme=\"d\" data-mini=\"true\" value=\"Select\" id=\"selectType\"/>\r\n			</div>\r\n		</div>\r\n	</div>\r\n</div>\r\n<div class=\"ui-bar-c\" id=\"2\">\r\n	<div class=\"ui-grid-a\" style=\"margin:1em\">\r\n		<div class=\"ui-block-a\" style=\"width:30%\">\r\n			<h2>Name of the work<sup style=\"color:red\"><b>*</b></sup>:&nbsp;</h2>\r\n		</div>\r\n		<div class=\"ui-block-b\" style=\"width:70%;\">\r\n			<div style=\"margin-top:0.8em\">\r\n				<textarea id=\"nameOfWork\"></textarea>\r\n			</div>\r\n		</div>\r\n	</div>\r\n</div>\r\n\r\n\r\n<div class=\"footer-buttons\">\r\n	<hr />\r\n	<div class=\"ui-grid-a\">\r\n		<div class=\"ui-block-a footer-left\">\r\n			<input type=\"button\" value=\"Clear Selection\" data-inline=\"true\"/>\r\n		</div>\r\n		<div class=\"ui-block-b footer-right\">\r\n			<input type=\"button\" data-inline=\"true\" data-icon=\"arrow-r\" data-iconpos=\"right\" value=\"Proceed To Estimate\" id=\"displayDefaults\"/>\r\n		</div>\r\n	</div>\r\n</div>\r\n\r\n\r\n<div data-role=\"popup\" id=\"selectPopup\" data-arrow=\"true\" class=\"ui-content ui-bar-d\">\r\n 	<a href=\"#\" data-rel=\"back\" class=\"ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right\">Close</a>\r\n 	<div id=\"listOfOptions\">\r\n 	</div>\r\n</div>\r\n\r\n\r\n\r\n\r\n";
+  });
+
+this["Handlebars"]["templates"]["selectestimate_newestimateoptions"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression, self=this;
+
+function program1(depth0,data) {
+  
+  var buffer = "";
+  buffer += "\r\n		<div class=\"ui-grid-a\">\r\n			<div class=\"ui-block-a\" style=\"width:80%\">\r\n				<h3>"
+    + escapeExpression((typeof depth0 === functionType ? depth0.apply(depth0) : depth0))
+    + "</h3>\r\n			</div>\r\n			<div class=\"ui-block-b\" style=\"width:20%;float:right\">\r\n				<input type=\"radio\" name=\"estOption\" style=\"margin-top:0.6em\" value=\""
+    + escapeExpression((typeof depth0 === functionType ? depth0.apply(depth0) : depth0))
+    + "\"/>\r\n			</div>\r\n		</div>\r\n	";
+  return buffer;
+  }
+
+  buffer += "<div>\r\n	<p id=\"selectOption\" class=\"errorText\" style=\"color:red;display:none\"><i><strong>No Option selected</strong></i></p>\r\n	<p id=\"categMissing\" class=\"errorText\" style=\"color:red;display:none\"><i><strong>Enter Category</strong></i></p>\r\n	";
+  stack1 = helpers.each.call(depth0, (depth0 && depth0.estOptions), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\r\n	<div class=\"ui-grid-a\">\r\n		<div class=\"ui-block-a\" style=\"width:80%\">\r\n			<input type=\"text\" placeholder=\"Other\" id=\"otherOpt\" />\r\n		</div>\r\n		<div class=\"ui-block-b\" style=\"width:20%;float:right\">\r\n			<input type=\"radio\" name=\"estOption\" style=\"margin-top:0.6em\" value=\"Other\"/>\r\n		</div>\r\n	</div>\r\n	<input type=\"button\" id=\"optionSelected\" value=\"Done\"/>\r\n</div>\r\n\r\n";
+  return buffer;
   });
 
 this["Handlebars"]["templates"]["selectestimate_showitemsinchapter"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {

@@ -1,36 +1,39 @@
 
-<p><strong><i>Default datas for {{estType}}:<i></strong></p>			
-<div id="testPdf">
-	<table data-role="table" class="ui-body-d ui-shadow table-stripe ui-responsive">
-	<thead>
-	  <tr>
-	    <th>Sl.No</th>
-	    <th>Item-Code</th>
-	    <th>Description</th>
-	    <th>Choose</th>
-	  </tr>
-	 </thead>
-	 <tbody id="estimateItems"> 
-	  {{#each indexToDatasArray}}
-		  <tr class="{{this.IndexCode}}">
-		    <td>{{add @index 1}}</td>
-		    <td><div class="dataCode info-button">{{this.IndexCode}}</div></td>
-		    <td>{{this.description}}</td>
-		    <td><input data-table="{{this.TableName}}" type="checkbox" name="itemsSelected" checked id="{{this.IndexCode}}"/></td>
+<p><strong><i>Default datas for {{estType}}:<i></strong></p>	
+{{#if defaultDatasFromDB.length}}		
+	<div>
+		<table data-role="table" class="ui-body-d ui-shadow table-stripe ui-responsive">
+		<thead>
+		  <tr>
+		    <th>Sl.No</th>
+		    <th>Item-Code</th>
+		    <th>Description</th>
+		    <th>Choose</th>
 		  </tr>
-		   {{#each this.subitemsArray}}	  
-		   	  <tr class="{{../IndexCode}}">  
-			    <td></td>
-			    <td>{{this.SlNo}}</td>
-			    <td>{{this.descritpion}}</td>
-			    <td><input type="checkbox" class="{{../IndexCode}}" name="{{../IndexCode}}" id="{{this.SlNo}}"/></td> 
-		   	  </tr> 
-		   {{/each}}
-	  {{/each}}
-	  </tbody>
-	</table>
-</div>
-
+		 </thead>
+		 <tbody id="estimateItems"> 
+		  {{#each indexToDatasArray}}
+			  <tr class="{{this.IndexCode}}">
+			    <td>{{add @index 1}}</td>
+			    <td><div class="dataCode info-button">{{this.IndexCode}}</div></td>
+			    <td>{{this.description}}</td>
+			    <td><input data-table="{{this.TableName}}" type="checkbox" name="itemsSelected" checked id="{{this.IndexCode}}"/></td>
+			  </tr>
+			   {{#each this.subitemsArray}}	  
+			   	  <tr class="{{../IndexCode}}">  
+				    <td></td>
+				    <td>{{this.SlNo}}</td>
+				    <td>{{this.descritpion}}</td>
+				    <td><input type="checkbox" class="{{../IndexCode}}" name="{{../IndexCode}}" id="{{this.SlNo}}"/></td> 
+			   	  </tr> 
+			   {{/each}}
+		  {{/each}}
+		  </tbody>
+		</table>
+	</div>
+{{else}}
+	<h2>There are no default data's for {{estType}}.</h2>
+{{/if}}
 <br/>
 <br/>
 <br/>

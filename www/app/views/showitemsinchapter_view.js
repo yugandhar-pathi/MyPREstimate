@@ -1,5 +1,5 @@
 
-define(['views/layout/base_itemview','models/estimateitems_util','views/datacodedetails_view','views/utilities/datas_util'],function(BaseItemView,EstimateModel,DataCodeDetails,DatasUtil){
+define(['models/estimateitems_util','views/datacodedetails_view','views/utilities/datas_util'],function(EstimateModel,DataCodeDetails,DatasUtil){
 
 		var ShowItemsInChapter_View = Backbone.View.extend({
 		    

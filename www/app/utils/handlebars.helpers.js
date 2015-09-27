@@ -1,12 +1,3 @@
-/**
- * Helper classes for Handlebars. All the helper functions should be registered
- * and implemented here.
- * 
- * @author Arun Kumar
- * @email arun.kumar125@wipro.com
- * @version 1.0
- * @Date 28-May-14
- */
 
 define(function(require) {
 
@@ -282,6 +273,23 @@ define(function(require) {
 	    	    return new Handlebars.SafeString(amount);
     	}
         });
-	
+    
+    Handlebars.registerHelper('sumUnits', function(lbdArray) {
+    	var sumUnit = 0;
+    	for(var lbd in lbdArray){
+    		sumUnit += Number(lbdArray[lbd].totalUnits);
+    	}
+    	return sumUnit;
+    });
+
+    Handlebars.registerHelper('dataAmount', function(dataItem) {
+    	var sumUnit = 0;
+    	var lbdArray = dataItem.lbdsArray;
+    	for(var lbd in lbdArray){
+    		sumUnit += Number(lbdArray[lbd].totalUnits);
+    	}
+    	var amount = sumUnit * Number(dataItem.rate);
+    	return amount.toFixed("2");
+    });
 
 });

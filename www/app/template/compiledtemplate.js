@@ -67,7 +67,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
 
 
-  return "<div class=\"menu-panel ui-bar-d\" id=\"menuPanel\">\r\n	<div class=\"panel-main-nav\">\r\n		<!-- <div class=\"svg apmap\"></div> -->\r\n		<p style=\"margin:-10px 10px 23px 20px;\" >Menu</p>\r\n		<div class=\"transparent-button large-button\" id=\"newEstimate\">\r\n			<div></div>\r\n			<span>New Estimate</span>\r\n		</div>\r\n\r\n		<div class=\"transparent-button large-button\" id=\"datas\">\r\n			<div></div>\r\n			<p>Datas</p>\r\n		</div>\r\n\r\n		<div class=\"transparent-button large-button\" id=\"historyOption\">\r\n			<div></div>\r\n			<p>History</p>\r\n		</div>\r\n\r\n\r\n		<div class=\"panel-sub-nav\">\r\n			<div id=\"editProfile\">\r\n				<div></div>\r\n				<p>Edit Profile</p>\r\n			</div>\r\n\r\n			<div id=\"Help\">\r\n				<div></div>\r\n				<p>Help</p>\r\n			</div>\r\n\r\n			<div id=\"developer\">\r\n				<div></div>\r\n				<p>About Developer</p>\r\n			</div>\r\n		</div>\r\n		<div id=\"logout\" class=\"logout\">\r\n			<p>Logout</p>\r\n		</div>\r\n	</div>\r\n\r\n</div>\r\n\r\n";
+  return "<div class=\"menu-panel ui-bar-d\" id=\"menuPanel\">\r\n	<div class=\"panel-main-nav\">\r\n		<!-- <div class=\"svg apmap\"></div> -->\r\n		<p style=\"margin:-10px 10px 23px 20px;\" >Menu</p>\r\n		<div class=\"transparent-button large-button\" id=\"newEstimate\">\r\n			<div></div>\r\n			<span>New Estimate</span>\r\n		</div>\r\n\r\n		<div class=\"transparent-button large-button\" id=\"datas\">\r\n			<div></div>\r\n			<p>Datas</p>\r\n		</div>\r\n\r\n		<div class=\"transparent-button large-button\" id=\"historyOption\">\r\n			<div></div>\r\n			<p>History</p>\r\n		</div>\r\n\r\n\r\n		<div class=\"panel-sub-nav\">\r\n			<div id=\"editProfile\">\r\n				<div></div>\r\n				<p>Edit Profile</p>\r\n			</div>\r\n\r\n			<div id=\"Help\">\r\n				<div></div>\r\n				<p>Help</p>\r\n			</div>\r\n			<!--\r\n			<div id=\"developer\">\r\n				<div></div>\r\n				<p>About Developer</p>\r\n			</div>\r\n			-->\r\n		</div>\r\n		<div id=\"logout\" class=\"logout\">\r\n			<p>Logout</p>\r\n		</div>\r\n	</div>\r\n\r\n</div>\r\n\r\n";
   });
 
 this["Handlebars"]["templates"]["layout_page"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
@@ -287,7 +287,7 @@ this["Handlebars"]["templates"]["selectestimate_abstractestimate"] = Handlebars.
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing;
 
-function program1(depth0,data) {
+function program1(depth0,data,depth1) {
   
   var buffer = "", stack1, helper, options;
   buffer += "\r\n		  <tr>\r\n		    <td><strong>"
@@ -296,7 +296,7 @@ function program1(depth0,data) {
   stack1 = helpers['if'].call(depth0, ((stack1 = (depth0 && depth0.subBullets)),stack1 == null || stack1 === false ? stack1 : stack1.length), {hash:{},inverse:self.program(2, program2, data),fn:self.program(2, program2, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\r\n		    <td></td>\r\n		    <td></td>\r\n		    <td></td>\r\n		    <td></td>\r\n		    <td></td>\r\n		  </tr>\r\n		  ";
-  stack1 = helpers['if'].call(depth0, ((stack1 = (depth0 && depth0.subBullets)),stack1 == null || stack1 === false ? stack1 : stack1.length), {hash:{},inverse:self.program(7, program7, data),fn:self.programWithDepth(4, program4, data, depth0),data:data});
+  stack1 = helpers['if'].call(depth0, ((stack1 = (depth0 && depth0.subBullets)),stack1 == null || stack1 === false ? stack1 : stack1.length), {hash:{},inverse:self.programWithDepth(8, program8, data, depth0),fn:self.programWithDepth(4, program4, data, depth0, depth1),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\r\n		";
   return buffer;
@@ -312,18 +312,18 @@ function program2(depth0,data) {
   return buffer;
   }
 
-function program4(depth0,data,depth1) {
+function program4(depth0,data,depth1,depth2) {
   
   var buffer = "", stack1;
   buffer += "\r\n		  	";
-  stack1 = helpers.each.call(depth0, (depth0 && depth0.subBullets), {hash:{},inverse:self.noop,fn:self.programWithDepth(5, program5, data, depth1),data:data});
+  stack1 = helpers.each.call(depth0, (depth0 && depth0.subBullets), {hash:{},inverse:self.noop,fn:self.programWithDepth(5, program5, data, depth0, depth1, depth2),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\r\n		  ";
   return buffer;
   }
-function program5(depth0,data,depth2) {
+function program5(depth0,data,depth1,depth2,depth3) {
   
-  var buffer = "", stack1, helper;
+  var buffer = "", stack1, helper, options;
   buffer += "\r\n			  <tr>\r\n			    <td><strong>";
   if (helper = helpers.itemID) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.itemID); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
@@ -332,101 +332,245 @@ function program5(depth0,data,depth2) {
   if (helper = helpers.subItemDesc) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.subItemDesc); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "</strong></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			  </tr>\r\n			  <tr>\r\n			    <td></td>\r\n			    <td><input type=\"button\" data-iconpos=\"notext\" style=\"float:right\" id=\"addLBD\" data-icon=\"plus\" data-index=\""
-    + escapeExpression(((stack1 = (depth2 && depth2.dataIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</strong></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			  </tr>\r\n			  ";
+  stack1 = helpers.each.call(depth0, (depth0 && depth0.lbdsArray), {hash:{},inverse:self.noop,fn:self.programWithDepth(6, program6, data, depth0, depth2),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += " \r\n			  <tr>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td id=\"quantity"
+    + escapeExpression(((stack1 = (depth3 && depth3.dataIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "-"
+    + escapeExpression(((stack1 = (depth1 && depth1.subIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "-"
     + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\"/></td>\r\n			    <td style=\"width:6%\"><div id=\"Nos1"
-    + escapeExpression(((stack1 = (depth2 && depth2.dataIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\">"
+    + escapeExpression((helper = helpers.sumUnits || (depth0 && depth0.sumUnits),options={hash:{},data:data},helper ? helper.call(depth0, (depth0 && depth0.lbdsArray), options) : helperMissing.call(depth0, "sumUnits", (depth0 && depth0.lbdsArray), options)))
+    + "</td>\r\n			    <td>";
+  if (helper = helpers.unit) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.unit); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "</td>\r\n			    <td id=\"itemRate"
+    + escapeExpression(((stack1 = (depth3 && depth3.dataIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "-"
-    + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\"/></td>\r\n			    <td>X</td>\r\n			    <td style=\"width:6%\"><div id=\"Nos2"
-    + escapeExpression(((stack1 = (depth2 && depth2.dataIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "-"
-    + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\"/></td>\r\n			    <td style=\"width:10%\"><div id=\"length"
-    + escapeExpression(((stack1 = (depth2 && depth2.dataIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "-"
-    + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\"></div></td>\r\n			    <td style=\"width:10%\"><div id=\"breadth"
-    + escapeExpression(((stack1 = (depth2 && depth2.dataIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "-"
-    + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\"></div></td>\r\n			    <td style=\"width:10%\"><div id=\"depth"
-    + escapeExpression(((stack1 = (depth2 && depth2.dataIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "-"
-    + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\"></div></td>\r\n			    <td id=\"totalUnits"
-    + escapeExpression(((stack1 = (depth2 && depth2.dataIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "-"
-    + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\"></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			  </tr>\r\n			  <tr>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td id=\"quantity"
-    + escapeExpression(((stack1 = (depth2 && depth2.dataIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "-"
-    + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\"></td>\r\n			    <td>Cum</td>\r\n			    <td id=\"itemRate"
-    + escapeExpression(((stack1 = (depth2 && depth2.dataIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + escapeExpression(((stack1 = (depth1 && depth1.subIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "-"
     + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\"><strong>";
   if (helper = helpers.subItemRate) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.subItemRate); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "</strong></td>\r\n			    <td>/1cum</td>\r\n			    <td id=\"totalAmount"
-    + escapeExpression(((stack1 = (depth2 && depth2.dataIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</strong></td>\r\n			    <td>/1";
+  if (helper = helpers.unit) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.unit); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "</td>\r\n			    <td id=\"totalAmount"
+    + escapeExpression(((stack1 = (depth3 && depth3.dataIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "-"
+    + escapeExpression(((stack1 = (depth1 && depth1.subIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "-"
     + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\"></td>\r\n			  </tr>\r\n			";
   return buffer;
   }
-
-function program7(depth0,data) {
+function program6(depth0,data,depth1,depth3) {
   
   var buffer = "", stack1, helper;
-  buffer += "\r\n		  	 <tr>\r\n			    <td></td>\r\n			    <td><input type=\"button\" data-iconpos=\"notext\" style=\"float:right\" id=\"addLBD\" data-icon=\"plus\" data-index=\""
+  buffer += "\r\n				  <tr>\r\n				    <td><input type=\"button\" data-iconpos=\"notext\" style=\"float:right\" class=\"addLBD\" data-icon=\"plus\" data-inline=\"true\" data-index=\""
+    + escapeExpression(((stack1 = (depth3 && depth3.dataIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "-"
+    + escapeExpression(((stack1 = (depth1 && depth1.subIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "-"
     + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\"/></td>\r\n			    <td style=\"width:6%\"><div id=\"Nos1"
+    + "\"/></td>\r\n				    <td><div id=\"Description"
+    + escapeExpression(((stack1 = (depth3 && depth3.dataIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "-"
+    + escapeExpression(((stack1 = (depth1 && depth1.subIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "-"
     + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\"/></td>\r\n			    <td>X</td>\r\n			    <td style=\"width:6%\"><div id=\"Nos2"
+    + "\"/>";
+  if (helper = helpers.lbddescription) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.lbddescription); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "</td>\r\n				    <td style=\"width:6%\"><div id=\"Nos1"
+    + escapeExpression(((stack1 = (depth3 && depth3.dataIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "-"
+    + escapeExpression(((stack1 = (depth1 && depth1.subIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "-"
     + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\"/></td>\r\n			    <td style=\"width:10%\"><div id=\"length"
+    + "\"/>";
+  if (helper = helpers.nos1) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.nos1); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "</td>\r\n				    <td>X</td>\r\n				    <td style=\"width:6%\"><div id=\"Nos2"
+    + escapeExpression(((stack1 = (depth3 && depth3.dataIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "-"
+    + escapeExpression(((stack1 = (depth1 && depth1.subIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "-"
     + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\"></div></td>\r\n			    <td style=\"width:10%\"><div id=\"breadth"
+    + "\"/>";
+  if (helper = helpers.nos2) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.nos2); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "</td>\r\n				    <td style=\"width:10%\"><div id=\"length"
+    + escapeExpression(((stack1 = (depth3 && depth3.dataIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "-"
+    + escapeExpression(((stack1 = (depth1 && depth1.subIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "-"
     + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\"></div></td>\r\n			    <td style=\"width:10%\"><div id=\"depth"
+    + "\">";
+  if (helper = helpers.length) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.length); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "</div></td>\r\n				    <td style=\"width:10%\"><div id=\"breadth"
+    + escapeExpression(((stack1 = (depth3 && depth3.dataIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "-"
+    + escapeExpression(((stack1 = (depth1 && depth1.subIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "-"
     + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\"></div></td>\r\n			    <td id=\"totalUnits"
+    + "\">";
+  if (helper = helpers.breadth) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.breadth); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "</div></td>\r\n				    <td style=\"width:10%\"><div id=\"depth"
+    + escapeExpression(((stack1 = (depth3 && depth3.dataIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "-"
+    + escapeExpression(((stack1 = (depth1 && depth1.subIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "-"
     + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\"></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			  </tr>\r\n			  <tr>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td id=\"quantity"
+    + "\">";
+  if (helper = helpers.depth) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.depth); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "</div></td>\r\n				    <td id=\"totalUnits"
+    + escapeExpression(((stack1 = (depth3 && depth3.dataIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "-"
+    + escapeExpression(((stack1 = (depth1 && depth1.subIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "-"
     + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\"></td>\r\n			    <td>Cum</td>\r\n			    <td id=\"itemRate"
+    + "\">";
+  if (helper = helpers.totalUnits) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.totalUnits); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "</td>\r\n				    <td></td>\r\n				    <td></td>\r\n				    <td></td>\r\n				    <td></td>\r\n				  </tr>\r\n			  ";
+  return buffer;
+  }
+
+function program8(depth0,data,depth1) {
+  
+  var buffer = "", stack1, helper, options;
+  buffer += "\r\n		  	";
+  stack1 = helpers.each.call(depth0, (depth0 && depth0.lbdsArray), {hash:{},inverse:self.noop,fn:self.programWithDepth(9, program9, data, depth1),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += " \r\n			  <tr>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td id=\"quantity"
+    + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\">"
+    + escapeExpression((helper = helpers.sumUnits || (depth0 && depth0.sumUnits),options={hash:{},data:data},helper ? helper.call(depth0, (depth0 && depth0.lbdsArray), options) : helperMissing.call(depth0, "sumUnits", (depth0 && depth0.lbdsArray), options)))
+    + "</td>\r\n			    <td>";
+  if (helper = helpers.unit) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.unit); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "</td>\r\n			    <td id=\"itemRate"
     + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\"><strong>";
   if (helper = helpers.rate) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.rate); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "</strong></td>\r\n			    <td>/1cum</td>\r\n			    <td id=\"totalAmount"
+    + "</strong></td>\r\n			    <td>/1";
+  if (helper = helpers.unit) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.unit); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "</td>\r\n			    <td id=\"totalAmount"
     + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\"></td>\r\n			  </tr>\r\n		  ";
+    + "\"><strong>"
+    + escapeExpression((helper = helpers.dataAmount || (depth0 && depth0.dataAmount),options={hash:{},data:data},helper ? helper.call(depth0, depth0, options) : helperMissing.call(depth0, "dataAmount", depth0, options)))
+    + "</strong></td>\r\n			  </tr>\r\n		  ";
+  return buffer;
+  }
+function program9(depth0,data,depth2) {
+  
+  var buffer = "", stack1, helper;
+  buffer += "\r\n		  	  <tr>\r\n			    <td><input type=\"button\" data-iconpos=\"notext\" style=\"float:right\" class=\"addLBD\" data-icon=\"plus\" data-index=\""
+    + escapeExpression(((stack1 = (depth2 && depth2.dataIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "-"
+    + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\"/></td>\r\n			    <td><div id=\"lbdDesc"
+    + escapeExpression(((stack1 = (depth2 && depth2.dataIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "-"
+    + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\">";
+  if (helper = helpers.lbddescription) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.lbddescription); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "</div></td>\r\n			    <td style=\"width:6%\"><div id=\"Nos1"
+    + escapeExpression(((stack1 = (depth2 && depth2.dataIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "-"
+    + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\">";
+  if (helper = helpers.nos1) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.nos1); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "</div></td>\r\n			    <td>X</td>\r\n			    <td style=\"width:6%\"><div id=\"Nos2"
+    + escapeExpression(((stack1 = (depth2 && depth2.dataIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "-"
+    + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\">";
+  if (helper = helpers.nos2) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.nos2); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "</div></td>\r\n			    <td style=\"width:10%\"><div id=\"length"
+    + escapeExpression(((stack1 = (depth2 && depth2.dataIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "-"
+    + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\">";
+  if (helper = helpers.length) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.length); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "</div></td>\r\n			    <td style=\"width:10%\"><div id=\"breadth"
+    + escapeExpression(((stack1 = (depth2 && depth2.dataIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "-"
+    + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\">";
+  if (helper = helpers.breadth) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.breadth); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "</div></td>\r\n			    <td style=\"width:10%\"><div id=\"depth"
+    + escapeExpression(((stack1 = (depth2 && depth2.dataIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "-"
+    + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\">";
+  if (helper = helpers.depth) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.depth); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "</div></td>\r\n			    <td id=\"totalUnits"
+    + escapeExpression(((stack1 = (depth2 && depth2.dataIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "-"
+    + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\">";
+  if (helper = helpers.totalUnits) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.totalUnits); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "</td>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			  </tr>\r\n			";
   return buffer;
   }
 
   buffer += "	<table data-role=\"table\" class=\"ui-body-d ui-shadow table-stripe ui-responsive\">\r\n	  <thead>\r\n	  	  <tr>\r\n		    <th colspan=\"8\"></th>\r\n		    <th colspan=\"5\"><strong>Est.Cost.Rs:<span id=\"absEstimateCost\"></span>Lakhs</strong></th>\r\n		  </tr>\r\n		  <tr>\r\n		    <th rowspan=\"2\">S.No</th>\r\n		    <th rowspan=\"2\">Description of item</th>\r\n		    <th colspan=\"3\" rowspan=\"2\">Nos</th>\r\n		    <th colspan=\"3\">Measurements</th>\r\n		    <th colspan=\"2\" rowspan=\"2\" >Qunatity</th>\r\n		    <th colspan=\"2\" rowspan=\"2\">Rate/Per</th>\r\n		    <th rowspan=\"2\">Amount</th>\r\n		  </tr>\r\n		  <tr>\r\n		    <th>L</th>\r\n		    <th>B</th>\r\n		    <th>D</th>\r\n		  </tr>\r\n	  </thead>\r\n	  <tbody>\r\n	  ";
-  stack1 = helpers.each.call(depth0, (depth0 && depth0.codeToRates), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
+  stack1 = helpers.each.call(depth0, (depth0 && depth0.codeToRates), {hash:{},inverse:self.noop,fn:self.programWithDepth(1, program1, data, depth0),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "  \r\n	  </tbody>\r\n	</table>\r\n	<input type=\"submit\" value=\"Save Estimate\" id=\"saveEstimate\"/>\r\n	<div data-role=\"popup\" id=\"getLBDData\" data-arrow=\"true\" class=\"ui-content\">\r\n	 	<a href=\"#\" data-rel=\"back\" class=\"ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right\">Close</a>\r\n	 	<P id=\"mandatoryText\" style=\"color:red\"><i><strong>Please enter all mandatory* fields</strong></i></p>\r\n	 	<div data-role=\"fieldset\">\r\n	 		<div class=\"ui-grid-a\">\r\n				<div class=\"ui-block-a\" style=\"padding-top:5%;width:50%\"><label>NOs:<sup style=\"color:red\"><b>*</b></sup></label></div>\r\n				<div class=\"ui-block-b\">\r\n					 <div class=\"ui-grid-b\">\r\n						<div class=\"ui-block-a\"><input type=\"text\" class=\"lbdinput\" id=\"nos1\"></div>\r\n						<div class=\"ui-block-b\"><label style=\"padding-left:40%;padding-top:15%\"><strong>X</strong></label></div>\r\n						<div class=\"ui-block-c\"><input type=\"text\" class=\"lbdinput\" id=\"nos2\"></div>\r\n					</div>\r\n				</div>\r\n			</div>\r\n		 	<div class=\"ui-grid-a\">\r\n				<div class=\"ui-block-a\" style=\"padding-top:5%;width:50%\"><label>Length<sup style=\"color:red\"><b>*</b></sup>:</label></div>\r\n				<div class=\"ui-block-b\"><input type=\"text\" class=\"lbdinput\" id=\"length\"></div>\r\n			</div>\r\n			<div class=\"ui-grid-a\">\r\n				<div class=\"ui-block-a\" style=\"padding-top:5%;width:50%\"><label>Breadth<sup style=\"color:red\"><b>*</b></sup>:</label></div>\r\n				<div class=\"ui-block-b\"><input type=\"text\" class=\"lbdinput\" id=\"breadth\"></div>\r\n			</div>\r\n			<div class=\"ui-grid-a\">\r\n				<div class=\"ui-block-a\" style=\"padding-top:5%;width:50%\"><label>Depth<sup style=\"color:red\"><b>*</b></sup>:</label></div>\r\n				<div class=\"ui-block-b\"><input type=\"text\" class=\"lbdinput\" id=\"depth\"></div>\r\n			</div>\r\n		</div>\r\n		<input type=\"button\" value=\"Save\" id=\"saveLBD\"/>\r\n	</div>\r\n\r\n";
+  buffer += "  \r\n	  </tbody>\r\n	</table>\r\n	<input type=\"submit\" value=\"Save Estimate\" id=\"saveEstimate\"/>\r\n	<div data-role=\"popup\" id=\"getLBDData\" data-arrow=\"true\" class=\"ui-content\">\r\n	 	<a href=\"#\" data-rel=\"back\" class=\"ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right\">Close</a>\r\n	 	<P id=\"mandatoryText\" style=\"color:red\"><i><strong>Please enter all mandatory* fields</strong></i></p>\r\n	 	<div data-role=\"fieldset\">\r\n	 		<div class=\"ui-grid-a\">\r\n				<div class=\"ui-block-a\" style=\"padding-top:5%;width:50%\"><label>Description:</label></div>\r\n				<div class=\"ui-block-b\"><input type=\"text\" placeholder=\"Ex:Column footing\" class=\"lbdinput\" id=\"lbdDescription\"></div>\r\n			</div>\r\n	 		<div class=\"ui-grid-a\">\r\n				<div class=\"ui-block-a\" style=\"padding-top:5%;width:50%\"><label>NOs:<sup style=\"color:red\"><b>*</b></sup></label></div>\r\n				<div class=\"ui-block-b\">\r\n					 <div class=\"ui-grid-b\">\r\n						<div class=\"ui-block-a\"><input type=\"text\" class=\"lbdinput\" id=\"nos1\"></div>\r\n						<div class=\"ui-block-b\"><label style=\"padding-left:40%;padding-top:15%\"><strong>X</strong></label></div>\r\n						<div class=\"ui-block-c\"><input type=\"text\" class=\"lbdinput\" id=\"nos2\"></div>\r\n					</div>\r\n				</div>\r\n			</div>\r\n		 	<div class=\"ui-grid-a\">\r\n				<div class=\"ui-block-a\" style=\"padding-top:5%;width:50%\"><label>Length<sup style=\"color:red\"><b>*</b></sup>:</label></div>\r\n				<div class=\"ui-block-b\"><input type=\"text\" class=\"lbdinput\" id=\"length\"></div>\r\n			</div>\r\n			<div class=\"ui-grid-a\">\r\n				<div class=\"ui-block-a\" style=\"padding-top:5%;width:50%\"><label>Breadth<sup style=\"color:red\"><b>*</b></sup>:</label></div>\r\n				<div class=\"ui-block-b\"><input type=\"text\" class=\"lbdinput\" id=\"breadth\"></div>\r\n			</div>\r\n			<div class=\"ui-grid-a\">\r\n				<div class=\"ui-block-a\" style=\"padding-top:5%;width:50%\"><label>Depth<sup style=\"color:red\"><b>*</b></sup>:</label></div>\r\n				<div class=\"ui-block-b\"><input type=\"text\" class=\"lbdinput\" id=\"depth\"></div>\r\n			</div>\r\n		</div>\r\n		<input type=\"button\" value=\"Save\" id=\"saveLBD\"/>\r\n	</div>\r\n\r\n";
   return buffer;
   });
 
 this["Handlebars"]["templates"]["selectestimate_chooseitem"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, self=this;
+  var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, self=this;
 
 function program1(depth0,data) {
   
-  var buffer = "", stack1;
-  buffer += "		\r\n	<div>\r\n		<table data-role=\"table\" class=\"ui-body-d ui-shadow table-stripe ui-responsive\">\r\n		<thead>\r\n		  <tr>\r\n		    <th>Sl.No</th>\r\n		    <th>Item-Code</th>\r\n		    <th>Description</th>\r\n		    <th>Choose</th>\r\n		  </tr>\r\n		 </thead>\r\n		 <tbody id=\"estimateItems\"> \r\n		  ";
+  var buffer = "", stack1, helper;
+  buffer += "		\r\n	<p><strong><i>Default datas for ";
+  if (helper = helpers.estType) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.estType); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + ":<i></strong></p>	\r\n	<div>\r\n		<table data-role=\"table\" class=\"ui-body-d ui-shadow table-stripe ui-responsive\">\r\n		<thead>\r\n		  <tr>\r\n		    <th>Sl.No</th>\r\n		    <th>Item-Code</th>\r\n		    <th>Description</th>\r\n		    <th>Choose</th>\r\n		  </tr>\r\n		 </thead>\r\n		 <tbody id=\"estimateItems\"> \r\n		  ";
   stack1 = helpers.each.call(depth0, (depth0 && depth0.indexToDatasArray), {hash:{},inverse:self.noop,fn:self.program(2, program2, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\r\n		  </tbody>\r\n		</table>\r\n	</div>\r\n";
@@ -483,11 +627,6 @@ function program5(depth0,data) {
   return buffer;
   }
 
-  buffer += "\r\n<p><strong><i>Default datas for ";
-  if (helper = helpers.estType) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.estType); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1)
-    + ":<i></strong></p>	\r\n";
   stack1 = helpers['if'].call(depth0, ((stack1 = (depth0 && depth0.defaultDatasFromDB)),stack1 == null || stack1 === false ? stack1 : stack1.length), {hash:{},inverse:self.program(5, program5, data),fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\r\n<br/>\r\n<br/>\r\n<br/>\r\n<br/>\r\n\r\n<div class=\"footer-buttons\">\r\n	<hr />\r\n	<div class=\"ui-grid-a\">\r\n		<div class=\"ui-block-a footer-left\">\r\n			<input type=\"button\" id=\"addDatas\" data-icon=\"plus\" data-iconpos=\"left\" value=\"Add More Datas\" data-inline=\"true\"/>\r\n		</div>\r\n		<div class=\"ui-block-b footer-right\">\r\n			<input type=\"button\" data-inline=\"true\" data-icon=\"arrow-r\" data-iconpos=\"right\" value=\"Proceed To Lead\" id=\"proceedToLeadStmt\"/>\r\n		</div>\r\n	</div>\r\n</div>\r\n\r\n<div data-role=\"popup\" id=\"deleteData\" data-arrow=\"true\" class=\"ui-content\">\r\n 	<a href=\"#\" data-rel=\"back\" class=\"ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right\">Close</a>\r\n 	<input type=\"submit\" value=\"Delete?\" id=\"deleteDataIndex\">\r\n</div>\r\n";
@@ -1134,7 +1273,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
 
 
-  return "\r\n<!-- <p><strong><i>From which chapter do you wish to select ?</i></strong></p> -->\r\n\r\n<div data-role=\"tabs\" id=\"tabs\">\r\n	 <div data-role=\"navbar\">\r\n	 	<ul id=\"dataBooks\">\r\n		  <li id=\"RAndB\"><a href=\"#RoadsNBridges\" data-ajax=\"false\" class=\"ui-btn-active\">Roads And Bridges</a></li>\r\n		  <li id=\"Build\"><a href=\"#buildings\" data-ajax=\"false\">Buildings</a></li>\r\n		  <li id=\"electricItems\"><a href=\"#elecItems\" data-ajax=\"false\">Electrical Items</a></li>\r\n		</ul>\r\n	 </div>\r\n	 <div id=\"RoadsNBridges\" style=\"margin-top:2%\">\r\n		<div class=\"ui-grid-b\">\r\n			<div class=\"ui-block-a listOfChapters\"><div data-table=\"LUCANDC\" class=\"ui-bar ui-bar-a\" style=\"height:70px\">1.LOADING, UNLOADING, CARRIAGE and CRUSHING OF MATERIALS</div></div>\r\n			<div class=\"ui-block-b listOfChapters\"><div data-table=\"SiteClearence\" class=\"ui-bar ui-bar-a\" style=\"height:70px\">2.SITE CLEARANCE</div></div>\r\n			<div class=\"ui-block-c listOfChapters\"><div data-table=\"EECD\" class=\"ui-bar ui-bar-a\" style=\"height:70px\">3.EARTHWORK, EROSION CONTROL AND DRAINAGE</div></div>\r\n		</div><!-- /grid-b -->\r\n		<div class=\"ui-grid-b\">\r\n			<div class=\"ui-block-a listOfChapters\"><div data-table=\"GranSubBases\" class=\"ui-bar ui-bar-d\" style=\"height:70px\">4.GRANULAR SUB-BASES, BASES (NON-BITUMINOUS) AND SHOULDERS</div></div>\r\n			<div class=\"ui-block-b listOfChapters\"><div data-table=\"BasesAndSurface\" class=\"ui-bar ui-bar-d\" style=\"height:70px\">5.BASES AND SURFACE COURSES (BITUMINOUS)</div></div>\r\n			<div class=\"ui-block-c listOfChapters\"><div data-table=\"CCPAVEMENT\" class=\"ui-bar ui-bar-d\" style=\"height:70px\">6.CEMENT CONCRETE PAVEMENT</div></div>\r\n		</div><!-- /grid-b -->\r\n		<div class=\"ui-grid-b\">\r\n			<div class=\"ui-block-a listOfChapters\" ><div data-table=\"CauAndSubMerBridges\" class=\"ui-bar ui-bar-c\" style=\"height:70px\">7.CAUSEWAY AND SUBMERSIBLE BRIDGES</div></div>\r\n			<div class=\"ui-block-b listOfChapters\" ><div data-table=\"HillRoads\" class=\"ui-bar ui-bar-c\" style=\"height:70px\">8.HILL ROADS</div></div>\r\n			<div class=\"ui-block-c listOfChapters\" ><div data-table=\"PipeCulverts\" class=\"ui-bar ui-bar-c\" style=\"height:70px\">9.PIPE CULVERTS</div></div>\r\n		</div><!-- /grid-b -->\r\n		<div class=\"ui-grid-b\">\r\n			<div class=\"ui-block-a listOfChapters\"><div data-table=\"TrafficSigns\" class=\"ui-bar ui-bar-d\" style=\"height:70px\">10.TRAFFIC SIGNS, MARKINGS AND OTHER ROAD APPURTENANCES</div></div>\r\n			<div class=\"ui-block-b listOfChapters\"><div data-table=\"Foundation\" class=\"ui-bar ui-bar-d\" style=\"height:70px\">11.FOUNDATION</div></div>\r\n			<div class=\"ui-block-c listOfChapters\"><div data-table=\"SubStructure\" class=\"ui-bar ui-bar-d\" style=\"height:70px\">12.SUBSTRUCTURE</div></div>\r\n		</div><!-- /grid-b -->\r\n		<div class=\"ui-grid-b\">\r\n			<div class=\"ui-block-a listOfChapters\"><div data-table=\"SuperStructure\" class=\"ui-bar ui-bar-a\" style=\"height:70px\">13.SUPERSTRUCTURE</div></div>\r\n			<div class=\"ui-block-b listOfChapters\"><div data-table=\"ProtectionWorks\" class=\"ui-bar ui-bar-a\" style=\"height:70px\">14.PROTECTION WORKS</div></div>\r\n			<div class=\"ui-block-c listOfChapters\"><div data-table=\"MaintOfRoads\" class=\"ui-bar ui-bar-a\" style=\"height:70px\">15.MAINTENANCE OF ROADS</div></div>\r\n		</div><!-- /grid-b -->\r\n		<div class=\"ui-grid-b\">\r\n			<div class=\"ui-block-a listOfChapters\"><div data-table=\"GEOSYNTHETICS\" class=\"ui-bar ui-bar-d\" style=\"height:70px\">16.GEOSYNTHETICS AND REINFORCED EARTH</div></div>\r\n			<div class=\"ui-block-b listOfChapters\"><div data-table=\"Horticulture\" class=\"ui-bar ui-bar-d\" style=\"height:70px\">17.Horticulture</div></div>\r\n			<div class=\"ui-block-c listOfChapters\"><div data-table=\"Repair\" class=\"ui-bar ui-bar-d\" style=\"height:70px\">18.REPAIR AND REHABILITATION</div></div>\r\n		</div><!-- /grid-b -->\r\n	</div>\r\n	<div id =\"buildings\" style=\"margin-top:2%\">\r\n		<div class=\"ui-grid-b\">\r\n			<div class=\"ui-block-a listOfChapters\"><div data-table=\"Mortar\" class=\"ui-bar ui-bar-a\" style=\"height:70px\">1.MORTARS</div></div>\r\n			<div class=\"ui-block-b listOfChapters\"><div data-table=\"Earthwork\" class=\"ui-bar ui-bar-a\" style=\"height:70px\">2.EARTH WORK EXCAVATION FOR FOUNDATIONS</div></div>\r\n			<div class=\"ui-block-c listOfChapters\"><div data-table=\"ConcreteDampProof\" class=\"ui-bar ui-bar-a\" style=\"height:70px\">3.CONCRETE, DAMP PROOF COURSE & REINFORCEMENT</div></div>\r\n		</div><!-- /grid-b -->\r\n		<div class=\"ui-grid-b\">\r\n			<div class=\"ui-block-a listOfChapters\"><div data-table=\"BarInFoundation\" class=\"ui-bar ui-bar-d\" style=\"height:70px\">4.Supplying, fitting and placing HYSD bar reinforcement in foundation</div></div>\r\n			<div class=\"ui-block-b listOfChapters\"><div data-table=\"Brickwork\" class=\"ui-bar ui-bar-d\" style=\"height:70px\">5.BRICK WORK, HONEY - COMBWORK</div></div>\r\n			<div class=\"ui-block-c listOfChapters\"><div data-table=\"StoneMasonary\" class=\"ui-bar ui-bar-d\" style=\"height:70px\">6.STONE MASONRY, DAMP PROOF COURSE, DRY STONE PACKING, QUARRY RUBBISH & GRAVEL BACKING</div></div>\r\n		</div><!-- /grid-b -->\r\n		<div class=\"ui-grid-b\">\r\n			<div class=\"ui-block-a listOfChapters\" ><div data-table=\"Pointing\" class=\"ui-bar ui-bar-c\" style=\"height:70px\">7.POINTING</div></div>\r\n			<div class=\"ui-block-b listOfChapters\" ><div data-table=\"Plastering\" class=\"ui-bar ui-bar-c\" style=\"height:70px\">8.PLASTERING</div></div>\r\n			<div class=\"ui-block-c listOfChapters\" ><div data-table=\"Flooring\" class=\"ui-bar ui-bar-c\" style=\"height:70px\">9.FLOORING</div></div>\r\n		</div><!-- /grid-b -->\r\n		<div class=\"ui-grid-b\">\r\n			<div class=\"ui-block-a listOfChapters\"><div data-table=\"RoofingAndCeiling\" class=\"ui-bar ui-bar-d\" style=\"height:70px\">10.ROOFING & CEILING</div></div>\r\n			<div class=\"ui-block-b listOfChapters\"><div data-table=\"WhiteWashing\" class=\"ui-bar ui-bar-d\" style=\"height:70px\">11.WHITE WASHING, COLOUR WASHING & DISTEMPERING</div></div>\r\n			<div class=\"ui-block-c listOfChapters\"><div data-table=\"PaintingAndVarnishing\" class=\"ui-bar ui-bar-d\" style=\"height:70px\">12.PAINTING & VARNISHING</div></div>\r\n		</div><!-- /grid-b -->\r\n		<div class=\"ui-grid-b\">\r\n			<div class=\"ui-block-a listOfChapters\"><div data-table=\"WoodWork\" class=\"ui-bar ui-bar-a\" style=\"height:70px\">13.WOOD WORK, ALUMINUM DOORS, WINDOWS, VENTILATORS Etc.,</div></div>\r\n			<div class=\"ui-block-b listOfChapters\"><div data-table=\"DismantlingAndDemolition\" class=\"ui-bar ui-bar-a\" style=\"height:70px\">14.DISMANTLING & DEMOLITION</div></div>\r\n			<div class=\"ui-block-c listOfChapters\"><div data-table=\"MISCELLANEOUS\" class=\"ui-bar ui-bar-a\" style=\"height:70px\">15.MISCELLANEOUS BUILDING ITEMS </div></div>\r\n		</div><!-- /grid-b -->\r\n		<div class=\"ui-grid-b\">\r\n			<div class=\"ui-block-a listOfChapters\"><div data-table=\"ANTETERMITETREATMENT\" class=\"ui-bar ui-bar-d\" style=\"height:70px\">16.ANTE-TERMITE TREATMENT</div></div>\r\n			<div class=\"ui-block-b listOfChapters\"><div data-table=\"Centring\" class=\"ui-bar ui-bar-d\" style=\"height:70px\">17.CENTERING, FORM WORK etc.</div></div>\r\n			<div class=\"ui-block-c listOfChapters\"><div data-table=\"\" class=\"ui-bar ui-bar-d\" style=\"height:70px\">18.User Defined Data's</div></div>\r\n		</div><!-- /grid-b -->\r\n	</div>\r\n	<div id =\"elecItems\" style=\"margin-top:2%\">\r\n		<div class=\"ui-grid-b\">\r\n			<div class=\"ui-block-a listOfChapters\"><div data-table=\"CONDUITLAYING\" class=\"ui-bar ui-bar-a\" style=\"height:70px\">1.CONDUIT LAYING</div></div>\r\n			<div class=\"ui-block-b listOfChapters\"><div data-table=\"WIRING\" class=\"ui-bar ui-bar-a\" style=\"height:70px\">2.WIRING</div></div>\r\n			<div class=\"ui-block-c listOfChapters\"><div data-table=\"RUNOFMAINS\" class=\"ui-bar ui-bar-a\" style=\"height:70px\">3.RUN OF MAINS</div></div>\r\n		</div><!-- /grid-b -->\r\n		<div class=\"ui-grid-b\">\r\n			<div class=\"ui-block-a listOfChapters\"><div data-table=\"SWITCHGEAR\" class=\"ui-bar ui-bar-d\" style=\"height:70px\">4.SWITCH GEAR & MCB DISTRIBUTION BOARD</div></div>\r\n			<div class=\"ui-block-b listOfChapters\"><div data-table=\"EARTHING\" class=\"ui-bar ui-bar-d\" style=\"height:70px\">5.EARTHING</div></div>\r\n			<div class=\"ui-block-c listOfChapters\"><div data-table=\"SERVICEMAINS\" class=\"ui-bar ui-bar-d\" style=\"height:70px\">6.SERVICE MAINS & LTOH LINES</div></div>\r\n		</div><!-- /grid-b -->\r\n		<div class=\"ui-grid-b\">\r\n			<div class=\"ui-block-a listOfChapters\" ><div data-table=\"STREETLIGHT\" class=\"ui-bar ui-bar-c\" style=\"height:70px\">7.STREET LIGHT LUMINARIES</div></div>\r\n			<div class=\"ui-block-b listOfChapters\" ><div data-table=\"INTERNALLUMINAIRE\" class=\"ui-bar ui-bar-c\" style=\"height:70px\">8.INTERNAL LUMINAIRE</div></div>\r\n			<div class=\"ui-block-c listOfChapters\" ><div data-table=\"ACANDREFRIGERATION\" class=\"ui-bar ui-bar-c\" style=\"height:70px\">9.AC AND REFRIGERATION , FANS</div></div>\r\n		</div><!-- /grid-b -->\r\n		<div class=\"ui-grid-b\">\r\n			<div class=\"ui-block-a listOfChapters\"><div data-table=\"WATERHEATERS\" class=\"ui-bar ui-bar-d\" style=\"height:70px\">10.WATER HEATERS</div></div>\r\n			<div class=\"ui-block-b listOfChapters\"><div data-table=\"WATERPUMPS\" class=\"ui-bar ui-bar-d\" style=\"height:70px\">11.WATER PUMPS</div></div>\r\n			<div class=\"ui-block-c listOfChapters\"><div data-table=\"BUSBARS\" class=\"ui-bar ui-bar-d\" style=\"height:70px\">12.BUS BARS</div></div>\r\n		</div><!-- /grid-b -->\r\n		<div class=\"ui-grid-b\">\r\n			<div class=\"ui-block-a listOfChapters\"><div data-table=\"SWAGEDPOLES\" class=\"ui-bar ui-bar-a\" style=\"height:70px\">13.SWAGED POLES</div></div>\r\n			<div class=\"ui-block-b listOfChapters\"><div data-table=\"CONTROLPANEL\" class=\"ui-bar ui-bar-a\" style=\"height:70px\">14.CONTROL PANEL & METERING EQUIPMENT</div></div>\r\n			<div class=\"ui-block-c listOfChapters\"><div data-table=\"CABLES\" class=\"ui-bar ui-bar-a\" style=\"height:70px\">15.CABLES / CABLE GLANDS / LUGS</div></div>\r\n		</div><!-- /grid-b -->\r\n		<div class=\"ui-grid-b\">\r\n			<div class=\"ui-block-a listOfChapters\"><div data-table=\"TEMPORARY\" class=\"ui-bar ui-bar-d\" style=\"height:70px\">16.TEMPORARY ILLUMINATION</div></div>\r\n			<div class=\"ui-block-b listOfChapters\"><div data-table=\"GENERATORS\" class=\"ui-bar ui-bar-d\" style=\"height:70px\">17.GENERATORS AND TRANSFORMERS</div></div>\r\n			<div class=\"ui-block-c listOfChapters\"><div data-table=\"REPAIRSTOMOTORS\" class=\"ui-bar ui-bar-d\" style=\"height:70px\">18.REPAIRS TO MOTORS & REWINDING</div></div>\r\n		</div><!-- /grid-b -->\r\n	</div>\r\n</div>\r\n\r\n<div data-role=\"popup\" id=\"datasPopup\" class=\"ui-content\" data-overlay-theme=\"b\" style=\"width:800px;height:450px;overflow-x:hidden\">\r\n	<div id=\"datasInChapter\"></div>\r\n</div>\r\n<div data-role=\"popup\" id=\"detailsPopup\" class=\"ui-content\" data-overlay-theme=\"b\" style=\"width:800px;height:450px;overflow-y:scroll;overflow-x:hidden\">\r\n	<div id=\"dataCodeDetails\"></div>\r\n</div>\r\n";
+  return "\r\n<!-- <p><strong><i>From which chapter do you wish to select ?</i></strong></p> -->\r\n\r\n<div data-role=\"tabs\" id=\"tabs\">\r\n	 <div data-role=\"navbar\">\r\n	 	<ul id=\"dataBooks\">\r\n		  <li id=\"RAndB\"><a href=\"#RoadsNBridges\" data-ajax=\"false\" class=\"ui-btn-active\">Roads And Bridges</a></li>\r\n		  <li id=\"Build\"><a href=\"#buildings\" data-ajax=\"false\">Buildings</a></li>\r\n		  <li id=\"electricItems\"><a href=\"#elecItems\" data-ajax=\"false\">Electrical Items</a></li>\r\n		  <li id=\"search\"><a href=\"#searchDatas\" data-ajax=\"false\">Search</a></li>\r\n		</ul>\r\n	 </div>\r\n	 <div id=\"RoadsNBridges\" style=\"margin-top:2%\">\r\n		<div class=\"ui-grid-b\">\r\n			<div class=\"ui-block-a listOfChapters\"><div data-table=\"LUCANDC\" class=\"ui-bar ui-bar-a\" style=\"height:70px\">1.LOADING, UNLOADING, CARRIAGE and CRUSHING OF MATERIALS</div></div>\r\n			<div class=\"ui-block-b listOfChapters\"><div data-table=\"SiteClearence\" class=\"ui-bar ui-bar-a\" style=\"height:70px\">2.SITE CLEARANCE</div></div>\r\n			<div class=\"ui-block-c listOfChapters\"><div data-table=\"EECD\" class=\"ui-bar ui-bar-a\" style=\"height:70px\">3.EARTHWORK, EROSION CONTROL AND DRAINAGE</div></div>\r\n		</div><!-- /grid-b -->\r\n		<div class=\"ui-grid-b\">\r\n			<div class=\"ui-block-a listOfChapters\"><div data-table=\"GranSubBases\" class=\"ui-bar ui-bar-d\" style=\"height:70px\">4.GRANULAR SUB-BASES, BASES (NON-BITUMINOUS) AND SHOULDERS</div></div>\r\n			<div class=\"ui-block-b listOfChapters\"><div data-table=\"BasesAndSurface\" class=\"ui-bar ui-bar-d\" style=\"height:70px\">5.BASES AND SURFACE COURSES (BITUMINOUS)</div></div>\r\n			<div class=\"ui-block-c listOfChapters\"><div data-table=\"CCPAVEMENT\" class=\"ui-bar ui-bar-d\" style=\"height:70px\">6.CEMENT CONCRETE PAVEMENT</div></div>\r\n		</div><!-- /grid-b -->\r\n		<div class=\"ui-grid-b\">\r\n			<div class=\"ui-block-a listOfChapters\" ><div data-table=\"CauAndSubMerBridges\" class=\"ui-bar ui-bar-c\" style=\"height:70px\">7.CAUSEWAY AND SUBMERSIBLE BRIDGES</div></div>\r\n			<div class=\"ui-block-b listOfChapters\" ><div data-table=\"HillRoads\" class=\"ui-bar ui-bar-c\" style=\"height:70px\">8.HILL ROADS</div></div>\r\n			<div class=\"ui-block-c listOfChapters\" ><div data-table=\"PipeCulverts\" class=\"ui-bar ui-bar-c\" style=\"height:70px\">9.PIPE CULVERTS</div></div>\r\n		</div><!-- /grid-b -->\r\n		<div class=\"ui-grid-b\">\r\n			<div class=\"ui-block-a listOfChapters\"><div data-table=\"TrafficSigns\" class=\"ui-bar ui-bar-d\" style=\"height:70px\">10.TRAFFIC SIGNS, MARKINGS AND OTHER ROAD APPURTENANCES</div></div>\r\n			<div class=\"ui-block-b listOfChapters\"><div data-table=\"Foundation\" class=\"ui-bar ui-bar-d\" style=\"height:70px\">11.FOUNDATION</div></div>\r\n			<div class=\"ui-block-c listOfChapters\"><div data-table=\"SubStructure\" class=\"ui-bar ui-bar-d\" style=\"height:70px\">12.SUBSTRUCTURE</div></div>\r\n		</div><!-- /grid-b -->\r\n		<div class=\"ui-grid-b\">\r\n			<div class=\"ui-block-a listOfChapters\"><div data-table=\"SuperStructure\" class=\"ui-bar ui-bar-a\" style=\"height:70px\">13.SUPERSTRUCTURE</div></div>\r\n			<div class=\"ui-block-b listOfChapters\"><div data-table=\"ProtectionWorks\" class=\"ui-bar ui-bar-a\" style=\"height:70px\">14.PROTECTION WORKS</div></div>\r\n			<div class=\"ui-block-c listOfChapters\"><div data-table=\"MaintOfRoads\" class=\"ui-bar ui-bar-a\" style=\"height:70px\">15.MAINTENANCE OF ROADS</div></div>\r\n		</div><!-- /grid-b -->\r\n		<div class=\"ui-grid-b\">\r\n			<div class=\"ui-block-a listOfChapters\"><div data-table=\"GEOSYNTHETICS\" class=\"ui-bar ui-bar-d\" style=\"height:70px\">16.GEOSYNTHETICS AND REINFORCED EARTH</div></div>\r\n			<div class=\"ui-block-b listOfChapters\"><div data-table=\"Horticulture\" class=\"ui-bar ui-bar-d\" style=\"height:70px\">17.Horticulture</div></div>\r\n			<div class=\"ui-block-c listOfChapters\"><div data-table=\"Repair\" class=\"ui-bar ui-bar-d\" style=\"height:70px\">18.REPAIR AND REHABILITATION</div></div>\r\n		</div><!-- /grid-b -->\r\n	</div>\r\n	<div id =\"buildings\" style=\"margin-top:2%\">\r\n		<div class=\"ui-grid-b\">\r\n			<div class=\"ui-block-a listOfChapters\"><div data-table=\"Mortar\" class=\"ui-bar ui-bar-a\" style=\"height:70px\">1.MORTARS</div></div>\r\n			<div class=\"ui-block-b listOfChapters\"><div data-table=\"Earthwork\" class=\"ui-bar ui-bar-a\" style=\"height:70px\">2.EARTH WORK EXCAVATION FOR FOUNDATIONS</div></div>\r\n			<div class=\"ui-block-c listOfChapters\"><div data-table=\"ConcreteDampProof\" class=\"ui-bar ui-bar-a\" style=\"height:70px\">3.CONCRETE, DAMP PROOF COURSE & REINFORCEMENT</div></div>\r\n		</div><!-- /grid-b -->\r\n		<div class=\"ui-grid-b\">\r\n			<div class=\"ui-block-a listOfChapters\"><div data-table=\"BarInFoundation\" class=\"ui-bar ui-bar-d\" style=\"height:70px\">4.Supplying, fitting and placing HYSD bar reinforcement in foundation</div></div>\r\n			<div class=\"ui-block-b listOfChapters\"><div data-table=\"Brickwork\" class=\"ui-bar ui-bar-d\" style=\"height:70px\">5.BRICK WORK, HONEY - COMBWORK</div></div>\r\n			<div class=\"ui-block-c listOfChapters\"><div data-table=\"StoneMasonary\" class=\"ui-bar ui-bar-d\" style=\"height:70px\">6.STONE MASONRY, DAMP PROOF COURSE, DRY STONE PACKING, QUARRY RUBBISH & GRAVEL BACKING</div></div>\r\n		</div><!-- /grid-b -->\r\n		<div class=\"ui-grid-b\">\r\n			<div class=\"ui-block-a listOfChapters\" ><div data-table=\"Pointing\" class=\"ui-bar ui-bar-c\" style=\"height:70px\">7.POINTING</div></div>\r\n			<div class=\"ui-block-b listOfChapters\" ><div data-table=\"Plastering\" class=\"ui-bar ui-bar-c\" style=\"height:70px\">8.PLASTERING</div></div>\r\n			<div class=\"ui-block-c listOfChapters\" ><div data-table=\"Flooring\" class=\"ui-bar ui-bar-c\" style=\"height:70px\">9.FLOORING</div></div>\r\n		</div><!-- /grid-b -->\r\n		<div class=\"ui-grid-b\">\r\n			<div class=\"ui-block-a listOfChapters\"><div data-table=\"RoofingAndCeiling\" class=\"ui-bar ui-bar-d\" style=\"height:70px\">10.ROOFING & CEILING</div></div>\r\n			<div class=\"ui-block-b listOfChapters\"><div data-table=\"WhiteWashing\" class=\"ui-bar ui-bar-d\" style=\"height:70px\">11.WHITE WASHING, COLOUR WASHING & DISTEMPERING</div></div>\r\n			<div class=\"ui-block-c listOfChapters\"><div data-table=\"PaintingAndVarnishing\" class=\"ui-bar ui-bar-d\" style=\"height:70px\">12.PAINTING & VARNISHING</div></div>\r\n		</div><!-- /grid-b -->\r\n		<div class=\"ui-grid-b\">\r\n			<div class=\"ui-block-a listOfChapters\"><div data-table=\"WoodWork\" class=\"ui-bar ui-bar-a\" style=\"height:70px\">13.WOOD WORK, ALUMINUM DOORS, WINDOWS, VENTILATORS Etc.,</div></div>\r\n			<div class=\"ui-block-b listOfChapters\"><div data-table=\"DismantlingAndDemolition\" class=\"ui-bar ui-bar-a\" style=\"height:70px\">14.DISMANTLING & DEMOLITION</div></div>\r\n			<div class=\"ui-block-c listOfChapters\"><div data-table=\"MISCELLANEOUS\" class=\"ui-bar ui-bar-a\" style=\"height:70px\">15.MISCELLANEOUS BUILDING ITEMS </div></div>\r\n		</div><!-- /grid-b -->\r\n		<div class=\"ui-grid-b\">\r\n			<div class=\"ui-block-a listOfChapters\"><div data-table=\"ANTETERMITETREATMENT\" class=\"ui-bar ui-bar-d\" style=\"height:70px\">16.ANTE-TERMITE TREATMENT</div></div>\r\n			<div class=\"ui-block-b listOfChapters\"><div data-table=\"Centring\" class=\"ui-bar ui-bar-d\" style=\"height:70px\">17.CENTERING, FORM WORK etc.</div></div>\r\n			<div class=\"ui-block-c listOfChapters\"><div data-table=\"\" class=\"ui-bar ui-bar-d\" style=\"height:70px\">18.User Defined Data's</div></div>\r\n		</div><!-- /grid-b -->\r\n	</div>\r\n	<div id =\"elecItems\" style=\"margin-top:2%\">\r\n		<div class=\"ui-grid-b\">\r\n			<div class=\"ui-block-a listOfChapters\"><div data-table=\"CONDUITLAYING\" class=\"ui-bar ui-bar-a\" style=\"height:70px\">1.CONDUIT LAYING</div></div>\r\n			<div class=\"ui-block-b listOfChapters\"><div data-table=\"WIRING\" class=\"ui-bar ui-bar-a\" style=\"height:70px\">2.WIRING</div></div>\r\n			<div class=\"ui-block-c listOfChapters\"><div data-table=\"RUNOFMAINS\" class=\"ui-bar ui-bar-a\" style=\"height:70px\">3.RUN OF MAINS</div></div>\r\n		</div><!-- /grid-b -->\r\n		<div class=\"ui-grid-b\">\r\n			<div class=\"ui-block-a listOfChapters\"><div data-table=\"SWITCHGEAR\" class=\"ui-bar ui-bar-d\" style=\"height:70px\">4.SWITCH GEAR & MCB DISTRIBUTION BOARD</div></div>\r\n			<div class=\"ui-block-b listOfChapters\"><div data-table=\"EARTHING\" class=\"ui-bar ui-bar-d\" style=\"height:70px\">5.EARTHING</div></div>\r\n			<div class=\"ui-block-c listOfChapters\"><div data-table=\"SERVICEMAINS\" class=\"ui-bar ui-bar-d\" style=\"height:70px\">6.SERVICE MAINS & LTOH LINES</div></div>\r\n		</div><!-- /grid-b -->\r\n		<div class=\"ui-grid-b\">\r\n			<div class=\"ui-block-a listOfChapters\" ><div data-table=\"STREETLIGHT\" class=\"ui-bar ui-bar-c\" style=\"height:70px\">7.STREET LIGHT LUMINARIES</div></div>\r\n			<div class=\"ui-block-b listOfChapters\" ><div data-table=\"INTERNALLUMINAIRE\" class=\"ui-bar ui-bar-c\" style=\"height:70px\">8.INTERNAL LUMINAIRE</div></div>\r\n			<div class=\"ui-block-c listOfChapters\" ><div data-table=\"ACANDREFRIGERATION\" class=\"ui-bar ui-bar-c\" style=\"height:70px\">9.AC AND REFRIGERATION , FANS</div></div>\r\n		</div><!-- /grid-b -->\r\n		<div class=\"ui-grid-b\">\r\n			<div class=\"ui-block-a listOfChapters\"><div data-table=\"WATERHEATERS\" class=\"ui-bar ui-bar-d\" style=\"height:70px\">10.WATER HEATERS</div></div>\r\n			<div class=\"ui-block-b listOfChapters\"><div data-table=\"WATERPUMPS\" class=\"ui-bar ui-bar-d\" style=\"height:70px\">11.WATER PUMPS</div></div>\r\n			<div class=\"ui-block-c listOfChapters\"><div data-table=\"BUSBARS\" class=\"ui-bar ui-bar-d\" style=\"height:70px\">12.BUS BARS</div></div>\r\n		</div><!-- /grid-b -->\r\n		<div class=\"ui-grid-b\">\r\n			<div class=\"ui-block-a listOfChapters\"><div data-table=\"SWAGEDPOLES\" class=\"ui-bar ui-bar-a\" style=\"height:70px\">13.SWAGED POLES</div></div>\r\n			<div class=\"ui-block-b listOfChapters\"><div data-table=\"CONTROLPANEL\" class=\"ui-bar ui-bar-a\" style=\"height:70px\">14.CONTROL PANEL & METERING EQUIPMENT</div></div>\r\n			<div class=\"ui-block-c listOfChapters\"><div data-table=\"CABLES\" class=\"ui-bar ui-bar-a\" style=\"height:70px\">15.CABLES / CABLE GLANDS / LUGS</div></div>\r\n		</div><!-- /grid-b -->\r\n		<div class=\"ui-grid-b\">\r\n			<div class=\"ui-block-a listOfChapters\"><div data-table=\"TEMPORARY\" class=\"ui-bar ui-bar-d\" style=\"height:70px\">16.TEMPORARY ILLUMINATION</div></div>\r\n			<div class=\"ui-block-b listOfChapters\"><div data-table=\"GENERATORS\" class=\"ui-bar ui-bar-d\" style=\"height:70px\">17.GENERATORS AND TRANSFORMERS</div></div>\r\n			<div class=\"ui-block-c listOfChapters\"><div data-table=\"REPAIRSTOMOTORS\" class=\"ui-bar ui-bar-d\" style=\"height:70px\">18.REPAIRS TO MOTORS & REWINDING</div></div>\r\n		</div><!-- /grid-b -->\r\n	</div>\r\n	<div id=\"searchDatas\">\r\n		<div class=\"ui-grid-b\">\r\n		 	<div class=\"ui-block-a\" style=\"width:50%;\"> 		\r\n		 		<input type=\"search\" id=\"searchText\" name=\"search\" placeholder=\"EX:Excavation\" data-clear-btn=\"true\"/>\r\n		 	</div>\r\n		 	<div class=\"ui-block-b\" style=\"width:25%;margin-top:0.2em\">\r\n		 		<select data-mini=\"true\" id=\"selectDataBook\">\r\n				  <option value=\"roadsnbridges\">Roads N Bridges</option>\r\n				  <option value=\"buildings\">Buildings</option>\r\n				  <option value=\"electrical\">Electrical</option>\r\n				  <option value=\"all\">ALL</option>\r\n				</select>\r\n		 	</div>\r\n		 	<div class=\"ui-block-b\" style=\"width:25%;margin-top:0.2em\">\r\n		 		<input type=\"button\" id=\"searchButton\" data-mini=\"true\" value=\"Search\"/>\r\n		 	</div>\r\n		</div>\r\n		<div id=\"searchResult\">\r\n		</div>\r\n	 </div>\r\n</div>\r\n\r\n<div data-role=\"popup\" id=\"datasPopup\" class=\"ui-content\" data-overlay-theme=\"b\" style=\"width:800px;height:450px;overflow-x:hidden\">\r\n	<div id=\"datasInChapter\"></div>\r\n</div>\r\n<div data-role=\"popup\" id=\"detailsPopup\" class=\"ui-content\" data-overlay-theme=\"b\" style=\"width:800px;height:450px;overflow-y:scroll;overflow-x:hidden\">\r\n	<div id=\"dataCodeDetails\"></div>\r\n</div>\r\n";
   });
 
 this["Handlebars"]["templates"]["selectestimate_newestimate"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
@@ -1172,27 +1311,49 @@ function program1(depth0,data) {
 this["Handlebars"]["templates"]["selectestimate_showitemsinchapter"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression, self=this;
+  var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing;
 
 function program1(depth0,data) {
   
-  
-  return "\r\n			<div style=\"float:right;margin-top:-0.3em\">\r\n				<input type=\"button\" id=\"updateEst\" value=\"Update Est\" data-inline=\"true\" data-icon=\"plus\" data-mini=\"true\" data-iconpos=\"right\" />\r\n			</div>\r\n		";
+  var buffer = "", stack1, helper;
+  buffer += "\r\n	<p><strong>";
+  if (helper = helpers.searchResultCount) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.searchResultCount); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + " Results Found</strong></p>\r\n";
+  return buffer;
   }
 
 function program3(depth0,data) {
+  
+  var buffer = "", stack1, helper;
+  buffer += "\r\n	<div class=\"ui-grid-b\" style=\"margin-top:0.7em\">\r\n		<div class=\"ui-block-a\" style=\"width:15%;\">\r\n				<div style=\"margin-top:-0.3em\">\r\n					<input type=\"button\" id=\"backButton\" data-inline=\"true\" data-icon=\"back\" data-mini=\"true\" data-iconpos=\"notext\" />\r\n				</div>\r\n		</div>\r\n		<div class=\"ui-block-b\" style=\"width:70%;text-align:center\">\r\n			<h2 style= \"display:inline;\">";
+  if (helper = helpers.chapterTitle) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.chapterTitle); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "</h2>\r\n		</div>\r\n		<div class=\"ui-block-c\" style=\"width:15%\">\r\n			";
+  stack1 = helpers['if'].call(depth0, (depth0 && depth0.datasAsService), {hash:{},inverse:self.noop,fn:self.program(4, program4, data),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\r\n		</div>\r\n	</div>\r\n	<hr />\r\n";
+  return buffer;
+  }
+function program4(depth0,data) {
+  
+  
+  return "\r\n				<div style=\"float:right;margin-top:-0.3em\">\r\n					<input type=\"button\" id=\"updateEst\" value=\"Update Est\" data-inline=\"true\" data-icon=\"plus\" data-mini=\"true\" data-iconpos=\"right\" />\r\n				</div>\r\n			";
+  }
+
+function program6(depth0,data) {
   
   
   return "\r\n	    	<th>Choose</th>\r\n	    ";
   }
 
-function program5(depth0,data,depth1) {
+function program8(depth0,data,depth1) {
   
-  var buffer = "", stack1, helper;
-  buffer += "\r\n			  <tr>\r\n			    <td>";
-  if (helper = helpers.SNo) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.SNo); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1)
+  var buffer = "", stack1, helper, options;
+  buffer += "\r\n			  <tr>\r\n			    <td>"
+    + escapeExpression((helper = helpers.add || (depth0 && depth0.add),options={hash:{},data:data},helper ? helper.call(depth0, (data == null || data === false ? data : data.index), 1, options) : helperMissing.call(depth0, "add", (data == null || data === false ? data : data.index), 1, options)))
     + "</td>\r\n			    <td style=\"width:15%\">";
   if (helper = helpers.IndexCode) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.IndexCode); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
@@ -1201,15 +1362,16 @@ function program5(depth0,data,depth1) {
   if (helper = helpers.IndexCode) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.IndexCode); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "\" class=\"info-button\">"
-    + escapeExpression(((stack1 = (depth0 && depth0.Description)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</div></td>\r\n			    ";
-  stack1 = helpers['if'].call(depth0, (depth1 && depth1.datasAsService), {hash:{},inverse:self.noop,fn:self.program(6, program6, data),data:data});
+    + "\" class=\"info-button\">";
+  stack1 = ((stack1 = (depth0 && depth0.Description)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1);
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "</div></td>\r\n			    ";
+  stack1 = helpers['if'].call(depth0, (depth1 && depth1.datasAsService), {hash:{},inverse:self.noop,fn:self.program(9, program9, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\r\n			  </tr>\r\n		  ";
   return buffer;
   }
-function program6(depth0,data) {
+function program9(depth0,data) {
   
   var buffer = "", stack1;
   buffer += "\r\n			   		<td><input type=\"checkbox\" name=\"chosenItems\" id=\""
@@ -1218,22 +1380,13 @@ function program6(depth0,data) {
   return buffer;
   }
 
-  buffer += "<!--\r\n<div style=\"text-align:center\">\r\n		<div style=\"float:left;margin-top:-0.3em\">\r\n			<input type=\"button\" id=\"backButton\" data-inline=\"true\" data-icon=\"back\" data-mini=\"true\" data-iconpos=\"notext\" />\r\n		</div>\r\n		<h2 style= \"display:inline\">";
-  if (helper = helpers.chapterTitle) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.chapterTitle); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1)
-    + "</h2>\r\n		<div style=\"float:right;margin-top:-0.5em\"\">\r\n			<input type=\"button\" id=\"addToQ\" value=\"Add To Q\" data-inline=\"true\" data-icon=\"plus\" data-mini=\"true\" data-iconpos=\"right\" />\r\n		</div>\r\n	<hr />\r\n</div>\r\n-->\r\n<div class=\"ui-grid-b\" style=\"margin-top:0.7em\">\r\n	<div class=\"ui-block-a\" style=\"width:15%;\">\r\n		<div style=\"margin-top:-0.3em\">\r\n			<input type=\"button\" id=\"backButton\" data-inline=\"true\" data-icon=\"back\" data-mini=\"true\" data-iconpos=\"notext\" />\r\n		</div>\r\n	</div>\r\n	<div class=\"ui-block-b\" style=\"width:70%;text-align:center\">\r\n		<h2 style= \"display:inline;\">";
-  if (helper = helpers.chapterTitle) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.chapterTitle); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1)
-    + "</h2>\r\n	</div>\r\n	<div class=\"ui-block-c\" style=\"width:15%\">\r\n		";
-  stack1 = helpers['if'].call(depth0, (depth0 && depth0.datasAsService), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
+  stack1 = helpers['if'].call(depth0, (depth0 && depth0.isSearchResult), {hash:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n	</div>\r\n</div>\r\n\r\n<hr />\r\n\r\n <P id=\"noChangeText\" style=\"color:red;display:none\"><i><strong>There is no change to Update.</strong></i></p>\r\n <div id=\"tableContainer\" style=\"padding-top:2em\">\r\n	<table data-role=\"table\" class=\"table-stroke table-stripe ui-responsive\" id=\"tableItems\">\r\n	  <thead>\r\n	  <tr>\r\n	    <th>Sl.No</th>\r\n	    <th style=\"width:15%\">Item-Code</th>\r\n	    <th>Description</th>\r\n	    ";
-  stack1 = helpers['if'].call(depth0, (depth0 && depth0.datasAsService), {hash:{},inverse:self.noop,fn:self.program(3, program3, data),data:data});
+  buffer += "\r\n\r\n <P id=\"noChangeText\" style=\"color:red;display:none\"><i><strong>There is no change to Update.</strong></i></p>\r\n <div id=\"tableContainer\" class=\"itemschapter-padding\">\r\n	<table data-role=\"table\" class=\"table-stroke table-stripe ui-responsive\" id=\"tableItems\">\r\n	  <thead>\r\n	  <tr>\r\n	    <th>Sl.No</th>\r\n	    <th style=\"width:15%\">Item-Code</th>\r\n	    <th>Description</th>\r\n	    ";
+  stack1 = helpers['if'].call(depth0, (depth0 && depth0.datasAsService), {hash:{},inverse:self.noop,fn:self.program(6, program6, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\r\n	  </tr>\r\n	  </thead>\r\n	  <tbody id=\"itemsInChapter\">\r\n		  ";
-  stack1 = helpers.each.call(depth0, ((stack1 = (depth0 && depth0.chapterToItemsMap)),stack1 == null || stack1 === false ? stack1 : stack1.indexDatas), {hash:{},inverse:self.noop,fn:self.programWithDepth(5, program5, data, depth0),data:data});
+  stack1 = helpers.each.call(depth0, (depth0 && depth0.datasArray), {hash:{},inverse:self.noop,fn:self.programWithDepth(8, program8, data, depth0),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\r\n	  </tbody>\r\n	</table>\r\n</div>\r\n	\r\n\r\n	\r\n\r\n";
   return buffer;

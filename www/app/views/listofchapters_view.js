@@ -13,13 +13,90 @@ define(['views/layout/base_itemview','models/estimateitems_util','views/showitem
 		    events:{
 		    	 'tap .listOfChapters':'selectItemsFromChapter',
 		    	 //'tap #proceedToEst':'proceedToEstimate',
-		    	 'tap #dataBooks':'changeBackground'
+		    	 'tap #dataBooks':'changeBackground',
+		    	 'tap #searchButton':'searchDatas'
 		    },   
 		     
-		    selectItemsFromChapter : function(event){
+		    selectItemsFromChapter : function(event){  	
+		    	$.mobile.loading( "show", {
+		    		text: "Loading",
+		    		textVisible: true,
+		    		theme:'d'
+	    		});
 		    	EstimateModel.model.set('selectedTable',$(event.target).data('table'));
 		    	EstimateModel.model.set('chapterTitle',$(event.target).text().split(".")[1]);
 		    	EstimateModel.model.prepareTableToItemsMap();
+		    },
+		    
+		    searchDatas : function(){
+		    	var searchText = $("#searchText").val();
+		    	if(searchText){
+		    		//start searching
+			    	$.mobile.loading( "show", {
+			    		text: "Searching...",
+			    		textVisible: true,
+			    		theme:'d'
+		    		});
+			    	var tableList = [];
+		    		var RNBTableList = ['LUCANDC','SiteClearence','EECD','GranSubBases','BasesAndSurface','CCPAVEMENT','CauAndSubMerBridges','HillRoads','PipeCulverts','TrafficSigns',
+		    		                 'Foundation','SubStructure','SuperStructure','ProtectionWorks','MaintOfRoads','GEOSYNTHETICS','Horticulture','Repair','SiteClearence'];
+		    		var BldTableList = ['Mortar','Earthwork','ConcreteDampProof','BarInFoundation','Brickwork','StoneMasonary','Pointing','Plastering','Flooring','RoofingAndCeiling',
+		    		                    'WhiteWashing','PaintingAndVarnishing','WoodWork','DismantlingAndDemolition','MISCELLANEOUS','ANTETERMITETREATMENT','Centring'];
+		    		var ElecTableList = ['CONDUITLAYING','WIRING','RUNOFMAINS','SWITCHGEAR','EARTHING','SERVICEMAINS','STREETLIGHT','INTERNALLUMINAIRE','ACANDREFRIGERATION',
+		    		                     'WATERHEATERS','WATERPUMPS','BUSBARS','SWAGEDPOLES','CONTROLPANEL','CABLES','TEMPORARY','GENERATORS','REPAIRSTOMOTORS'];
+		    		var searchBook = $("#selectDataBook option:selected").val();
+		    		if(searchBook == "roadsnbridges"){
+		    			tableList = RNBTableList;
+		    		}else if(searchBook == "buildings"){
+		    			tableList = BldTableList;
+		    		}else if(searchBook == "electrical"){
+		    			tableList = ElecTableList;
+		    		}else if(searchBook == "all"){
+		    			tableList = tableList.concat(RNBTableList).concat(BldTableList).concat(ElecTableList);
+		    		}
+		    		console.log(searchBook);
+		    		var resultsFound = 0;
+		    		var searchResult = [];
+		    		var tableIndex=0;
+		    		searchText = searchText.toUpperCase();
+		    		var self = this;
+		    		var searchTable = function(tableName){
+						db.transaction(function (tx) {
+							  //Read default items
+							  tx.executeSql('SELECT * FROM '+tableName+' WHERE IndexCode is not null', [], function (tx,results) {
+								  for(var i=0;i<results.rows.length;i++){
+									   var item = JSON.parse(JSON.stringify(results.rows.item(i)));
+									   var description = item.Description;
+									   if(description.toUpperCase().indexOf(searchText) != -1){ 
+								    		var matchFound = {
+												    "TableName":tableName,
+													"IndexCode":item.IndexCode,
+													"Description":description.toUpperCase().replace(searchText,"<span style='background-color:yellow;color:black'>"+searchText+"</span>"),
+													"subitemsArray":[]
+									    	};
+								    		resultsFound++;
+								    		searchResult.push(matchFound);
+									   }
+								  }
+								  tableIndex++;					   
+								  if(tableIndex<tableList.length){
+									  searchTable(tableList[tableIndex]);
+								  }else{
+									  $.mobile.loading( "hide");
+								      self.model.set("datasArray",searchResult);
+								      self.model.set("isSearchResult",true);
+						    		  var dataView = new chapterView();
+						    		  dataView.render();
+						    		  $("#searchResult").html(dataView.el).trigger('create'); 
+						    		  $("#tableContainer").removeClass("itemschapter-padding")
+						
+								  }
+							  });
+						});			  
+		    		}
+		    		searchTable(tableList[tableIndex]);
+
+		    	}
 		    },
 		    
 		    fillPopupWithDatas : function(){
@@ -30,6 +107,8 @@ define(['views/layout/base_itemview','models/estimateitems_util','views/showitem
 
 		    	$("#datasPopup").on("popupbeforeposition",function(){
 			    	$("#datasPopup").off("popupbeforeposition");
+			    	self.model.set("datasArray",self.model.get("chapterToItemsMap").indexDatas);
+			    	self.model.set("isSearchResult",false);
 	    			var dataView = new chapterView();
 	    			dataView.render();
 	    			$("#datasPopup #datasInChapter").html(dataView.el).trigger("create");
@@ -38,6 +117,7 @@ define(['views/layout/base_itemview','models/estimateitems_util','views/showitem
 		    	var thisModel = this.model;
 		    	$("#datasPopup").off("popupafteropen");
 				$("#datasPopup").on("popupafteropen",function(){
+			    	$.mobile.loading( "hide");
 			    	var selectedTable = thisModel.get("selectedTable");
 	    			var exisitngDatas = thisModel.get("indexToDatasArray");
 	    			if(exisitngDatas){
@@ -51,7 +131,7 @@ define(['views/layout/base_itemview','models/estimateitems_util','views/showitem
 	        			}	   				
 	    			}
 				});
-		    	
+				
 		    	$("#datasPopup").popup("open", {x:xPos,y:yPos,transition:'pop',positionTo:'#tabs'});
 		    },
 		    
@@ -69,6 +149,9 @@ define(['views/layout/base_itemview','models/estimateitems_util','views/showitem
 		    	}
 		    	if(selectedTab == "electricItems"){
 		    		$(".ui-page").css('background-image','url("css/images/app/eleitems.jpg")');
+		    	}
+		    	if(selectedTab == "search"){
+		    		$(".ui-page").css('background-image','none');
 		    	}
 		    },
 		    

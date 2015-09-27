@@ -26,6 +26,7 @@ define([ 'models/base_model','views/utilities/datas_util'], function(BaseModel,D
 				chapterTitle:"",
 				estCategory:"",
 				estType:"",
+				leadCodesInEstimate:[],
 				//selectedDatasToAdd:"",
 				tableList:['BasesAndSurface','CauAndSubMerBridges','CCPAVEMENT','EECD','Foundation','GEOSYNTHETICS','GranSubBases','HillRoads','Horticulture','LUCANDC','MaintOfRoads','PipeCulverts','ProtectionWorks','Repair','SiteClearence','SubStructure','SuperStructure','TrafficSigns'],
 				leadMaterialItem:{
@@ -69,7 +70,7 @@ define([ 'models/base_model','views/utilities/datas_util'], function(BaseModel,D
 				}else{
 					console.log("+++++++++++++"+db);
 				}
-				this.getDefaultLeadMaterialsFromDB();
+				//this.getDefaultLeadMaterialsFromDB();
 				this.set('db',db);
 			},
 			getDefaultDatas : function(){
@@ -240,27 +241,17 @@ define([ 'models/base_model','views/utilities/datas_util'], function(BaseModel,D
 				var self= this;
 				var i=0;
 				var codeToDatas = [];
-				//var materialsInSelectedDatas = [];
-				var leadCodes = [];
+				var leadsInSelectedDatas = [];
 				db.transaction(function (tx) {	  
-					    //var materialRowIds = [];
-						var getItems = function(){
-							
+						var getItems = function(){	
 						   var indexCode = self.get("selectedItemsForEstimate")[i].indexCode;
 						   var splitArr = indexCode.split("-");
 						   	   splitArr[splitArr.length-1] = Number(splitArr[splitArr.length-1])+1;
 						   var nextIndexCode = splitArr.join("-");	
-							   
-						   //var indexCode = self.get("selectedItemsForEstimate")[i].indexCode.split("-");
-						   //var nextIndexCode = Number(sNo)+1;
+						   
 						   var tableName = self.get("selectedItemsForEstimate")[i].tableName;
 						   var selectedSubItems = self.get("selectedItemsForEstimate")[i].selectedSubItems;
 						   var pushAll = true;
-						   var leadMaterialsInDataItem = [];
-						   var metalMeasures = [];
-						   /*if(selectedSubItem != ""){
-							   pushAll = false;
-						   }*/
 						   console.log('SELECT * FROM '+tableName+' WHERE rowid>=(select rowid FROM '+tableName+' WHERE IndexCode="'+indexCode+'") AND rowid<(Select rowid from '+tableName+' where IndexCode="'+nextIndexCode+'")');
 						   tx.executeSql('SELECT * FROM '+tableName+' WHERE rowid>=(select rowid FROM '+tableName+' WHERE IndexCode="'+indexCode+'") AND rowid<(Select rowid from '+tableName+' where IndexCode="'+nextIndexCode+'")', [], function (tx, results) {
 							   if(results.rows.length > 0){
@@ -270,10 +261,6 @@ define([ 'models/base_model','views/utilities/datas_util'], function(BaseModel,D
 								   		   datas:[]
 								   };
 								   var costForItem = 0;
-								   
-								   //var isMaterial = false;
-								   leadMaterialsInDataItem = [];
-								   metalMeasures = [];
 								   for(var j=0;j<results.rows.length;j++){
 									   var item = JSON.parse(JSON.stringify(results.rows.item(j)));
 									   var description = item.Description;
@@ -290,162 +277,28 @@ define([ 'models/base_model','views/utilities/datas_util'], function(BaseModel,D
 									   if(j == 0 || pushAll){
 										   codeToData.datas.push(item);
 									   }  
-									   
-									   /*if(pushAll && isMaterial){
-										   if(/^\([a-z]\)/.test(description) || description.indexOf('a+b+c') != -1){
-											   isMaterial = false;
-										   }else{
-											   materialsInSelectedDatas.push(description);
-										   }
-									   }
-									   
-									   //code to get list of materials
-									   if(pushAll){
-										   if(description != null && description.indexOf('Material') !=-1 && description.indexOf('Material') < 9){
-											   //List of Labour rows started.
-											   isMaterial = true;
-										   }							   
-									   }*/
-									   
-									   if(item.Remarks){
-										   var leadMater = item.Remarks;
-										   if(item.Remarks == "L3"){
-											   var aggr1 = description.indexOf('mm');
-											   var aggr2 = description.substring(aggr1+2).indexOf('mm');
-											   
-											   var metalType1 = description.substring(aggr1-4,aggr1);
-											   if(isNaN(metalType1)){
-												   metalType1 = metalType1.substring(1,metalType1.length);
-											   }
-											   console.log("metalmm is:"+metalType1);
-											   if(!_.contains(metalMeasures, metalType1)){
-												   if(!isNaN(metalType1))
-													   metalMeasures.push(metalType1)
-											   }
-											   
-											   var metalType2 = description.substring(aggr1+aggr2-3,aggr1+aggr2+1);
-											   if(isNaN(metalType2)){
-												   metalType2 = metalType2.substring(1,metalType2.length);
-											   }
-											   console.log("metalmm is:"+metalType2);
-											   
-											   if(!_.contains(metalMeasures, metalType2)){
-												   if(!isNaN(metalType2))
-													   metalMeasures.push(metalType2)
-											   }
-										   }
-										   leadMaterialsInDataItem.push(item.Remarks);	
-									   }
-
 								   }
 								   DatasUtil.beuatifyDatas(codeToData.datas);
+								   var leadCodesInDataItem = DatasUtil.getLeadCodesInDataItem(codeToData.datas);
+								   
+								   for(var leadCode in leadCodesInDataItem){
+									   if( !_.contains(leadsInSelectedDatas,leadCodesInDataItem[leadCode] )){
+										   leadsInSelectedDatas.push(leadCodesInDataItem[leadCode]);
+									   }
+								   }
 								   codeToDatas.push(codeToData);
 							   }
-
-
-							   i++;
-							   //--adding to lead begin----
-							  //check if lead Material's has L1 - Sand
-							  if( _.contains(leadMaterialsInDataItem, "L1") ){
-								  //check if lead Material's also has L2 - Cement
-								  if( _.contains(leadMaterialsInDataItem, "L2")){
-									  if(!_.contains(leadCodes, "L1B")){
-										  leadCodes.push("L1B");
-									  }
-								  }else{
-									  //only L1 and no L2
-									  if(!_.contains(leadCodes, "L1A")){
-										  leadCodes.push("L1A");
-									  }
-								  }	  
-							  }
-							  if( _.contains(leadMaterialsInDataItem, "L3") ){
-								  for(var measure in metalMeasures){
-									  var leadMetal = "L3"+metalMeasures[measure]+" "+"mm";
-									  if(!_.contains(leadCodes, leadMetal)){
-										  leadCodes.push(leadMetal);
-									  }
-								  }
-							  }
-							  for(var leadItem in leadMaterialsInDataItem){
-								  if(leadMaterialsInDataItem[leadItem] == "L2"){
-									  if(!_.contains(leadCodes, "L2")){
-										  leadCodes.push("L2");
-									  }
-								  }
-							  }
-							   
-							   //--adding to lead end-----
+							   i++;					   
 							   if(i<self.get("selectedItemsForEstimate").length){
 								  getItems(i);
 							   }else{
 								   self.set("codeToDatas",codeToDatas);
-								  
-								   var dbData = "";
-								   var dbLeadMaterials = self.get("leadMaterialsFromDB");
-								   if(leadCodes.length > 0){
-									   var leadMaterialObjects = [];
-									   for(var code in leadCodes){
-										   var leadMaterialItem = {
-													"material":"",
-													"sourceOfSupply":"",
-													"leadInKM":"",
-													"initialCost":"",
-													"convCharges":"",
-													"seigCharges":"",
-													"totalCost":"",
-													"unit":"",
-													"isMetal":false,
-													"code":"",
-													"loadMeans":"ignoreLoad",
-													"unLoadMeans":"ignoreUnLoad",
-													"considerIdleCharges":"no"
-										   }
-										   if(leadCodes[code]=="L1A"){
-											   dbData = dbLeadMaterials.filter(function(obj){ return obj.Quality == "Filling"});
-											   leadMaterialItem.material = "Sand for Filling";
-											   leadMaterialItem.initialCost = dbData[0].InitialCost;
-											   leadMaterialItem.seigCharges = dbData[0].SeigCharges;
-											   leadMaterialItem.unit = dbData[0].Unit;
-											   leadMaterialItem.code = "L1A";
-										   }
-										   if(leadCodes[code]=="L1B"){
-											   dbData = dbLeadMaterials.filter(function(obj){ return obj.Quality == "Mortor"});
-											   leadMaterialItem.material = "Sand for Mortor";
-											   leadMaterialItem.initialCost = dbData[0].InitialCost;
-											   leadMaterialItem.seigCharges = dbData[0].SeigCharges;
-											   leadMaterialItem.unit = dbData[0].Unit;
-											   leadMaterialItem.code = "L1B";
-										   }
-										   if(leadCodes[code]=="L2"){
-											   dbData = dbLeadMaterials.filter(function(obj){ return obj.LeadMaterial == "L2"});
-											   leadMaterialItem.material = "Cement";
-											   leadMaterialItem.initialCost = dbData[0].InitialCost;
-											   leadMaterialItem.seigCharges = dbData[0].SeigCharges;
-											   leadMaterialItem.unit = dbData[0].Unit;
-											   leadMaterialItem.code = "L2";
-										   }
-										   if(leadCodes[code].indexOf("L3") != -1){
-											   leadMaterialItem.material = leadCodes[code].substring(2,leadCodes[code].length)+" H.B.G metal";
-											   var metalMM = Number(leadMaterialItem.material.substring(0,2));
-											   dbData = dbLeadMaterials.filter(function(obj){ return obj.LeadMaterial == "L3" && Number(obj.Quality) >= metalMM});
-											   leadMaterialItem.initialCost = dbData[0].InitialCost;
-											   leadMaterialItem.seigCharges = dbData[0].SeigCharges;
-											   leadMaterialItem.unit = dbData[0].Unit;
-											   leadMaterialItem.isMetal = true;
-											   leadMaterialItem.code = "L3";
-										   }
-										   leadMaterialObjects.push(leadMaterialItem);
-									   }
-									   self.set("listOfLeadMaterials",leadMaterialObjects);
-									   appRouter.navigate("leadstatement",{trigger:true});
+								   if(leadsInSelectedDatas.length > 0){
+									   self.set("leadCodesInEstimate",leadsInSelectedDatas);
+									   DatasUtil.prepareLeadMaterialMap(leadsInSelectedDatas,self);
 								   }else{
 									   appRouter.navigate("datasForSelectedItems",{trigger:true});
 								   }
-								  
-
-								
-
 								   //console.log(materialsInSelectedDatas.join("\n"));
 							   }
 						   },null);
@@ -572,9 +425,10 @@ define([ 'models/base_model','views/utilities/datas_util'], function(BaseModel,D
 						}
 						self.set("leadMaterialsFromDB",leadMaterialDetailsFromDB);
 						console.log(leadMaterialDetailsFromDB);
+						self.getConvChargesFromDB();
 					});
 				})
-				this.getConvChargesFromDB();
+				//this.getConvChargesFromDB();
 			},
 			getConvChargesFromDB:function(){
 				var self = this;
@@ -586,6 +440,7 @@ define([ 'models/base_model','views/utilities/datas_util'], function(BaseModel,D
 						}
 						self.set("convChargesFromDB",convChargesFromDB);
 						console.log(convChargesFromDB);
+						DatasUtil.prepareLeadMaterialMap(self.get("leadCodesInEstimate"),self);
 					});
 				})
 				

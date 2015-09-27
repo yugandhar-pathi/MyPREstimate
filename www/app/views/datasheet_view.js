@@ -24,12 +24,33 @@ define(['views/layout/base_itemview','models/estimateitems_util'],function(BaseI
 						code : "",
 						description:"",
 						subBullets:[],
-						rate : ""
+						rate : "",
+						unit:"",
+						lbdsArray : [{
+							"lbddescription":"",
+							"nos1":"",
+							"nos2":"",
+							'length':"",
+							'breadth':"",
+							'depth':"",
+							'totalUnits':""
+						}]
 					};
 					var subItems = {
+						subIndex:0,
 						itemID:"",
 						subItemDesc:"",
-						subItemRate:""
+						rate:"",
+						unit:"",
+						lbdsArray : [{
+							"lbddescription":"",
+							"nos1":"",
+							"nos2":"",
+							'length':"",
+							'breadth':"",
+							'depth':"",
+							'totalUnits':""
+						}]
 					};
 
 					
@@ -54,6 +75,21 @@ define(['views/layout/base_itemview','models/estimateitems_util'],function(BaseI
 								
 							}else{
 								codeToRate.rate = datas[row].Amount;
+							}	
+						}
+						if(datas[row].Description != null && datas[row].Description.indexOf('Unit =') != -1){
+							//Unit
+							if(subItems.subItemDesc != "" && subItems.subItemRate == "" ){
+								subItems.subIndex = codeToRate.subBullets.length;
+								subItems.unit = 	datas[row].Amount;
+								codeToRate.subBullets.push(subItems);
+								subItems = {
+										subItemDesc:"",
+										subItemRate:""
+									};
+								
+							}else{
+								codeToRate.unit = datas[row].Description.substring(7,datas[row].Description.length);
 							}	
 						}
 						if(datas[row].SubBullet){

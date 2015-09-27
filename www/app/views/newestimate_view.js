@@ -22,9 +22,14 @@ define(['views/layout/base_itemview','models/estimateitems_util','views/newestim
 				 this.model.set("estCategory",selCategory);
 				 this.model.set("estType",selType);
 				 this.model.set("nameofthework",$("#nameOfWork").val());
+				 
+				 //reset values for new estimate
+				 this.model.set("defaultDatasFromDB",[]);
+				 this.model.set("indexToDatasArray:","");
+				 this.model.set("leadCodesInEstimate",[]);
+				 
+				 
 				 if(this.isNewCategory){
-					 this.model.set("defaultDatasFromDB",[]);
-					 this.model.set("indexToDatasArray:","");
 					 this.model.get("db").transaction(function (tx) {	 
 						 tx.executeSql('Insert into DefaultDatas ("Category","Type","Datas") Values(?,?,?)',[selCategory,selType,""],function(){
 							 appRouter.navigate("#pickItemsForEstimate",{trigger:true});

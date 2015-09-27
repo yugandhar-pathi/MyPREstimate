@@ -7,6 +7,7 @@
 		  <li id="RAndB"><a href="#RoadsNBridges" data-ajax="false" class="ui-btn-active">Roads And Bridges</a></li>
 		  <li id="Build"><a href="#buildings" data-ajax="false">Buildings</a></li>
 		  <li id="electricItems"><a href="#elecItems" data-ajax="false">Electrical Items</a></li>
+		  <li id="search"><a href="#searchDatas" data-ajax="false">Search</a></li>
 		</ul>
 	 </div>
 	 <div id="RoadsNBridges" style="margin-top:2%">
@@ -105,6 +106,26 @@
 			<div class="ui-block-c listOfChapters"><div data-table="REPAIRSTOMOTORS" class="ui-bar ui-bar-d" style="height:70px">18.REPAIRS TO MOTORS & REWINDING</div></div>
 		</div><!-- /grid-b -->
 	</div>
+	<div id="searchDatas">
+		<div class="ui-grid-b">
+		 	<div class="ui-block-a" style="width:50%;"> 		
+		 		<input type="search" id="searchText" name="search" placeholder="EX:Excavation" data-clear-btn="true"/>
+		 	</div>
+		 	<div class="ui-block-b" style="width:25%;margin-top:0.2em">
+		 		<select data-mini="true" id="selectDataBook">
+				  <option value="roadsnbridges">Roads N Bridges</option>
+				  <option value="buildings">Buildings</option>
+				  <option value="electrical">Electrical</option>
+				  <option value="all">ALL</option>
+				</select>
+		 	</div>
+		 	<div class="ui-block-b" style="width:25%;margin-top:0.2em">
+		 		<input type="button" id="searchButton" data-mini="true" value="Search"/>
+		 	</div>
+		</div>
+		<div id="searchResult">
+		</div>
+	 </div>
 </div>
 
 <div data-role="popup" id="datasPopup" class="ui-content" data-overlay-theme="b" style="width:800px;height:450px;overflow-x:hidden">

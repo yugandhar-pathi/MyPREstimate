@@ -84,86 +84,77 @@ define([ 'models/base_model','views/utilities/datas_util'], function(BaseModel,D
 					  tx.executeSql('SELECT DATAS FROM DefaultDatas WHERE Category='+'"'+category+'"'+' AND Type = '+'"'+type+'"', [], function (tx, defaultItems) {
 						console.log("successfully read");
 						var defDatas = defaultItems.rows.item(0).Datas.split(",");
-						console.log(defaultItems.rows.item(0).Datas);
+
 						self.set("defaultDatasFromDB",defDatas);
 						var i = 0;
 						if(defDatas.length > 0){
 							var getItems = function(indexCode){
-								   //var indexCode = defaultItems.rows..IndexCode;
+								
+									var selectedSubItems = [];
+									var dataCodeSplit = indexCode.split("*");
+									for(var j=0;j<dataCodeSplit.length;j++){
+										if(j == 0){
+											indexCode = dataCodeSplit[j];	
+										}else{
+											selectedSubItems.push(dataCodeSplit[j]);
+										}
+									}
 								   var splitArr = indexCode.split("-");
 								   	   splitArr[splitArr.length-1] = Number(splitArr[splitArr.length-1])+1;
 								   var nextIndexCode = splitArr.join("-");	   
 								   var tableName = DatasUtil.getTableName(indexCode);
 								   tx.executeSql('SELECT * FROM '+tableName+' WHERE rowid>=(select rowid FROM '+tableName+' WHERE IndexCode="'+indexCode+'") AND rowid<(Select rowid from '+tableName+' where IndexCode="'+nextIndexCode+'")', [], function (tx, results) {
 									   if(results.rows.length > 0){
-
-										   var indexToTableItem = {
+										   var indexToDataItem = {
 												    "TableName":tableName,
-													"IndexCode":"",
+												    "dataIndex":i,
+													"IndexCode":indexCode,
 													"description":"",
-													"subitemsArray":[]
+													"itemsArr":[],
+													"subitemsArray":[], //To save list of sub items
+													"selectedSubItems":selectedSubItems //To save selected once ex: 1L, 1.1.2L...
 										   };
-										   indexToTableItem.IndexCode = indexCode;
-										   var subitemsArray = [];
 										   for(var j=0;j<results.rows.length;j++){
 											   var item = JSON.parse(JSON.stringify(results.rows.item(j)));
 											   var subitem = {
-													"SlNo":"",
-													"descritpion":""
+													"subIndex":"",
+													"subItemID":"",
+													"subItemDesc":"",
+													"subDataId":""
 											   }
 											   if(j==0){
-												  indexToTableItem.description = item.Description;  
-											   }else{
-												   if(item.SNo){
-													   subitem.SlNo = item.SNo;
-													   subitem.descritpion = item.Description;
-													   subitemsArray.push(subitem);
-													   console.log("subitems:"+JSON.stringify(subitemsArray));
-												   }
+												   indexToDataItem.description = item.Description;  
 											   }
-											  
-											   if(item.SubBullet){
-												   subitem.SlNo = item.SubBullet;
-												   subitem.descritpion = item.Description;
-												   subitemsArray.push(subitem);
-												   console.log("subitems:"+JSON.stringify(subitemsArray));
+											   //To capture sub items in Building data's - item.SNo
+											   //To capture sub items in RNB data's - item.SubBullet
+											   if((item.SNo && j !=0) || item.SubBullet){
+												   if(item.SNo){
+													   subitem.subItemID = item.SNo;
+												   }
+												   if(item.SubBullet){
+													   subitem.subItemID = item.SubBullet; 
+												   }
+												   subitem.subDataId = item.SubDatas;
+												   subitem.subItemDesc = item.Description;
+												   subitem.subIndex = indexToDataItem.subitemsArray.length;
+												   indexToDataItem.subitemsArray.push(subitem);
+												  // console.log("subitems:"+JSON.stringify(subitemsArray));
 											   }
 											   
+											   indexToDataItem.itemsArr.push(item);
 										   }
-										   if(subitemsArray.length > 1){
-											   indexToTableItem.subitemsArray = subitemsArray;
-											   console.log("indexToTableItem:"+JSON.stringify(indexToTableItem));
-										   }
-										   indexToDatasArray.push(indexToTableItem);
+										   //DatasUtil.formatDatas(indexToDataItem);
+										   indexToDatasArray.push(indexToDataItem);
 									   }
 									   i++;
 									   if(i<defDatas.length){
 										   getItems(defDatas[i]);
 									   }else{
 										   self.set("indexToDatasArray",indexToDatasArray);
+										   DatasUtil.getListOfDatasForEstimate(self);
 										   appRouter.navigate("#pickItemsForEstimate",{trigger:true});  					   
 									   }
 								   },null);
-								   
-								   
-								   /*console.log('SELECT * FROM '+ results.rows.item(i).TableName +' WHERE IndexCode = '+'"'+results.rows.item(i).IndexCode+'"');
-								   tx.executeSql('SELECT * FROM '+ results.rows.item(i).TableName +' WHERE IndexCode = '+'"'+results.rows.item(i).IndexCode+'"', [], function (tx, items) {
-									   
-									   if(items.rows.length > 0){
-										   console.log(items.rows.item(0));
-										   var item = items.rows.item(0);
-										   item.TableName = results.rows.item(i).TableName;
-										   ccroaddefualtItems.push(item);
-									   }
-									   i++;
-									   if(i<results.rows.length){
-										   getItems(i);
-									   }else{
-										   console.log(ccroaddefualtItems);
-										   self.set("defualtItems",ccroaddefualtItems);
-										   appRouter.navigate("pickItemsForEstimate",{trigger:true});
-									   }
-								   },null);*/
 								};
 								getItems(defDatas[0]);
 						}
@@ -235,7 +226,7 @@ define([ 'models/base_model','views/utilities/datas_util'], function(BaseModel,D
 						getItems(i);
 						
 				});
-			},*/
+			},
 			getDatasForEstimate : function(){
 				var selIndexLength = this.get("selectedItemsForEstimate").length;
 				var self= this;
@@ -308,7 +299,7 @@ define([ 'models/base_model','views/utilities/datas_util'], function(BaseModel,D
 
 					});
 
-			},
+			},*/
 			prepareTableToItemsMap : function(){
 				var resultRows=[];
 				
@@ -316,7 +307,7 @@ define([ 'models/base_model','views/utilities/datas_util'], function(BaseModel,D
 				var chapterToItem = [];
 				var chapterToItemsMap = {
 						tableName:"",
-						indexDatas:[]       
+						indexDatasArr:[]
 				};
 				var indexToItemsArray = [];
 				var indexToItems = {//empty the array
@@ -324,6 +315,11 @@ define([ 'models/base_model','views/utilities/datas_util'], function(BaseModel,D
 						itemIndex : "",
 						itemsArr :[]
 				};
+				
+			   var indexData = {
+						item:"",
+						subitemsArray:[]
+					} 
 				
 				var thisModel = this;
 				db.transaction(function (tx) {
@@ -333,22 +329,54 @@ define([ 'models/base_model','views/utilities/datas_util'], function(BaseModel,D
 					tx.executeSql('SELECT * FROM '+selectedTable, [], function (tx, results) {
 						console.log("successfully read");
 						for(var j=0;j<results.rows.length;j++){
-
+							
 							var item = JSON.parse(JSON.stringify(results.rows.item(j)));
+							var isIndexItem = false;
 							if(item.IndexCode){
-								item.tableName = selectedTable;
-								chapterToItemsMap.indexDatas.push(item);
+								isIndexItem = true;
 								if(j){
 									//for the first item don't push to array 
 									indexToItemsArray.push(indexToItems);
+									chapterToItemsMap.indexDatasArr.push(indexData);
 									indexToItems = {//empty the array
 											indexCode : "",
 											itemsArr :[]
 									};
+									indexData = {
+											item:"",
+											subitemsArray:[]
+									} 
 								} 
+								item.tableName = selectedTable;
+								indexData.item = item;
 								indexToItems.indexCode = item.IndexCode;
 								indexToItems.itemIndex = item.SNo;
 							}
+							/* */
+							
+							 var subitem = {
+									"subIndex":"",
+									"subItemID":"",
+									"subItemDesc":"",
+									"subDataId":""
+							   }
+
+							   //To capture sub items in Building data's - item.SNo
+							   //To capture sub items in RNB data's - item.SubBullet
+							   if((item.SNo && !isIndexItem) || item.SubBullet){
+								   if(item.SNo){
+									   subitem.subItemID = item.SNo;
+								   }
+								   if(item.SubBullet){
+									   subitem.subItemID = item.SubBullet; 
+								   }
+								   subitem.subDataId = item.SubDatas;
+								   subitem.subItemDesc = item.Description;
+								   subitem.subIndex = indexData.subitemsArray.length;
+								   indexData.subitemsArray.push(subitem);
+								  // console.log("subitems:"+JSON.stringify(subitemsArray));
+							   }
+							
 							indexToItems.itemsArr.push(item);
 				
 						}
@@ -440,7 +468,8 @@ define([ 'models/base_model','views/utilities/datas_util'], function(BaseModel,D
 						}
 						self.set("convChargesFromDB",convChargesFromDB);
 						console.log(convChargesFromDB);
-						DatasUtil.prepareLeadMaterialMap(self.get("leadCodesInEstimate"),self);
+						//DatasUtil.prepareLeadMaterialMap(self.get("leadCodesInEstimate"),self);
+						appRouter.navigate("leadstatement",{trigger:true});
 					});
 				})
 				

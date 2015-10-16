@@ -107,7 +107,7 @@ define(['views/layout/base_itemview','models/estimateitems_util','views/showitem
 
 		    	$("#datasPopup").on("popupbeforeposition",function(){
 			    	$("#datasPopup").off("popupbeforeposition");
-			    	self.model.set("datasArray",self.model.get("chapterToItemsMap").indexDatas);
+			    	self.model.set("datasArray",self.model.get("chapterToItemsMap").indexDatasArr);
 			    	self.model.set("isSearchResult",false);
 	    			var dataView = new chapterView();
 	    			dataView.render();
@@ -118,6 +118,7 @@ define(['views/layout/base_itemview','models/estimateitems_util','views/showitem
 		    	$("#datasPopup").off("popupafteropen");
 				$("#datasPopup").on("popupafteropen",function(){
 			    	$.mobile.loading( "hide");
+			    	//Code to show list of pre-selected items in table.
 			    	var selectedTable = thisModel.get("selectedTable");
 	    			var exisitngDatas = thisModel.get("indexToDatasArray");
 	    			if(exisitngDatas){
@@ -126,7 +127,15 @@ define(['views/layout/base_itemview','models/estimateitems_util','views/showitem
 	        			});
 	        			if(selectedDatasList.length){
 	        				for(var data in selectedDatasList){
-	        					$("#"+selectedDatasList[data].IndexCode).prop("checked", true);
+	        					if(selectedDatasList[data].selectedSubItems.length){
+	        						var subDatasArr = selectedDatasList[data].selectedSubItems;
+	        						for(var subItem in subDatasArr){
+	        							var subData = subDatasArr[subItem].replace(/\./gi, "\\.");
+	        							$("."+selectedDatasList[data].IndexCode+" "+"#"+subData).prop("checked",true);
+	        						}
+	        					}else{
+	        						$("#"+selectedDatasList[data].IndexCode).prop("checked", true);
+	        					}
 	        				}
 	        			}	   				
 	    			}

@@ -30,7 +30,6 @@
 		  		<td></td>	
 		  	  </tr>		
 	  		{{else}}
-	  		  {{#isNull SubBullet}}
 				  <tr>
 				    <td>{{Quantity}}</td>
 				    <td>{{Unit}}</td>
@@ -56,17 +55,6 @@
 				    	<td>{{decimalFormat Amount}}</td>  
 				    {{/isNull}}
 				  </tr>
-			  {{else}}
-				 <tr>
-				    <td>{{Quantity}}</td>
-				    <td><strong>{{SubBullet}}</strong></td>
-				    <td><strong>{{Description}}</strong></td>
-				     <td>{{RateRs}}</td>
-				    <td></td>
-				    <td>{{Unit}}</td>
-				    <td></td>
-				  </tr>		  		  
-			  {{/isNull}}
 		  	{{/compare}}
 	  	{{/each}}
 	  {{/each}}

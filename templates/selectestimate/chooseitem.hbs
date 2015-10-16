@@ -11,21 +11,13 @@
 		  </tr>
 		 </thead>
 		 <tbody id="estimateItems"> 
-		  {{#each indexToDatasArray}}
+		  {{#each codeToDatas}}
 			  <tr class="{{this.IndexCode}}">
 			    <td>{{add @index 1}}</td>
 			    <td><div class="dataCode info-button">{{this.IndexCode}}</div></td>
 			    <td>{{this.description}}</td>
-			    <td><input data-table="{{this.TableName}}" type="checkbox" name="itemsSelected" checked id="{{this.IndexCode}}"/></td>
+				<td></td>
 			  </tr>
-			   {{#each this.subitemsArray}}	  
-			   	  <tr class="{{../IndexCode}}">  
-				    <td></td>
-				    <td>{{this.SlNo}}</td>
-				    <td>{{this.descritpion}}</td>
-				    <td><input type="checkbox" class="{{../IndexCode}}" name="{{../IndexCode}}" id="{{this.SlNo}}"/></td> 
-			   	  </tr> 
-			   {{/each}}
 		  {{/each}}
 		  </tbody>
 		</table>
@@ -45,7 +37,7 @@
 			<input type="button" id="addDatas" data-icon="plus" data-iconpos="left" value="Add More Datas" data-inline="true"/>
 		</div>
 		<div class="ui-block-b footer-right">
-			<input type="button" data-inline="true" data-icon="arrow-r" data-iconpos="right" value="Proceed To Lead" id="proceedToLeadStmt"/>
+			<input type="button" data-inline="true" data-icon="arrow-r" data-iconpos="right" value="Proceed" id="proceedToLeadStmt"/>
 		</div>
 	</div>
 </div>

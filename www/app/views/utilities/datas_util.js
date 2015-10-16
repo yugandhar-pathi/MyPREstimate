@@ -1,10 +1,12 @@
 define([],function(){
 	var datas_util = {
+			leadMaterials:[],
+			
 			beuatifyDatas:function(dataList){
 				var costForItem = 0;
 				var costForIndex = 0;
 				for(var j=0;j<dataList.length;j++){
-						var item = dataList[j];
+					   var item = dataList[j];
 					   //Loop through all rows for data item
 					   if(item.Amount != null){
 						   //This is to add amount for all items in a data item.
@@ -17,7 +19,7 @@ define([],function(){
 					   }
 					   var test =  /^[a-z]\)|^[a-z]\&[a-z]\)/.test(description);
 					   if(test){
-						   //To display subheading in bold.
+						   //To display sub heading in bold.
 						   item.descType = "SubHeading";
 					   }else{
 						   var test =  /^Cost\sfor|^Rate\sper/.test(description);
@@ -38,6 +40,59 @@ define([],function(){
 						   item.Amount = parseInt(costForItem/Number(perUnits));
 					   }
 				}   
+			},
+			updateRateAndUnit:function(codeToData){
+				var costForItem = 0;
+				var costForIndex = 0;
+				var dataList = codeToData.datas;
+				for(var j=0;j<dataList.length;j++){
+					   var item = dataList[j];
+					   //Loop through all rows for data item
+					   if(item.Amount != null){
+						   //This is to add amount for all items in a data item.
+						   costForItem += Number(item.Amount);
+					   }
+					   var description = item.Description;
+					   if(description=="a\)\?\?Labour"){
+						   //to correct display of sub heading - not coming correct from database
+						   item.Description = "a\) Labour";
+					   }
+					   var test =  /^[a-z]\)|^[a-z]\&[a-z]\)/.test(description);
+					   if(test){
+						   //To display sub heading in bold.
+						   item.descType = "SubHeading";
+					   }else{
+						   var test =  /^Cost\sfor|^Rate\sper/.test(description);
+						   if(test){
+							   //to display Rate or Cost items in bold Red
+							   item.descType = "RateOrCost"; 
+						   }else{
+							   item.descType = "Normal";
+						   }
+					   }
+					   if(description != null && (description.indexOf('Cost for ') != -1 || description.indexOf('Cost  for ') != -1 ) && costForItem > 0){
+						   item.Amount = costForItem;
+						   costForIndex = j; //To update Rate per Unit
+					   }
+					   if(description != null && description.indexOf('Rate per ') != -1 && j == costForIndex+1){
+						   //updating amount per unit
+						   var perUnits = description.substr(description.indexOf('/')+1,description.length);									   
+						   item.Amount = parseInt(costForItem/Number(perUnits));
+						   codeToData.rate = item.Amount;
+					   }
+					   
+					   if(description != null && description.indexOf('Unit =') != -1){
+						   //Unit
+						   codeToData.unit = description.substring(7,description.length);	
+					   }
+					   if(item.Remarks != null){
+						   this.leadMaterials.push(item.Remarks);
+					   }
+				}   
+			},
+			/*formatDatas : function(indexToDataItem){
+				//this.beuatifyDatas(indexToDataItem.itemsArr);
+				this.updateRateAndUnit(indexToDataItem);
 			},
 			getLeadCodesInDataItem : function(dataList){
 				   var leadCodes = [];
@@ -110,71 +165,7 @@ define([],function(){
 				  }
 				  return leadCodes;
 	
-			},
-			prepareLeadMaterialMap : function(leadCodes,EstimateModel){
-				   var dbData = "";
-				   var dbLeadMaterials = EstimateModel.get("leadMaterialsFromDB");
-				   if(!dbLeadMaterials){
-					   //read from db
-					   EstimateModel.getDefaultLeadMaterialsFromDB();
-					   return;
-				   }
-				   var leadMaterialObjects = [];
-				   for(var code in leadCodes){
-					   var leadMaterialItem = {
-								"material":"",
-								"sourceOfSupply":"",
-								"leadInKM":"",
-								"initialCost":"",
-								"convCharges":"",
-								"seigCharges":"",
-								"totalCost":"",
-								"unit":"",
-								"isMetal":false,
-								"code":"",
-								"loadMeans":"ignoreLoad",
-								"unLoadMeans":"ignoreUnLoad",
-								"considerIdleCharges":"no"
-					   }
-					   if(leadCodes[code]=="L1A"){
-						   dbData = dbLeadMaterials.filter(function(obj){ return obj.Quality == "Filling"});
-						   leadMaterialItem.material = "Sand for Filling";
-						   leadMaterialItem.initialCost = dbData[0].InitialCost;
-						   leadMaterialItem.seigCharges = dbData[0].SeigCharges;
-						   leadMaterialItem.unit = dbData[0].Unit;
-						   leadMaterialItem.code = "L1A";
-					   }
-					   if(leadCodes[code]=="L1B"){
-						   dbData = dbLeadMaterials.filter(function(obj){ return obj.Quality == "Mortor"});
-						   leadMaterialItem.material = "Sand for Mortor";
-						   leadMaterialItem.initialCost = dbData[0].InitialCost;
-						   leadMaterialItem.seigCharges = dbData[0].SeigCharges;
-						   leadMaterialItem.unit = dbData[0].Unit;
-						   leadMaterialItem.code = "L1B";
-					   }
-					   if(leadCodes[code]=="L2"){
-						   dbData = dbLeadMaterials.filter(function(obj){ return obj.LeadMaterial == "L2"});
-						   leadMaterialItem.material = "Cement";
-						   leadMaterialItem.initialCost = dbData[0].InitialCost;
-						   leadMaterialItem.seigCharges = dbData[0].SeigCharges;
-						   leadMaterialItem.unit = dbData[0].Unit;
-						   leadMaterialItem.code = "L2";
-					   }
-					   if(leadCodes[code].indexOf("L3") != -1){
-						   leadMaterialItem.material = leadCodes[code].substring(2,leadCodes[code].length)+" H.B.G metal";
-						   var metalMM = Number(leadMaterialItem.material.substring(0,2));
-						   dbData = dbLeadMaterials.filter(function(obj){ return obj.LeadMaterial == "L3" && Number(obj.Quality) >= metalMM});
-						   leadMaterialItem.initialCost = dbData[0].InitialCost;
-						   leadMaterialItem.seigCharges = dbData[0].SeigCharges;
-						   leadMaterialItem.unit = dbData[0].Unit;
-						   leadMaterialItem.isMetal = true;
-						   leadMaterialItem.code = "L3";
-					   }
-					   leadMaterialObjects.push(leadMaterialItem);
-				   }
-				   EstimateModel.set("listOfLeadMaterials",leadMaterialObjects);
-				   appRouter.navigate("leadstatement",{trigger:true});
-			},
+			},*/
 			getTableName : function(dataCode){
 				var keyToTableMap = {
 						//Roads And Bridges
@@ -268,7 +259,99 @@ define([],function(){
 					var tableKey = splitDataArr[1];
 					return keyToTableMap[dataBook][tableKey];
 				}
-			}
+			},
+			getListOfDatasForEstimate : function(EstimateModel){
+				this.leadMaterials = [];
+				var defaultDatas = EstimateModel.get("indexToDatasArray");
+				var codeToDatasArr = [];
+				for(var data in defaultDatas){
+					var dataItem = defaultDatas[data];
+					if(dataItem.selectedSubItems.length == 0){
+						var codeToData = {
+						   "IndexCode":dataItem.IndexCode,
+						   "description":dataItem.description,
+						   "itemIndex":"",
+				   		   "datas":dataItem.itemsArr,
+						   "rate":"",
+						   "unit":""
+						};
+						this.updateRateAndUnit(codeToData);
+						codeToData.itemIndex = codeToDatasArr.length;
+						codeToDatasArr.push(codeToData);
+					}else{
+						var subItemsArr = defaultDatas[data].selectedSubItems;
+						for(var subItem in subItemsArr){
+							var subDataId = subItemsArr[subItem];
+							var codeToData = {
+							   "IndexCode":"",
+							   "description":"",
+							   "itemIndex":"",
+					   		   "datas":this.getDataItemsForSubData(subDataId,dataItem),
+							   "rate":"",
+							   "unit":""
+							};
+							var subItemdesc = "";
+							var subItemIndexCode = "";
+							function getIdAndDesc(subDataId){
+								var subItem = dataItem.subitemsArray.filter(function(obj){
+									return obj.subDataId == subDataId
+								});
+								if(subItem.length){
+									if(subItemdesc.length){
+										subItemdesc = subItem[0].subItemDesc+" * "+subItemdesc;
+										subItemIndexCode = subItem[0].subItemID+"*"+subItemIndexCode;
+									}else{
+										subItemdesc = subItem[0].subItemDesc;
+										subItemIndexCode = subItem[0].subItemID;
+									}
+									//1.1.1L
+									if(subDataId.indexOf("L") != -1){
+										if(subDataId.length > 2){
+											getIdAndDesc(subDataId.slice(0,-3))
+										}
+									}else{
+										if(subDataId.length >= 1){
+											getIdAndDesc(subDataId.slice(0,-2))
+										}
+									}									
+								}
+							}
+							getIdAndDesc(subDataId);
+							codeToData.description = dataItem.description+" * "+subItemdesc;
+							codeToData.IndexCode = dataItem.IndexCode+"*"+subItemIndexCode;
+							codeToData.datas[0].Description = dataItem.description+" * "+subItemdesc;
+							codeToData.datas[0].IndexCode = dataItem.IndexCode+"*"+subItemIndexCode;
+							codeToData.itemIndex = codeToDatasArr.length;
+							this.updateRateAndUnit(codeToData);
+							codeToDatasArr.push(codeToData);
+						}
+						
+					}
+				}
+				EstimateModel.set("leadCodesInEstimate",this.leadMaterials);
+				EstimateModel.set("codeToDatas",codeToDatasArr);
+	
+			},
+			getDataItemsForSubData : function(subDataId,parentData){
+				var dataItems = parentData.itemsArr;
+				var subItemDatas = [];
+				var startPush = false;
+				for(var item in dataItems){
+					var dataItem = dataItems[item];
+					if(startPush && dataItem.SubDatas){
+						//one more data started, stop and return
+						return subItemDatas;
+					}
+					if(dataItem.SubDatas == subDataId){
+						startPush = true;
+					}
+					if(startPush){
+						subItemDatas.push(dataItem);
+					}
+				}
+				this.beuatifyDatas(subItemDatas);
+				return subItemDatas; // if last subdata is selected.
+			},
 	};
 	return datas_util;
 });

@@ -6,8 +6,8 @@ define(['views/layout/base_itemview','models/estimateitems_util'],function(BaseI
 		template : Handlebars.templates.selectestimate_leadstatement,
 		
 		events:{
-	    	'tap #proceedToDataSheet':'displayDataSheet',
-	    	'tap .material':'dispalyPopup'
+	    	'click #proceedToDataSheet':'displayDataSheet',
+	    	'click .material':'dispalyPopup'
 		},
 		initialize: function() {
 			console.log("Render lead statement view");

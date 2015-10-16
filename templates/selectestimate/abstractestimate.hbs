@@ -20,102 +20,70 @@
 		  </tr>
 	  </thead>
 	  <tbody>
-	  {{#each codeToRates}}
+	  {{#each codeToDatas}}
 		  <tr>
 		    <td><strong>{{add @index 1}}</strong></td>
-		    {{#if subBullets.length}}
-		    	<td colspan="7"><strong>{{description}}</strong></td>
-		    {{else}}
-		    	<td colspan="7"><strong>{{description}}</strong></td>
-		    {{/if}}
+			<td colspan="7"><strong>{{description}}</strong></td>
 		    <td></td>
 		    <td></td>
 		    <td></td>
 		    <td></td>
 		    <td></td>
 		  </tr>
-		  {{#if subBullets.length}}
-		  	{{#each subBullets}}
-			  <tr>
-			    <td><strong>{{itemID}}</strong></td>
-			    <td colspan="7"><strong>{{subItemDesc}}</strong></td>
-			    <td></td>
-			    <td></td>
-			    <td></td>
-			    <td></td>
-			    <td></td>
-			  </tr>
-			  {{#each lbdsArray}}
-				  <tr>
-				    <td><input type="button" data-iconpos="notext" style="float:right" class="addLBD" data-icon="plus" data-inline="true" data-index="{{../../../dataIndex}}-{{../subIndex}}-{{@index}}"/></td>
-				    <td><div id="Description{{../../../dataIndex}}-{{../subIndex}}-{{@index}}"/>{{lbddescription}}</td>
-				    <td style="width:6%"><div id="Nos1{{../../../dataIndex}}-{{../subIndex}}-{{@index}}"/>{{nos1}}</td>
-				    <td>X</td>
-				    <td style="width:6%"><div id="Nos2{{../../../dataIndex}}-{{../subIndex}}-{{@index}}"/>{{nos2}}</td>
-				    <td style="width:10%"><div id="length{{../../../dataIndex}}-{{../subIndex}}-{{@index}}">{{length}}</div></td>
-				    <td style="width:10%"><div id="breadth{{../../../dataIndex}}-{{../subIndex}}-{{@index}}">{{breadth}}</div></td>
-				    <td style="width:10%"><div id="depth{{../../../dataIndex}}-{{../subIndex}}-{{@index}}">{{depth}}</div></td>
-				    <td id="totalUnits{{../../../dataIndex}}-{{../subIndex}}-{{@index}}">{{totalUnits}}</td>
-				    <td></td>
-				    <td></td>
-				    <td></td>
-				    <td></td>
-				  </tr>
-			  {{/each}} 
-			  <tr>
-			    <td></td>
-			    <td></td>
-			    <td></td>
-			    <td></td>
-			    <td></td>
-			    <td></td>
-			    <td></td>
-			    <td></td>
-			    <td id="quantity{{../../../dataIndex}}-{{../subIndex}}-{{@index}}">{{sumUnits lbdsArray}}</td>
-			    <td>{{unit}}</td>
-			    <td id="itemRate{{../../../dataIndex}}-{{../subIndex}}-{{@index}}"><strong>{{subItemRate}}</strong></td>
-			    <td>/1{{unit}}</td>
-			    <td id="totalAmount{{../../../dataIndex}}-{{../subIndex}}-{{@index}}"></td>
-			  </tr>
-			{{/each}}
-		  {{else}}
-		  	{{#each lbdsArray}}
-		  	  <tr>
-			    <td><input type="button" data-iconpos="notext" style="float:right" class="addLBD" data-icon="plus" data-index="{{../../dataIndex}}-{{@index}}"/></td>
-			    <td><div id="lbdDesc{{../../dataIndex}}-{{@index}}">{{lbddescription}}</div></td>
-			    <td style="width:6%"><div id="Nos1{{../../dataIndex}}-{{@index}}">{{nos1}}</div></td>
-			    <td>X</td>
-			    <td style="width:6%"><div id="Nos2{{../../dataIndex}}-{{@index}}">{{nos2}}</div></td>
-			    <td style="width:10%"><div id="length{{../../dataIndex}}-{{@index}}">{{length}}</div></td>
-			    <td style="width:10%"><div id="breadth{{../../dataIndex}}-{{@index}}">{{breadth}}</div></td>
-			    <td style="width:10%"><div id="depth{{../../dataIndex}}-{{@index}}">{{depth}}</div></td>
-			    <td id="totalUnits{{../../dataIndex}}-{{@index}}">{{totalUnits}}</td>
-			    <td></td>
-			    <td></td>
-			    <td></td>
-			    <td></td>
-			  </tr>
-			{{/each}} 
-			  <tr>
-			    <td></td>
-			    <td></td>
-			    <td></td>
-			    <td></td>
-			    <td></td>
-			    <td></td>
-			    <td></td>
-			    <td></td>
-			    <td id="quantity{{@index}}">{{sumUnits lbdsArray}}</td>
-			    <td>{{unit}}</td>
-			    <td id="itemRate{{@index}}"><strong>{{rate}}</strong></td>
-			    <td>/1{{unit}}</td>
-			    <td id="totalAmount{{@index}}"><strong>{{dataAmount this}}</strong></td>
-			  </tr>
-		  {{/if}}
+	  	{{#each lbdsArray}}
+	  	  <tr>
+		    <td><input type="button" data-iconpos="notext" style="float:right" class="addLBD" data-icon="plus" data-index="{{../itemIndex}}-{{@index}}"/></td>
+		    <td><div id="lbdDesc{{../itemIndex}}-{{@index}}">{{lbddescription}}</div></td>
+		    <td style="width:6%"><div id="Nos1{{../itemIndex}}-{{@index}}">{{nos1}}</div></td>
+		    <td>X</td>
+		    <td style="width:6%"><div id="Nos2{{../itemIndex}}-{{@index}}">{{nos2}}</div></td>
+		    <td style="width:10%"><div id="length{{../itemIndex}}-{{@index}}">{{length}}</div></td>
+		    <td style="width:10%"><div id="breadth{{../itemIndex}}-{{@index}}">{{breadth}}</div></td>
+		    <td style="width:10%"><div id="depth{{../itemIndex}}-{{@index}}">{{depth}}</div></td>
+		    {{#compare lbdType "add" operator="=="}}
+		    	<td><div id="totalUnits{{../../itemIndex}}-{{@index}}" data-lbdType="add">{{totalUnits}}</div></td>
+		    {{else}}
+		    	<td><div id="totalUnits{{../../itemIndex}}-{{@index}}" data-lbdType="minus" style="color:red">-{{totalUnits}}</div></td>
+		    {{/compare}}
+		    <td></td>
+		    <td></td>
+		    <td></td>
+		    <td></td>
+		  </tr>
+		{{/each}} 
+		  <tr>
+		    <td></td>
+		    <td></td>
+		    <td></td>
+		    <td></td>
+		    <td></td>
+		    <td></td>
+		    <td></td>
+		    <td></td>
+		    <td id="quantity{{@index}}">{{sumUnits lbdsArray}}</td>
+		    <td>{{unit}}</td>
+		    <td id="itemRate{{@index}}"><strong>{{rate}}</strong></td>
+		    <td>/1{{unit}}</td>
+		    <td id="totalAmount{{@index}}"><strong>{{dataAmount this}}</strong></td>
+		  </tr>
 		{{/each}}  
 	  </tbody>
 	</table>
-	<input type="submit" value="Save Estimate" id="saveEstimate"/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<div class="footer-buttons">
+		<hr />
+		<div class="ui-grid-a">
+			<div class="ui-block-a footer-left">
+				<input type="button" id="clearAll" value="Clear All" data-inline="true"/>
+			</div>
+			<div class="ui-block-b footer-right">
+				<input type="button" data-inline="true" data-icon="arrow-r" data-iconpos="right" value="Save Estimate" id="saveEstimate"/>
+			</div>
+		</div>
+	</div>
 	<div data-role="popup" id="getLBDData" data-arrow="true" class="ui-content">
 	 	<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
 	 	<P id="mandatoryText" style="color:red"><i><strong>Please enter all mandatory* fields</strong></i></p>
@@ -146,6 +114,35 @@
 				<div class="ui-block-a" style="padding-top:5%;width:50%"><label>Depth<sup style="color:red"><b>*</b></sup>:</label></div>
 				<div class="ui-block-b"><input type="text" class="lbdinput" id="depth"></div>
 			</div>
+			<div class="ui-grid-a" class="ui-content" style="padding-top:5%">
+				<div class="ui-block-a">
+					<label>Deduct<sup style="color:red"><b>*</b></sup>:</label>
+				</div>
+				<div class="ui-block-b">
+					<div class="ui-grid-a">
+						<div class="ui-block-a">
+							<div class="ui-grid-a">
+								<div class="ui-block-a">
+									<label style="padding-top:2%;float:right">No</label>
+								</div>
+								<div class="ui-block-b" style="padding-top:4%">
+									<input type="radio" name="lbdType" value="add">
+								</div>
+							</div>
+						</div>
+						<div class="ui-block-b">
+							<div class="ui-grid-a">
+								<div class="ui-block-a">
+									<label style="padding-top:2%;float:right">Yes</label>
+								</div>
+								<div class="ui-block-b" style="padding-top:4%">
+									<input type="radio" name="lbdType" value="minus">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div><!-- /grid-b -->
 		</div>
 		<input type="button" value="Save" id="saveLBD"/>
 	</div>

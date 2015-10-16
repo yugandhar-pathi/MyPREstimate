@@ -277,7 +277,11 @@ define(function(require) {
     Handlebars.registerHelper('sumUnits', function(lbdArray) {
     	var sumUnit = 0;
     	for(var lbd in lbdArray){
-    		sumUnit += Number(lbdArray[lbd].totalUnits);
+    		if(lbdArray[lbd].lbdType == "add"){
+    			sumUnit += Number(lbdArray[lbd].totalUnits);	
+    		}else{
+    			sumUnit -= Number(lbdArray[lbd].totalUnits);
+    		}
     	}
     	return sumUnit;
     });
@@ -286,10 +290,22 @@ define(function(require) {
     	var sumUnit = 0;
     	var lbdArray = dataItem.lbdsArray;
     	for(var lbd in lbdArray){
-    		sumUnit += Number(lbdArray[lbd].totalUnits);
+    		if(lbdArray[lbd].lbdType == "add"){
+    			sumUnit += Number(lbdArray[lbd].totalUnits);
+    		}else{
+    			sumUnit -= Number(lbdArray[lbd].totalUnits);
+    		}
     	}
     	var amount = sumUnit * Number(dataItem.rate);
     	return amount.toFixed("2");
+    });
+    Handlebars.registerHelper('isLeaf', function(subDataIndex,options) {
+    	if(subDataIndex.indexOf('L') != -1){
+    		return options.fn(this);
+    	}else{
+    		return options.inverse(this);
+    	}
+    	
     });
 
 });

@@ -287,274 +287,140 @@ this["Handlebars"]["templates"]["selectestimate_abstractestimate"] = Handlebars.
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing;
 
-function program1(depth0,data,depth1) {
+function program1(depth0,data) {
   
   var buffer = "", stack1, helper, options;
   buffer += "\r\n		  <tr>\r\n		    <td><strong>"
     + escapeExpression((helper = helpers.add || (depth0 && depth0.add),options={hash:{},data:data},helper ? helper.call(depth0, (data == null || data === false ? data : data.index), 1, options) : helperMissing.call(depth0, "add", (data == null || data === false ? data : data.index), 1, options)))
-    + "</strong></td>\r\n		    ";
-  stack1 = helpers['if'].call(depth0, ((stack1 = (depth0 && depth0.subBullets)),stack1 == null || stack1 === false ? stack1 : stack1.length), {hash:{},inverse:self.program(2, program2, data),fn:self.program(2, program2, data),data:data});
-  if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n		    <td></td>\r\n		    <td></td>\r\n		    <td></td>\r\n		    <td></td>\r\n		    <td></td>\r\n		  </tr>\r\n		  ";
-  stack1 = helpers['if'].call(depth0, ((stack1 = (depth0 && depth0.subBullets)),stack1 == null || stack1 === false ? stack1 : stack1.length), {hash:{},inverse:self.programWithDepth(8, program8, data, depth0),fn:self.programWithDepth(4, program4, data, depth0, depth1),data:data});
-  if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n		";
-  return buffer;
-  }
-function program2(depth0,data) {
-  
-  var buffer = "", stack1, helper;
-  buffer += "\r\n		    	<td colspan=\"7\"><strong>";
+    + "</strong></td>\r\n			<td colspan=\"7\"><strong>";
   if (helper = helpers.description) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.description); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "</strong></td>\r\n		    ";
-  return buffer;
-  }
-
-function program4(depth0,data,depth1,depth2) {
-  
-  var buffer = "", stack1;
-  buffer += "\r\n		  	";
-  stack1 = helpers.each.call(depth0, (depth0 && depth0.subBullets), {hash:{},inverse:self.noop,fn:self.programWithDepth(5, program5, data, depth0, depth1, depth2),data:data});
+    + "</strong></td>\r\n		    <td></td>\r\n		    <td></td>\r\n		    <td></td>\r\n		    <td></td>\r\n		    <td></td>\r\n		  </tr>\r\n	  	";
+  stack1 = helpers.each.call(depth0, (depth0 && depth0.lbdsArray), {hash:{},inverse:self.noop,fn:self.programWithDepth(2, program2, data, depth0),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n		  ";
-  return buffer;
-  }
-function program5(depth0,data,depth1,depth2,depth3) {
-  
-  var buffer = "", stack1, helper, options;
-  buffer += "\r\n			  <tr>\r\n			    <td><strong>";
-  if (helper = helpers.itemID) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.itemID); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1)
-    + "</strong></td>\r\n			    <td colspan=\"7\"><strong>";
-  if (helper = helpers.subItemDesc) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.subItemDesc); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1)
-    + "</strong></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			  </tr>\r\n			  ";
-  stack1 = helpers.each.call(depth0, (depth0 && depth0.lbdsArray), {hash:{},inverse:self.noop,fn:self.programWithDepth(6, program6, data, depth0, depth2),data:data});
-  if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += " \r\n			  <tr>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td id=\"quantity"
-    + escapeExpression(((stack1 = (depth3 && depth3.dataIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "-"
-    + escapeExpression(((stack1 = (depth1 && depth1.subIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "-"
+  buffer += " \r\n		  <tr>\r\n		    <td></td>\r\n		    <td></td>\r\n		    <td></td>\r\n		    <td></td>\r\n		    <td></td>\r\n		    <td></td>\r\n		    <td></td>\r\n		    <td></td>\r\n		    <td id=\"quantity"
     + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\">"
     + escapeExpression((helper = helpers.sumUnits || (depth0 && depth0.sumUnits),options={hash:{},data:data},helper ? helper.call(depth0, (depth0 && depth0.lbdsArray), options) : helperMissing.call(depth0, "sumUnits", (depth0 && depth0.lbdsArray), options)))
-    + "</td>\r\n			    <td>";
+    + "</td>\r\n		    <td>";
   if (helper = helpers.unit) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.unit); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "</td>\r\n			    <td id=\"itemRate"
-    + escapeExpression(((stack1 = (depth3 && depth3.dataIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "-"
-    + escapeExpression(((stack1 = (depth1 && depth1.subIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "-"
-    + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\"><strong>";
-  if (helper = helpers.subItemRate) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.subItemRate); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1)
-    + "</strong></td>\r\n			    <td>/1";
-  if (helper = helpers.unit) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.unit); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1)
-    + "</td>\r\n			    <td id=\"totalAmount"
-    + escapeExpression(((stack1 = (depth3 && depth3.dataIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "-"
-    + escapeExpression(((stack1 = (depth1 && depth1.subIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "-"
-    + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\"></td>\r\n			  </tr>\r\n			";
-  return buffer;
-  }
-function program6(depth0,data,depth1,depth3) {
-  
-  var buffer = "", stack1, helper;
-  buffer += "\r\n				  <tr>\r\n				    <td><input type=\"button\" data-iconpos=\"notext\" style=\"float:right\" class=\"addLBD\" data-icon=\"plus\" data-inline=\"true\" data-index=\""
-    + escapeExpression(((stack1 = (depth3 && depth3.dataIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "-"
-    + escapeExpression(((stack1 = (depth1 && depth1.subIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "-"
-    + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\"/></td>\r\n				    <td><div id=\"Description"
-    + escapeExpression(((stack1 = (depth3 && depth3.dataIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "-"
-    + escapeExpression(((stack1 = (depth1 && depth1.subIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "-"
-    + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\"/>";
-  if (helper = helpers.lbddescription) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.lbddescription); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1)
-    + "</td>\r\n				    <td style=\"width:6%\"><div id=\"Nos1"
-    + escapeExpression(((stack1 = (depth3 && depth3.dataIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "-"
-    + escapeExpression(((stack1 = (depth1 && depth1.subIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "-"
-    + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\"/>";
-  if (helper = helpers.nos1) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.nos1); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1)
-    + "</td>\r\n				    <td>X</td>\r\n				    <td style=\"width:6%\"><div id=\"Nos2"
-    + escapeExpression(((stack1 = (depth3 && depth3.dataIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "-"
-    + escapeExpression(((stack1 = (depth1 && depth1.subIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "-"
-    + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\"/>";
-  if (helper = helpers.nos2) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.nos2); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1)
-    + "</td>\r\n				    <td style=\"width:10%\"><div id=\"length"
-    + escapeExpression(((stack1 = (depth3 && depth3.dataIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "-"
-    + escapeExpression(((stack1 = (depth1 && depth1.subIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "-"
-    + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\">";
-  if (helper = helpers.length) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.length); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1)
-    + "</div></td>\r\n				    <td style=\"width:10%\"><div id=\"breadth"
-    + escapeExpression(((stack1 = (depth3 && depth3.dataIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "-"
-    + escapeExpression(((stack1 = (depth1 && depth1.subIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "-"
-    + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\">";
-  if (helper = helpers.breadth) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.breadth); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1)
-    + "</div></td>\r\n				    <td style=\"width:10%\"><div id=\"depth"
-    + escapeExpression(((stack1 = (depth3 && depth3.dataIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "-"
-    + escapeExpression(((stack1 = (depth1 && depth1.subIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "-"
-    + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\">";
-  if (helper = helpers.depth) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.depth); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1)
-    + "</div></td>\r\n				    <td id=\"totalUnits"
-    + escapeExpression(((stack1 = (depth3 && depth3.dataIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "-"
-    + escapeExpression(((stack1 = (depth1 && depth1.subIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "-"
-    + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\">";
-  if (helper = helpers.totalUnits) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.totalUnits); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1)
-    + "</td>\r\n				    <td></td>\r\n				    <td></td>\r\n				    <td></td>\r\n				    <td></td>\r\n				  </tr>\r\n			  ";
-  return buffer;
-  }
-
-function program8(depth0,data,depth1) {
-  
-  var buffer = "", stack1, helper, options;
-  buffer += "\r\n		  	";
-  stack1 = helpers.each.call(depth0, (depth0 && depth0.lbdsArray), {hash:{},inverse:self.noop,fn:self.programWithDepth(9, program9, data, depth1),data:data});
-  if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += " \r\n			  <tr>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td id=\"quantity"
-    + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\">"
-    + escapeExpression((helper = helpers.sumUnits || (depth0 && depth0.sumUnits),options={hash:{},data:data},helper ? helper.call(depth0, (depth0 && depth0.lbdsArray), options) : helperMissing.call(depth0, "sumUnits", (depth0 && depth0.lbdsArray), options)))
-    + "</td>\r\n			    <td>";
-  if (helper = helpers.unit) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.unit); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1)
-    + "</td>\r\n			    <td id=\"itemRate"
+    + "</td>\r\n		    <td id=\"itemRate"
     + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\"><strong>";
   if (helper = helpers.rate) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.rate); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "</strong></td>\r\n			    <td>/1";
+    + "</strong></td>\r\n		    <td>/1";
   if (helper = helpers.unit) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.unit); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "</td>\r\n			    <td id=\"totalAmount"
+    + "</td>\r\n		    <td id=\"totalAmount"
     + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\"><strong>"
     + escapeExpression((helper = helpers.dataAmount || (depth0 && depth0.dataAmount),options={hash:{},data:data},helper ? helper.call(depth0, depth0, options) : helperMissing.call(depth0, "dataAmount", depth0, options)))
-    + "</strong></td>\r\n			  </tr>\r\n		  ";
+    + "</strong></td>\r\n		  </tr>\r\n		";
   return buffer;
   }
-function program9(depth0,data,depth2) {
+function program2(depth0,data,depth1) {
   
-  var buffer = "", stack1, helper;
-  buffer += "\r\n		  	  <tr>\r\n			    <td><input type=\"button\" data-iconpos=\"notext\" style=\"float:right\" class=\"addLBD\" data-icon=\"plus\" data-index=\""
-    + escapeExpression(((stack1 = (depth2 && depth2.dataIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+  var buffer = "", stack1, helper, options;
+  buffer += "\r\n	  	  <tr>\r\n		    <td><input type=\"button\" data-iconpos=\"notext\" style=\"float:right\" class=\"addLBD\" data-icon=\"plus\" data-index=\""
+    + escapeExpression(((stack1 = (depth1 && depth1.itemIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "-"
     + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\"/></td>\r\n			    <td><div id=\"lbdDesc"
-    + escapeExpression(((stack1 = (depth2 && depth2.dataIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\"/></td>\r\n		    <td><div id=\"lbdDesc"
+    + escapeExpression(((stack1 = (depth1 && depth1.itemIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "-"
     + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\">";
   if (helper = helpers.lbddescription) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.lbddescription); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "</div></td>\r\n			    <td style=\"width:6%\"><div id=\"Nos1"
-    + escapeExpression(((stack1 = (depth2 && depth2.dataIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</div></td>\r\n		    <td style=\"width:6%\"><div id=\"Nos1"
+    + escapeExpression(((stack1 = (depth1 && depth1.itemIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "-"
     + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\">";
   if (helper = helpers.nos1) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.nos1); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "</div></td>\r\n			    <td>X</td>\r\n			    <td style=\"width:6%\"><div id=\"Nos2"
-    + escapeExpression(((stack1 = (depth2 && depth2.dataIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</div></td>\r\n		    <td>X</td>\r\n		    <td style=\"width:6%\"><div id=\"Nos2"
+    + escapeExpression(((stack1 = (depth1 && depth1.itemIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "-"
     + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\">";
   if (helper = helpers.nos2) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.nos2); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "</div></td>\r\n			    <td style=\"width:10%\"><div id=\"length"
-    + escapeExpression(((stack1 = (depth2 && depth2.dataIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</div></td>\r\n		    <td style=\"width:10%\"><div id=\"length"
+    + escapeExpression(((stack1 = (depth1 && depth1.itemIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "-"
     + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\">";
   if (helper = helpers.length) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.length); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "</div></td>\r\n			    <td style=\"width:10%\"><div id=\"breadth"
-    + escapeExpression(((stack1 = (depth2 && depth2.dataIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</div></td>\r\n		    <td style=\"width:10%\"><div id=\"breadth"
+    + escapeExpression(((stack1 = (depth1 && depth1.itemIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "-"
     + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\">";
   if (helper = helpers.breadth) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.breadth); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "</div></td>\r\n			    <td style=\"width:10%\"><div id=\"depth"
-    + escapeExpression(((stack1 = (depth2 && depth2.dataIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</div></td>\r\n		    <td style=\"width:10%\"><div id=\"depth"
+    + escapeExpression(((stack1 = (depth1 && depth1.itemIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "-"
     + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\">";
   if (helper = helpers.depth) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.depth); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "</div></td>\r\n			    <td id=\"totalUnits"
-    + escapeExpression(((stack1 = (depth2 && depth2.dataIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</div></td>\r\n		    ";
+  stack1 = (helper = helpers.compare || (depth0 && depth0.compare),options={hash:{
+    'operator': ("==")
+  },inverse:self.programWithDepth(5, program5, data, depth1),fn:self.programWithDepth(3, program3, data, depth1),data:data},helper ? helper.call(depth0, (depth0 && depth0.lbdType), "add", options) : helperMissing.call(depth0, "compare", (depth0 && depth0.lbdType), "add", options));
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\r\n		    <td></td>\r\n		    <td></td>\r\n		    <td></td>\r\n		    <td></td>\r\n		  </tr>\r\n		";
+  return buffer;
+  }
+function program3(depth0,data,depth2) {
+  
+  var buffer = "", stack1, helper;
+  buffer += "\r\n		    	<td><div id=\"totalUnits"
+    + escapeExpression(((stack1 = (depth2 && depth2.itemIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "-"
     + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\">";
+    + "\" data-lbdType=\"add\">";
   if (helper = helpers.totalUnits) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.totalUnits); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "</td>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			    <td></td>\r\n			  </tr>\r\n			";
+    + "</div></td>\r\n		    ";
+  return buffer;
+  }
+
+function program5(depth0,data,depth2) {
+  
+  var buffer = "", stack1, helper;
+  buffer += "\r\n		    	<td><div id=\"totalUnits"
+    + escapeExpression(((stack1 = (depth2 && depth2.itemIndex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "-"
+    + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\" data-lbdType=\"minus\" style=\"color:red\">-";
+  if (helper = helpers.totalUnits) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.totalUnits); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "</div></td>\r\n		    ";
   return buffer;
   }
 
   buffer += "	<table data-role=\"table\" class=\"ui-body-d ui-shadow table-stripe ui-responsive\">\r\n	  <thead>\r\n	  	  <tr>\r\n		    <th colspan=\"8\"></th>\r\n		    <th colspan=\"5\"><strong>Est.Cost.Rs:<span id=\"absEstimateCost\"></span>Lakhs</strong></th>\r\n		  </tr>\r\n		  <tr>\r\n		    <th rowspan=\"2\">S.No</th>\r\n		    <th rowspan=\"2\">Description of item</th>\r\n		    <th colspan=\"3\" rowspan=\"2\">Nos</th>\r\n		    <th colspan=\"3\">Measurements</th>\r\n		    <th colspan=\"2\" rowspan=\"2\" >Qunatity</th>\r\n		    <th colspan=\"2\" rowspan=\"2\">Rate/Per</th>\r\n		    <th rowspan=\"2\">Amount</th>\r\n		  </tr>\r\n		  <tr>\r\n		    <th>L</th>\r\n		    <th>B</th>\r\n		    <th>D</th>\r\n		  </tr>\r\n	  </thead>\r\n	  <tbody>\r\n	  ";
-  stack1 = helpers.each.call(depth0, (depth0 && depth0.codeToRates), {hash:{},inverse:self.noop,fn:self.programWithDepth(1, program1, data, depth0),data:data});
+  stack1 = helpers.each.call(depth0, (depth0 && depth0.codeToDatas), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "  \r\n	  </tbody>\r\n	</table>\r\n	<input type=\"submit\" value=\"Save Estimate\" id=\"saveEstimate\"/>\r\n	<div data-role=\"popup\" id=\"getLBDData\" data-arrow=\"true\" class=\"ui-content\">\r\n	 	<a href=\"#\" data-rel=\"back\" class=\"ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right\">Close</a>\r\n	 	<P id=\"mandatoryText\" style=\"color:red\"><i><strong>Please enter all mandatory* fields</strong></i></p>\r\n	 	<div data-role=\"fieldset\">\r\n	 		<div class=\"ui-grid-a\">\r\n				<div class=\"ui-block-a\" style=\"padding-top:5%;width:50%\"><label>Description:</label></div>\r\n				<div class=\"ui-block-b\"><input type=\"text\" placeholder=\"Ex:Column footing\" class=\"lbdinput\" id=\"lbdDescription\"></div>\r\n			</div>\r\n	 		<div class=\"ui-grid-a\">\r\n				<div class=\"ui-block-a\" style=\"padding-top:5%;width:50%\"><label>NOs:<sup style=\"color:red\"><b>*</b></sup></label></div>\r\n				<div class=\"ui-block-b\">\r\n					 <div class=\"ui-grid-b\">\r\n						<div class=\"ui-block-a\"><input type=\"text\" class=\"lbdinput\" id=\"nos1\"></div>\r\n						<div class=\"ui-block-b\"><label style=\"padding-left:40%;padding-top:15%\"><strong>X</strong></label></div>\r\n						<div class=\"ui-block-c\"><input type=\"text\" class=\"lbdinput\" id=\"nos2\"></div>\r\n					</div>\r\n				</div>\r\n			</div>\r\n		 	<div class=\"ui-grid-a\">\r\n				<div class=\"ui-block-a\" style=\"padding-top:5%;width:50%\"><label>Length<sup style=\"color:red\"><b>*</b></sup>:</label></div>\r\n				<div class=\"ui-block-b\"><input type=\"text\" class=\"lbdinput\" id=\"length\"></div>\r\n			</div>\r\n			<div class=\"ui-grid-a\">\r\n				<div class=\"ui-block-a\" style=\"padding-top:5%;width:50%\"><label>Breadth<sup style=\"color:red\"><b>*</b></sup>:</label></div>\r\n				<div class=\"ui-block-b\"><input type=\"text\" class=\"lbdinput\" id=\"breadth\"></div>\r\n			</div>\r\n			<div class=\"ui-grid-a\">\r\n				<div class=\"ui-block-a\" style=\"padding-top:5%;width:50%\"><label>Depth<sup style=\"color:red\"><b>*</b></sup>:</label></div>\r\n				<div class=\"ui-block-b\"><input type=\"text\" class=\"lbdinput\" id=\"depth\"></div>\r\n			</div>\r\n		</div>\r\n		<input type=\"button\" value=\"Save\" id=\"saveLBD\"/>\r\n	</div>\r\n\r\n";
+  buffer += "  \r\n	  </tbody>\r\n	</table>\r\n	<br/>\r\n	<br/>\r\n	<br/>\r\n	<br/>\r\n	<div class=\"footer-buttons\">\r\n		<hr />\r\n		<div class=\"ui-grid-a\">\r\n			<div class=\"ui-block-a footer-left\">\r\n				<input type=\"button\" id=\"clearAll\" value=\"Clear All\" data-inline=\"true\"/>\r\n			</div>\r\n			<div class=\"ui-block-b footer-right\">\r\n				<input type=\"button\" data-inline=\"true\" data-icon=\"arrow-r\" data-iconpos=\"right\" value=\"Save Estimate\" id=\"saveEstimate\"/>\r\n			</div>\r\n		</div>\r\n	</div>\r\n	<div data-role=\"popup\" id=\"getLBDData\" data-arrow=\"true\" class=\"ui-content\">\r\n	 	<a href=\"#\" data-rel=\"back\" class=\"ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right\">Close</a>\r\n	 	<P id=\"mandatoryText\" style=\"color:red\"><i><strong>Please enter all mandatory* fields</strong></i></p>\r\n	 	<div data-role=\"fieldset\">\r\n	 		<div class=\"ui-grid-a\">\r\n				<div class=\"ui-block-a\" style=\"padding-top:5%;width:50%\"><label>Description:</label></div>\r\n				<div class=\"ui-block-b\"><input type=\"text\" placeholder=\"Ex:Column footing\" class=\"lbdinput\" id=\"lbdDescription\"></div>\r\n			</div>\r\n	 		<div class=\"ui-grid-a\">\r\n				<div class=\"ui-block-a\" style=\"padding-top:5%;width:50%\"><label>NOs:<sup style=\"color:red\"><b>*</b></sup></label></div>\r\n				<div class=\"ui-block-b\">\r\n					 <div class=\"ui-grid-b\">\r\n						<div class=\"ui-block-a\"><input type=\"text\" class=\"lbdinput\" id=\"nos1\"></div>\r\n						<div class=\"ui-block-b\"><label style=\"padding-left:40%;padding-top:15%\"><strong>X</strong></label></div>\r\n						<div class=\"ui-block-c\"><input type=\"text\" class=\"lbdinput\" id=\"nos2\"></div>\r\n					</div>\r\n				</div>\r\n			</div>\r\n		 	<div class=\"ui-grid-a\">\r\n				<div class=\"ui-block-a\" style=\"padding-top:5%;width:50%\"><label>Length<sup style=\"color:red\"><b>*</b></sup>:</label></div>\r\n				<div class=\"ui-block-b\"><input type=\"text\" class=\"lbdinput\" id=\"length\"></div>\r\n			</div>\r\n			<div class=\"ui-grid-a\">\r\n				<div class=\"ui-block-a\" style=\"padding-top:5%;width:50%\"><label>Breadth<sup style=\"color:red\"><b>*</b></sup>:</label></div>\r\n				<div class=\"ui-block-b\"><input type=\"text\" class=\"lbdinput\" id=\"breadth\"></div>\r\n			</div>\r\n			<div class=\"ui-grid-a\">\r\n				<div class=\"ui-block-a\" style=\"padding-top:5%;width:50%\"><label>Depth<sup style=\"color:red\"><b>*</b></sup>:</label></div>\r\n				<div class=\"ui-block-b\"><input type=\"text\" class=\"lbdinput\" id=\"depth\"></div>\r\n			</div>\r\n			<div class=\"ui-grid-a\" class=\"ui-content\" style=\"padding-top:5%\">\r\n				<div class=\"ui-block-a\">\r\n					<label>Deduct<sup style=\"color:red\"><b>*</b></sup>:</label>\r\n				</div>\r\n				<div class=\"ui-block-b\">\r\n					<div class=\"ui-grid-a\">\r\n						<div class=\"ui-block-a\">\r\n							<div class=\"ui-grid-a\">\r\n								<div class=\"ui-block-a\">\r\n									<label style=\"padding-top:2%;float:right\">No</label>\r\n								</div>\r\n								<div class=\"ui-block-b\" style=\"padding-top:4%\">\r\n									<input type=\"radio\" name=\"lbdType\" value=\"add\">\r\n								</div>\r\n							</div>\r\n						</div>\r\n						<div class=\"ui-block-b\">\r\n							<div class=\"ui-grid-a\">\r\n								<div class=\"ui-block-a\">\r\n									<label style=\"padding-top:2%;float:right\">Yes</label>\r\n								</div>\r\n								<div class=\"ui-block-b\" style=\"padding-top:4%\">\r\n									<input type=\"radio\" name=\"lbdType\" value=\"minus\">\r\n								</div>\r\n							</div>\r\n						</div>\r\n					</div>\r\n				</div>\r\n			</div><!-- /grid-b -->\r\n		</div>\r\n		<input type=\"button\" value=\"Save\" id=\"saveLBD\"/>\r\n	</div>\r\n\r\n";
   return buffer;
   });
 
@@ -571,7 +437,7 @@ function program1(depth0,data) {
   else { helper = (depth0 && depth0.estType); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
     + ":<i></strong></p>	\r\n	<div>\r\n		<table data-role=\"table\" class=\"ui-body-d ui-shadow table-stripe ui-responsive\">\r\n		<thead>\r\n		  <tr>\r\n		    <th>Sl.No</th>\r\n		    <th>Item-Code</th>\r\n		    <th>Description</th>\r\n		    <th>Choose</th>\r\n		  </tr>\r\n		 </thead>\r\n		 <tbody id=\"estimateItems\"> \r\n		  ";
-  stack1 = helpers.each.call(depth0, (depth0 && depth0.indexToDatasArray), {hash:{},inverse:self.noop,fn:self.program(2, program2, data),data:data});
+  stack1 = helpers.each.call(depth0, (depth0 && depth0.codeToDatas), {hash:{},inverse:self.noop,fn:self.program(2, program2, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\r\n		  </tbody>\r\n		</table>\r\n	</div>\r\n";
   return buffer;
@@ -587,36 +453,11 @@ function program2(depth0,data) {
     + escapeExpression(((stack1 = (depth0 && depth0.IndexCode)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</div></td>\r\n			    <td>"
     + escapeExpression(((stack1 = (depth0 && depth0.description)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</td>\r\n			    <td><input data-table=\""
-    + escapeExpression(((stack1 = (depth0 && depth0.TableName)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\" type=\"checkbox\" name=\"itemsSelected\" checked id=\""
-    + escapeExpression(((stack1 = (depth0 && depth0.IndexCode)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\"/></td>\r\n			  </tr>\r\n			   ";
-  stack1 = helpers.each.call(depth0, (depth0 && depth0.subitemsArray), {hash:{},inverse:self.noop,fn:self.programWithDepth(3, program3, data, depth0),data:data});
-  if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n		  ";
-  return buffer;
-  }
-function program3(depth0,data,depth1) {
-  
-  var buffer = "", stack1;
-  buffer += "	  \r\n			   	  <tr class=\""
-    + escapeExpression(((stack1 = (depth1 && depth1.IndexCode)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\">  \r\n				    <td></td>\r\n				    <td>"
-    + escapeExpression(((stack1 = (depth0 && depth0.SlNo)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</td>\r\n				    <td>"
-    + escapeExpression(((stack1 = (depth0 && depth0.descritpion)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</td>\r\n				    <td><input type=\"checkbox\" class=\""
-    + escapeExpression(((stack1 = (depth1 && depth1.IndexCode)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\" name=\""
-    + escapeExpression(((stack1 = (depth1 && depth1.IndexCode)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\" id=\""
-    + escapeExpression(((stack1 = (depth0 && depth0.SlNo)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\"/></td> \r\n			   	  </tr> \r\n			   ";
+    + "</td>\r\n				<td></td>\r\n			  </tr>\r\n		  ";
   return buffer;
   }
 
-function program5(depth0,data) {
+function program4(depth0,data) {
   
   var buffer = "", stack1, helper;
   buffer += "\r\n	<h2>There are no default data's for ";
@@ -627,9 +468,9 @@ function program5(depth0,data) {
   return buffer;
   }
 
-  stack1 = helpers['if'].call(depth0, ((stack1 = (depth0 && depth0.defaultDatasFromDB)),stack1 == null || stack1 === false ? stack1 : stack1.length), {hash:{},inverse:self.program(5, program5, data),fn:self.program(1, program1, data),data:data});
+  stack1 = helpers['if'].call(depth0, ((stack1 = (depth0 && depth0.defaultDatasFromDB)),stack1 == null || stack1 === false ? stack1 : stack1.length), {hash:{},inverse:self.program(4, program4, data),fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n<br/>\r\n<br/>\r\n<br/>\r\n<br/>\r\n\r\n<div class=\"footer-buttons\">\r\n	<hr />\r\n	<div class=\"ui-grid-a\">\r\n		<div class=\"ui-block-a footer-left\">\r\n			<input type=\"button\" id=\"addDatas\" data-icon=\"plus\" data-iconpos=\"left\" value=\"Add More Datas\" data-inline=\"true\"/>\r\n		</div>\r\n		<div class=\"ui-block-b footer-right\">\r\n			<input type=\"button\" data-inline=\"true\" data-icon=\"arrow-r\" data-iconpos=\"right\" value=\"Proceed To Lead\" id=\"proceedToLeadStmt\"/>\r\n		</div>\r\n	</div>\r\n</div>\r\n\r\n<div data-role=\"popup\" id=\"deleteData\" data-arrow=\"true\" class=\"ui-content\">\r\n 	<a href=\"#\" data-rel=\"back\" class=\"ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right\">Close</a>\r\n 	<input type=\"submit\" value=\"Delete?\" id=\"deleteDataIndex\">\r\n</div>\r\n";
+  buffer += "\r\n<br/>\r\n<br/>\r\n<br/>\r\n<br/>\r\n\r\n<div class=\"footer-buttons\">\r\n	<hr />\r\n	<div class=\"ui-grid-a\">\r\n		<div class=\"ui-block-a footer-left\">\r\n			<input type=\"button\" id=\"addDatas\" data-icon=\"plus\" data-iconpos=\"left\" value=\"Add More Datas\" data-inline=\"true\"/>\r\n		</div>\r\n		<div class=\"ui-block-b footer-right\">\r\n			<input type=\"button\" data-inline=\"true\" data-icon=\"arrow-r\" data-iconpos=\"right\" value=\"Proceed\" id=\"proceedToLeadStmt\"/>\r\n		</div>\r\n	</div>\r\n</div>\r\n\r\n<div data-role=\"popup\" id=\"deleteData\" data-arrow=\"true\" class=\"ui-content\">\r\n 	<a href=\"#\" data-rel=\"back\" class=\"ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right\">Close</a>\r\n 	<input type=\"submit\" value=\"Delete?\" id=\"deleteDataIndex\">\r\n</div>\r\n";
   return buffer;
   });
 
@@ -913,15 +754,6 @@ function program3(depth0,data,depth2) {
 function program5(depth0,data) {
   
   var buffer = "", stack1, helper, options;
-  buffer += "\r\n	  		  ";
-  stack1 = (helper = helpers.isNull || (depth0 && depth0.isNull),options={hash:{},inverse:self.program(22, program22, data),fn:self.program(6, program6, data),data:data},helper ? helper.call(depth0, (depth0 && depth0.SubBullet), options) : helperMissing.call(depth0, "isNull", (depth0 && depth0.SubBullet), options));
-  if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n		  	";
-  return buffer;
-  }
-function program6(depth0,data) {
-  
-  var buffer = "", stack1, helper, options;
   buffer += "\r\n				  <tr>\r\n				    <td>";
   if (helper = helpers.Quantity) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.Quantity); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
@@ -933,26 +765,26 @@ function program6(depth0,data) {
     + "</td>\r\n				    ";
   stack1 = (helper = helpers.compare || (depth0 && depth0.compare),options={hash:{
     'operator': ("==")
-  },inverse:self.program(9, program9, data),fn:self.program(7, program7, data),data:data},helper ? helper.call(depth0, (depth0 && depth0.descType), "Normal", options) : helperMissing.call(depth0, "compare", (depth0 && depth0.descType), "Normal", options));
+  },inverse:self.program(8, program8, data),fn:self.program(6, program6, data),data:data},helper ? helper.call(depth0, (depth0 && depth0.descType), "Normal", options) : helperMissing.call(depth0, "compare", (depth0 && depth0.descType), "Normal", options));
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\r\n				    	<td>";
   if (helper = helpers.RateRs) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.RateRs); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
     + "</td>\r\n				    ";
-  stack1 = (helper = helpers.isNull || (depth0 && depth0.isNull),options={hash:{},inverse:self.program(16, program16, data),fn:self.program(14, program14, data),data:data},helper ? helper.call(depth0, (depth0 && depth0.Unit), options) : helperMissing.call(depth0, "isNull", (depth0 && depth0.Unit), options));
+  stack1 = (helper = helpers.isNull || (depth0 && depth0.isNull),options={hash:{},inverse:self.program(15, program15, data),fn:self.program(13, program13, data),data:data},helper ? helper.call(depth0, (depth0 && depth0.Unit), options) : helperMissing.call(depth0, "isNull", (depth0 && depth0.Unit), options));
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\r\n				    <td>";
   if (helper = helpers.Unit) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.Unit); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
     + "</td>\r\n				    ";
-  stack1 = (helper = helpers.isNull || (depth0 && depth0.isNull),options={hash:{},inverse:self.program(20, program20, data),fn:self.program(18, program18, data),data:data},helper ? helper.call(depth0, (depth0 && depth0.Amount), options) : helperMissing.call(depth0, "isNull", (depth0 && depth0.Amount), options));
+  stack1 = (helper = helpers.isNull || (depth0 && depth0.isNull),options={hash:{},inverse:self.program(19, program19, data),fn:self.program(17, program17, data),data:data},helper ? helper.call(depth0, (depth0 && depth0.Amount), options) : helperMissing.call(depth0, "isNull", (depth0 && depth0.Amount), options));
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n				  </tr>\r\n			  ";
+  buffer += "\r\n				  </tr>\r\n		  	";
   return buffer;
   }
-function program7(depth0,data) {
+function program6(depth0,data) {
   
   var buffer = "", stack1, helper;
   buffer += "\r\n				    	<td>";
@@ -963,18 +795,18 @@ function program7(depth0,data) {
   return buffer;
   }
 
-function program9(depth0,data) {
+function program8(depth0,data) {
   
   var buffer = "", stack1, helper, options;
   buffer += "\r\n				    	";
   stack1 = (helper = helpers.compare || (depth0 && depth0.compare),options={hash:{
     'operator': ("==")
-  },inverse:self.program(12, program12, data),fn:self.program(10, program10, data),data:data},helper ? helper.call(depth0, (depth0 && depth0.descType), "RateOrCost", options) : helperMissing.call(depth0, "compare", (depth0 && depth0.descType), "RateOrCost", options));
+  },inverse:self.program(11, program11, data),fn:self.program(9, program9, data),data:data},helper ? helper.call(depth0, (depth0 && depth0.descType), "RateOrCost", options) : helperMissing.call(depth0, "compare", (depth0 && depth0.descType), "RateOrCost", options));
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "			    \r\n				    ";
   return buffer;
   }
-function program10(depth0,data) {
+function program9(depth0,data) {
   
   var buffer = "", stack1, helper;
   buffer += "\r\n					    	<td style=\"color:red\"><strong>";
@@ -985,7 +817,7 @@ function program10(depth0,data) {
   return buffer;
   }
 
-function program12(depth0,data) {
+function program11(depth0,data) {
   
   var buffer = "", stack1, helper;
   buffer += "\r\n					    	<td><strong>";
@@ -996,19 +828,19 @@ function program12(depth0,data) {
   return buffer;
   }
 
-function program14(depth0,data) {
+function program13(depth0,data) {
   
   
   return "\r\n				    	<td></td>\r\n				    ";
   }
 
-function program16(depth0,data) {
+function program15(depth0,data) {
   
   
   return "\r\n				    	<td>1</td>\r\n				    ";
   }
 
-function program18(depth0,data) {
+function program17(depth0,data) {
   
   var buffer = "", stack1, helper;
   buffer += "\r\n				    	<td>";
@@ -1019,39 +851,12 @@ function program18(depth0,data) {
   return buffer;
   }
 
-function program20(depth0,data) {
+function program19(depth0,data) {
   
   var buffer = "", helper, options;
   buffer += "\r\n				    	<td>"
     + escapeExpression((helper = helpers.decimalFormat || (depth0 && depth0.decimalFormat),options={hash:{},data:data},helper ? helper.call(depth0, (depth0 && depth0.Amount), options) : helperMissing.call(depth0, "decimalFormat", (depth0 && depth0.Amount), options)))
     + "</td>  \r\n				    ";
-  return buffer;
-  }
-
-function program22(depth0,data) {
-  
-  var buffer = "", stack1, helper;
-  buffer += "\r\n				 <tr>\r\n				    <td>";
-  if (helper = helpers.Quantity) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.Quantity); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1)
-    + "</td>\r\n				    <td><strong>";
-  if (helper = helpers.SubBullet) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.SubBullet); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1)
-    + "</strong></td>\r\n				    <td><strong>";
-  if (helper = helpers.Description) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.Description); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1)
-    + "</strong></td>\r\n				     <td>";
-  if (helper = helpers.RateRs) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.RateRs); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1)
-    + "</td>\r\n				    <td></td>\r\n				    <td>";
-  if (helper = helpers.Unit) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.Unit); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1)
-    + "</td>\r\n				    <td></td>\r\n				  </tr>		  		  \r\n			  ";
   return buffer;
   }
 
@@ -1256,14 +1061,14 @@ function program14(depth0,data) {
   return "\r\n		  	  <tr>\r\n			  	<td>Blasting charges</td>	  	\r\n			  	<td>70</td>	\r\n		  	  </tr>\r\n		  	  <tr>\r\n			  	<td>Machine crushing</td>	 \r\n			  	<td>246</td>	 	\r\n		  	  </tr>\r\n		  	";
   }
 
-  buffer += "\r\n	<div class=\"ui-grid-a\">\r\n		<div class=\"ui-block-a\" style=\"width:20%;\">\r\n			<label><strong>Name of the Work:</strong></label>\r\n		</div>\r\n		<div class=\"ui-block-b\">\r\n			<label><strong><i>";
+  buffer += "	<div class=\"ui-grid-a\">\r\n		<div class=\"ui-block-a\" style=\"width:20%;\">\r\n			<label><strong>Name of the Work:</strong></label>\r\n		</div>\r\n		<div class=\"ui-block-b\">\r\n			<label><strong><i>";
   if (helper = helpers.nameofthework) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.nameofthework); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
     + "</strong></i></label>		\r\n		</div>\r\n	</div>\r\n	\r\n	<div id=\"myPdf\">\r\n		<table data-role=\"table\" style=\"margin-top:2%\" class=\"ui-body-d ui-shadow table-stripe ui-responsive\">\r\n		<thead>\r\n		  <tr>\r\n		  	<th>Sl.No</th>\r\n		  	<th>Description of material</th>\r\n		  	<th>Source of supply</th>\r\n		  	<th>Lead in KM</th>\r\n		  	<th>Initial Cost</th>\r\n		  	<th>Conveyance Charges</th>\r\n		  	<th>Seig-Charges balance</th>\r\n		  	<th>Loading/Unloading charges</th>\r\n		  	<th>Total Cost</th>\r\n		  	<th>Unit</th>\r\n		  </tr>\r\n		 </thead>\r\n		 <tbody>\r\n		  <tr>\r\n		  	<td>1</td>\r\n		  	<td>2</td>\r\n		  	<td>3</td>\r\n		  	<td>4</td>\r\n		  	<td>5</td>\r\n		  	<td>6</td>\r\n		  	<td>7</td>\r\n		  	<td>8</td>\r\n		  	<td>9</td>\r\n		  	<td>10</td>\r\n		  </tr>\r\n		  ";
   stack1 = helpers.each.call(depth0, (depth0 && depth0.listOfLeadMaterials), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n		\r\n		 </tbody>\r\n		</table>\r\n	</div>\r\n	<input type=\"submit\" id=\"proceedToDataSheet\" value=\"PROCEED TO DATAS\">\r\n	\r\n	<div data-role=\"popup\" id=\"getData\" data-arrow=\"true\" class=\"ui-content\" style=\"width:120%\" data-overlay-theme=\"b\">\r\n	 	<a href=\"#\" data-rel=\"back\" class=\"ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right\">Close</a>\r\n	 	<P id=\"mandatoryText\" style=\"color:red\"><i><strong>Please enter all mandatory* fields</strong></i></p>\r\n	 	<div data-role=\"fieldset\">\r\n		 	<div class=\"ui-grid-a\">\r\n				<div class=\"ui-block-a\" style=\"padding-top:5%;width:50%\"><label>Source Of Supply<sup style=\"color:red\"><b>*</b></sup>:</div>\r\n				<div class=\"ui-block-b\"><input type=\"text\" id=\"sourceOfSupply\"></div>\r\n			</div><!-- /grid-b -->\r\n			<div class=\"ui-grid-a\">\r\n				<div class=\"ui-block-a\" style=\"padding-top:5%;width:50%\"><label>Lead in KM<sup style=\"color:red\"><b>*</b></sup>:</div>\r\n				<div class=\"ui-block-b\"><input type=\"text\" id=\"distance\"></div>\r\n			</div><!-- /grid-b -->\r\n			<div class=\"ui-grid-c\" class=\"ui-content\" style=\"padding-top:5%\" id=\"loadMeans\">\r\n				<div class=\"ui-block-a\">\r\n					<label>Loading Charges<sup style=\"color:red\"><b>*</b></sup>:</label>\r\n				</div>\r\n				<div class=\"ui-block-b\">\r\n					<div class=\"ui-grid-a\">\r\n						<div class=\"ui-block-a\">\r\n							<label style=\"padding-top:2%;float:right\">Ignore</label>\r\n						</div>\r\n						<div class=\"ui-block-b\" style=\"padding-top:4%\">\r\n							<input type=\"radio\" name=\"loadMeans\" value=\"ignoreLoad\">\r\n						</div>\r\n					</div>\r\n				</div>\r\n				<div class=\"ui-block-c\">\r\n					<div class=\"ui-grid-a\">\r\n						<div class=\"ui-block-a\">\r\n							<label style=\"padding-top:2%;float:right\">Manual</label>\r\n						</div>\r\n						<div class=\"ui-block-b\" style=\"padding-top:4%\">\r\n							<input type=\"radio\" name=\"loadMeans\" value=\"manual\">\r\n						</div>\r\n					</div>\r\n				</div>\r\n				<div class=\"ui-block-d\">\r\n					<div class=\"ui-grid-a\" id=\"machineryMeans\">\r\n						<div class=\"ui-block-a\">\r\n							<label style=\"padding-top:2%;float:right\">M/C</label>\r\n						</div>\r\n						<div class=\"ui-block-b\" style=\"padding-top:4%\">\r\n							<input type=\"radio\" name=\"loadMeans\" value=\"machinery\">\r\n						</div>\r\n					</div>\r\n				</div>\r\n			</div><!-- /grid-c -->\r\n			<div class=\"ui-grid-c\" class=\"ui-content\" style=\"padding-top:5%;\" id=\"loadIdleCharges\">\r\n				<div class=\"ui-block-a\">\r\n					<label>Truck Idle Charges(Load)<sup style=\"color:red\"><b>*</b></sup>:</label>\r\n				</div>\r\n				<div class=\"ui-block-c\" id=\"noIdleCharges\">\r\n					<div class=\"ui-grid-a\">\r\n						<div class=\"ui-block-a\">\r\n							<label style=\"padding-top:4%;float:right\">No</label>\r\n						</div>\r\n						<div class=\"ui-block-b\" style=\"padding-top:5%\">\r\n							<input type=\"radio\" name=\"LIC\" value=\"no\">\r\n						</div>\r\n					</div>\r\n				</div>\r\n				<div class=\"ui-block-b\">\r\n					<div class=\"ui-grid-a\">\r\n						<div class=\"ui-block-a\">\r\n							<label style=\"padding-top:4%;float:right\">Yes</label>\r\n						</div>\r\n						<div class=\"ui-block-b\" style=\"padding-top:5%\">\r\n							<input type=\"radio\" name=\"LIC\" value=\"yes\">\r\n						</div>\r\n					</div>\r\n				</div>\r\n				<div class=\"ui-block-d\">\r\n				</div>\r\n			</div><!-- /grid-c -->\r\n			<div class=\"ui-grid-c\" class=\"ui-content\" style=\"padding-top:5%\" id=\"unloadMeans\">\r\n				<div class=\"ui-block-a\">\r\n					<label>Unloading Charges<sup style=\"color:red\"><b>*</b></sup>:</label>\r\n				</div>\r\n				<div class=\"ui-block-d\">\r\n					<div class=\"ui-grid-a\">\r\n						<div class=\"ui-block-a\">\r\n							<label style=\"padding-top:2%;float:right\">Ignore</label>\r\n						</div>\r\n						<div class=\"ui-block-b\" style=\"padding-top:4%\">\r\n							<input type=\"radio\" name=\"unLoadMeans\" value=\"ignoreUnLoad\">\r\n						</div>\r\n					</div>\r\n				</div>\r\n				<div class=\"ui-block-b\">\r\n					<div class=\"ui-grid-a\">\r\n						<div class=\"ui-block-a\">\r\n							<label style=\"padding-top:2%;float:right\">Manual</label>\r\n						</div>\r\n						<div class=\"ui-block-b\" style=\"padding-top:4%\">\r\n							<input type=\"radio\" name=\"unLoadMeans\" value=\"manualUnLoad\">\r\n						</div>\r\n					</div>\r\n				</div>\r\n				<div class=\"ui-block-c\">\r\n					<div class=\"ui-grid-a\" id=\"machineryMeans\">\r\n						<div class=\"ui-block-a\">\r\n							<label style=\"padding-top:2%;float:right\">M/C</label>\r\n						</div>\r\n						<div class=\"ui-block-b\" style=\"padding-top:4%\">\r\n							<input type=\"radio\" name=\"unLoadMeans\" value=\"machineryUnLoad\">\r\n						</div>\r\n					</div>\r\n				</div>\r\n			</div><!-- /grid-c -->\r\n			<div class=\"ui-grid-c\" class=\"ui-content\" style=\"padding-top:5%;\" id=\"unloadIdleCharges\">\r\n				<div class=\"ui-block-a\">\r\n					<label>Truck Idle Charges<sup style=\"color:red\"><b>*</b></sup>:</label>\r\n				</div>\r\n				<div class=\"ui-block-c\" id=\"noIdleCharges\">\r\n					<div class=\"ui-grid-a\">\r\n						<div class=\"ui-block-a\">\r\n							<label style=\"padding-top:4%;float:right\">No</label>\r\n						</div>\r\n						<div class=\"ui-block-b\" style=\"padding-top:5%\">\r\n							<input type=\"radio\" name=\"UIC\" value=\"no\">\r\n						</div>\r\n					</div>\r\n				</div>\r\n				<div class=\"ui-block-b\">\r\n					<div class=\"ui-grid-a\">\r\n						<div class=\"ui-block-a\">\r\n							<label style=\"padding-top:4%;float:right\">Yes</label>\r\n						</div>\r\n						<div class=\"ui-block-b\" style=\"padding-top:5%\">\r\n							<input type=\"radio\" name=\"UIC\" value=\"yes\">\r\n						</div>\r\n					</div>\r\n				</div>\r\n				<div class=\"ui-block-d\">\r\n				</div>\r\n			</div><!-- /grid-c -->\r\n		</div>\r\n		<input type=\"button\" value=\"Save\" id=\"saveLeadData\"/>\r\n	</div>\r\n";
+  buffer += "\r\n		\r\n		 </tbody>\r\n		</table>\r\n	</div>\r\n	<br/>\r\n	<br/>\r\n	<br/>\r\n	<br/>\r\n	<div class=\"footer-buttons\">\r\n		<hr />\r\n		<div class=\"ui-grid-a\">\r\n			<div class=\"ui-block-a footer-left\">\r\n				<input type=\"button\" id=\"clearAll\" value=\"Reset All\" data-inline=\"true\"/>\r\n			</div>\r\n			<div class=\"ui-block-b footer-right\">\r\n				<input type=\"button\" data-inline=\"true\" data-icon=\"arrow-r\" data-iconpos=\"right\" value=\"Proceed\" id=\"proceedToDataSheet\"/>\r\n			</div>\r\n		</div>\r\n	</div>\r\n	\r\n	<div data-role=\"popup\" id=\"getData\" data-arrow=\"true\" class=\"ui-content\" style=\"width:120%\" data-overlay-theme=\"b\">\r\n	 	<a href=\"#\" data-rel=\"back\" class=\"ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right\">Close</a>\r\n	 	<P id=\"mandatoryText\" style=\"color:red\"><i><strong>Please enter all mandatory* fields</strong></i></p>\r\n	 	<div data-role=\"fieldset\">\r\n		 	<div class=\"ui-grid-a\">\r\n				<div class=\"ui-block-a\" style=\"padding-top:5%;width:50%\"><label>Source Of Supply<sup style=\"color:red\"><b>*</b></sup>:</div>\r\n				<div class=\"ui-block-b\"><input type=\"text\" id=\"sourceOfSupply\"></div>\r\n			</div><!-- /grid-b -->\r\n			<div class=\"ui-grid-a\">\r\n				<div class=\"ui-block-a\" style=\"padding-top:5%;width:50%\"><label>Lead in KM<sup style=\"color:red\"><b>*</b></sup>:</div>\r\n				<div class=\"ui-block-b\"><input type=\"text\" id=\"distance\"></div>\r\n			</div><!-- /grid-b -->\r\n			<div class=\"ui-grid-c\" class=\"ui-content\" style=\"padding-top:5%\" id=\"loadMeans\">\r\n				<div class=\"ui-block-a\">\r\n					<label>Loading Charges<sup style=\"color:red\"><b>*</b></sup>:</label>\r\n				</div>\r\n				<div class=\"ui-block-b\">\r\n					<div class=\"ui-grid-a\">\r\n						<div class=\"ui-block-a\">\r\n							<label style=\"padding-top:2%;float:right\">Ignore</label>\r\n						</div>\r\n						<div class=\"ui-block-b\" style=\"padding-top:4%\">\r\n							<input type=\"radio\" name=\"loadMeans\" value=\"ignoreLoad\">\r\n						</div>\r\n					</div>\r\n				</div>\r\n				<div class=\"ui-block-c\">\r\n					<div class=\"ui-grid-a\">\r\n						<div class=\"ui-block-a\">\r\n							<label style=\"padding-top:2%;float:right\">Manual</label>\r\n						</div>\r\n						<div class=\"ui-block-b\" style=\"padding-top:4%\">\r\n							<input type=\"radio\" name=\"loadMeans\" value=\"manual\">\r\n						</div>\r\n					</div>\r\n				</div>\r\n				<div class=\"ui-block-d\">\r\n					<div class=\"ui-grid-a\" id=\"machineryMeans\">\r\n						<div class=\"ui-block-a\">\r\n							<label style=\"padding-top:2%;float:right\">M/C</label>\r\n						</div>\r\n						<div class=\"ui-block-b\" style=\"padding-top:4%\">\r\n							<input type=\"radio\" name=\"loadMeans\" value=\"machinery\">\r\n						</div>\r\n					</div>\r\n				</div>\r\n			</div><!-- /grid-c -->\r\n			<div class=\"ui-grid-c\" class=\"ui-content\" style=\"padding-top:5%;\" id=\"loadIdleCharges\">\r\n				<div class=\"ui-block-a\">\r\n					<label>Truck Idle Charges(Load)<sup style=\"color:red\"><b>*</b></sup>:</label>\r\n				</div>\r\n				<div class=\"ui-block-c\" id=\"noIdleCharges\">\r\n					<div class=\"ui-grid-a\">\r\n						<div class=\"ui-block-a\">\r\n							<label style=\"padding-top:4%;float:right\">No</label>\r\n						</div>\r\n						<div class=\"ui-block-b\" style=\"padding-top:5%\">\r\n							<input type=\"radio\" name=\"LIC\" value=\"no\">\r\n						</div>\r\n					</div>\r\n				</div>\r\n				<div class=\"ui-block-b\">\r\n					<div class=\"ui-grid-a\">\r\n						<div class=\"ui-block-a\">\r\n							<label style=\"padding-top:4%;float:right\">Yes</label>\r\n						</div>\r\n						<div class=\"ui-block-b\" style=\"padding-top:5%\">\r\n							<input type=\"radio\" name=\"LIC\" value=\"yes\">\r\n						</div>\r\n					</div>\r\n				</div>\r\n				<div class=\"ui-block-d\">\r\n				</div>\r\n			</div><!-- /grid-c -->\r\n			<div class=\"ui-grid-c\" class=\"ui-content\" style=\"padding-top:5%\" id=\"unloadMeans\">\r\n				<div class=\"ui-block-a\">\r\n					<label>Unloading Charges<sup style=\"color:red\"><b>*</b></sup>:</label>\r\n				</div>\r\n				<div class=\"ui-block-d\">\r\n					<div class=\"ui-grid-a\">\r\n						<div class=\"ui-block-a\">\r\n							<label style=\"padding-top:2%;float:right\">Ignore</label>\r\n						</div>\r\n						<div class=\"ui-block-b\" style=\"padding-top:4%\">\r\n							<input type=\"radio\" name=\"unLoadMeans\" value=\"ignoreUnLoad\">\r\n						</div>\r\n					</div>\r\n				</div>\r\n				<div class=\"ui-block-b\">\r\n					<div class=\"ui-grid-a\">\r\n						<div class=\"ui-block-a\">\r\n							<label style=\"padding-top:2%;float:right\">Manual</label>\r\n						</div>\r\n						<div class=\"ui-block-b\" style=\"padding-top:4%\">\r\n							<input type=\"radio\" name=\"unLoadMeans\" value=\"manualUnLoad\">\r\n						</div>\r\n					</div>\r\n				</div>\r\n				<div class=\"ui-block-c\">\r\n					<div class=\"ui-grid-a\" id=\"machineryMeans\">\r\n						<div class=\"ui-block-a\">\r\n							<label style=\"padding-top:2%;float:right\">M/C</label>\r\n						</div>\r\n						<div class=\"ui-block-b\" style=\"padding-top:4%\">\r\n							<input type=\"radio\" name=\"unLoadMeans\" value=\"machineryUnLoad\">\r\n						</div>\r\n					</div>\r\n				</div>\r\n			</div><!-- /grid-c -->\r\n			<div class=\"ui-grid-c\" class=\"ui-content\" style=\"padding-top:5%;\" id=\"unloadIdleCharges\">\r\n				<div class=\"ui-block-a\">\r\n					<label>Truck Idle Charges<sup style=\"color:red\"><b>*</b></sup>:</label>\r\n				</div>\r\n				<div class=\"ui-block-c\" id=\"noIdleCharges\">\r\n					<div class=\"ui-grid-a\">\r\n						<div class=\"ui-block-a\">\r\n							<label style=\"padding-top:4%;float:right\">No</label>\r\n						</div>\r\n						<div class=\"ui-block-b\" style=\"padding-top:5%\">\r\n							<input type=\"radio\" name=\"UIC\" value=\"no\">\r\n						</div>\r\n					</div>\r\n				</div>\r\n				<div class=\"ui-block-b\">\r\n					<div class=\"ui-grid-a\">\r\n						<div class=\"ui-block-a\">\r\n							<label style=\"padding-top:4%;float:right\">Yes</label>\r\n						</div>\r\n						<div class=\"ui-block-b\" style=\"padding-top:5%\">\r\n							<input type=\"radio\" name=\"UIC\" value=\"yes\">\r\n						</div>\r\n					</div>\r\n				</div>\r\n				<div class=\"ui-block-d\">\r\n				</div>\r\n			</div><!-- /grid-c -->\r\n		</div>\r\n		<input type=\"button\" value=\"Save\" id=\"saveLeadData\"/>\r\n	</div>\r\n";
   return buffer;
   });
 
@@ -1354,30 +1159,133 @@ function program8(depth0,data,depth1) {
   var buffer = "", stack1, helper, options;
   buffer += "\r\n			  <tr>\r\n			    <td>"
     + escapeExpression((helper = helpers.add || (depth0 && depth0.add),options={hash:{},data:data},helper ? helper.call(depth0, (data == null || data === false ? data : data.index), 1, options) : helperMissing.call(depth0, "add", (data == null || data === false ? data : data.index), 1, options)))
-    + "</td>\r\n			    <td style=\"width:15%\">";
-  if (helper = helpers.IndexCode) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.IndexCode); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1)
+    + "</td>\r\n			    <td style=\"width:15%\">"
+    + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.item)),stack1 == null || stack1 === false ? stack1 : stack1.IndexCode)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</td>\r\n			    <td class=\"description\"><div data-indexcode=\"";
   if (helper = helpers.IndexCode) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.IndexCode); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
     + "\" class=\"info-button\">";
-  stack1 = ((stack1 = (depth0 && depth0.Description)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1);
+  stack1 = ((stack1 = ((stack1 = (depth0 && depth0.item)),stack1 == null || stack1 === false ? stack1 : stack1.Description)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1);
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "</div></td>\r\n			    ";
-  stack1 = helpers['if'].call(depth0, (depth1 && depth1.datasAsService), {hash:{},inverse:self.noop,fn:self.program(9, program9, data),data:data});
+  stack1 = helpers['if'].call(depth0, (depth1 && depth1.datasAsService), {hash:{},inverse:self.noop,fn:self.programWithDepth(9, program9, data, depth0),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n			  </tr>\r\n		  ";
+  buffer += "\r\n			  </tr>\r\n			  	";
+  stack1 = helpers.each.call(depth0, (depth0 && depth0.subitemsArray), {hash:{},inverse:self.noop,fn:self.programWithDepth(14, program14, data, depth0, depth1),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\r\n		  ";
   return buffer;
   }
-function program9(depth0,data) {
+function program9(depth0,data,depth1) {
   
   var buffer = "", stack1;
-  buffer += "\r\n			   		<td><input type=\"checkbox\" name=\"chosenItems\" id=\""
-    + escapeExpression(((stack1 = (depth0 && depth0.IndexCode)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\"></td>\r\n			    ";
+  buffer += "\r\n			    	";
+  stack1 = helpers['if'].call(depth0, ((stack1 = (depth0 && depth0.subitemsArray)),stack1 == null || stack1 === false ? stack1 : stack1.length), {hash:{},inverse:self.program(12, program12, data),fn:self.programWithDepth(10, program10, data, depth1),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\r\n			    ";
   return buffer;
+  }
+function program10(depth0,data,depth2) {
+  
+  var buffer = "", stack1;
+  buffer += "\r\n			    		<td>\r\n			    			<div class=\"showWrapperDiv\">\r\n			    				<input type=\"button\" class=\"expandSubItems\" data-class=\""
+    + escapeExpression(((stack1 = ((stack1 = (depth2 && depth2.item)),stack1 == null || stack1 === false ? stack1 : stack1.IndexCode)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\" data-inline=\"true\" data-icon=\"plus\" data-mini=\"true\" data-iconpos=\"notext\" />\r\n			    			</div>\r\n			    			<div class=\"hideWrapperDiv\" style=\"display:none\">\r\n			    				<input type=\"button\" class=\"hideSubItems\" data-class=\""
+    + escapeExpression(((stack1 = ((stack1 = (depth2 && depth2.item)),stack1 == null || stack1 === false ? stack1 : stack1.IndexCode)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\" data-inline=\"true\" data-icon=\"minus\" data-mini=\"true\" data-iconpos=\"notext\" />\r\n			    			</div>\r\n			    		</td>\r\n			    	";
+  return buffer;
+  }
+
+function program12(depth0,data) {
+  
+  var buffer = "", stack1;
+  buffer += "\r\n			   			<td><input type=\"checkbox\" name=\"chosenItems\" id=\""
+    + escapeExpression(((stack1 = (depth0 && depth0.IndexCode)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\"></td>\r\n			   		";
+  return buffer;
+  }
+
+function program14(depth0,data,depth1,depth2) {
+  
+  var buffer = "", stack1, helper, options;
+  buffer += "	  \r\n			   	  <tr class=\""
+    + escapeExpression(((stack1 = ((stack1 = (depth1 && depth1.item)),stack1 == null || stack1 === false ? stack1 : stack1.IndexCode)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\" style=\"display:none\">  \r\n				    <td></td>\r\n				    ";
+  stack1 = (helper = helpers.compare || (depth0 && depth0.compare),options={hash:{
+    'operator': (">")
+  },inverse:self.program(17, program17, data),fn:self.program(15, program15, data),data:data},helper ? helper.call(depth0, ((stack1 = (depth0 && depth0.subDataId)),stack1 == null || stack1 === false ? stack1 : stack1.length), 5, options) : helperMissing.call(depth0, "compare", ((stack1 = (depth0 && depth0.subDataId)),stack1 == null || stack1 === false ? stack1 : stack1.length), 5, options));
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\r\n				    <td>"
+    + escapeExpression(((stack1 = (depth0 && depth0.subItemDesc)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</td>\r\n				    ";
+  stack1 = helpers['if'].call(depth0, (depth2 && depth2.datasAsService), {hash:{},inverse:self.noop,fn:self.programWithDepth(22, program22, data, depth1),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\r\n			   	  </tr> \r\n			   ";
+  return buffer;
+  }
+function program15(depth0,data) {
+  
+  var buffer = "", stack1;
+  buffer += "\r\n				    	<td style=\"text-align:right\">"
+    + escapeExpression(((stack1 = (depth0 && depth0.subItemID)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</td>\r\n				    ";
+  return buffer;
+  }
+
+function program17(depth0,data) {
+  
+  var buffer = "", stack1, helper, options;
+  buffer += "\r\n				    	";
+  stack1 = (helper = helpers.compare || (depth0 && depth0.compare),options={hash:{
+    'operator': (">")
+  },inverse:self.program(20, program20, data),fn:self.program(18, program18, data),data:data},helper ? helper.call(depth0, ((stack1 = (depth0 && depth0.subDataId)),stack1 == null || stack1 === false ? stack1 : stack1.length), 2, options) : helperMissing.call(depth0, "compare", ((stack1 = (depth0 && depth0.subDataId)),stack1 == null || stack1 === false ? stack1 : stack1.length), 2, options));
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\r\n				    ";
+  return buffer;
+  }
+function program18(depth0,data) {
+  
+  var buffer = "", stack1;
+  buffer += "\r\n				    		<td style=\"text-align:center\">"
+    + escapeExpression(((stack1 = (depth0 && depth0.subItemID)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</td>\r\n				    	";
+  return buffer;
+  }
+
+function program20(depth0,data) {
+  
+  var buffer = "", stack1;
+  buffer += "\r\n				    		<td>"
+    + escapeExpression(((stack1 = (depth0 && depth0.subItemID)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</td>\r\n				    	";
+  return buffer;
+  }
+
+function program22(depth0,data,depth2) {
+  
+  var buffer = "", stack1, helper, options;
+  buffer += "\r\n				    	";
+  stack1 = (helper = helpers.isLeaf || (depth0 && depth0.isLeaf),options={hash:{},inverse:self.program(25, program25, data),fn:self.programWithDepth(23, program23, data, depth2),data:data},helper ? helper.call(depth0, (depth0 && depth0.subDataId), options) : helperMissing.call(depth0, "isLeaf", (depth0 && depth0.subDataId), options));
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\r\n				    ";
+  return buffer;
+  }
+function program23(depth0,data,depth3) {
+  
+  var buffer = "", stack1;
+  buffer += "\r\n				    		<td><input type=\"checkbox\" data-group=\""
+    + escapeExpression(((stack1 = ((stack1 = (depth3 && depth3.item)),stack1 == null || stack1 === false ? stack1 : stack1.IndexCode)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\" name=\"chosenItems\" id=\""
+    + escapeExpression(((stack1 = (depth0 && depth0.subDataId)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\"/></td>\r\n				    	";
+  return buffer;
+  }
+
+function program25(depth0,data) {
+  
+  
+  return "\r\n				    		<td></td> \r\n				    	";
   }
 
   stack1 = helpers['if'].call(depth0, (depth0 && depth0.isSearchResult), {hash:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),data:data});

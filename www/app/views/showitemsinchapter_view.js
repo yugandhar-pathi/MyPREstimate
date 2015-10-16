@@ -13,43 +13,85 @@ define(['models/estimateitems_util','views/datacodedetails_view','views/utilitie
 		    	// 'tap #addToList':'proceedToSelectedItems',
 		    	 'tap .description':'displayDetails',
 		    	 'click #backButton':'closePopup',
-		    	 'click #updateEst':'updateEstimate'
-		    },		
+		    	 'click #updateEst':'updateEstimate',
+		    	 'click .expandSubItems':'showSubItems',
+		    	 'click .hideSubItems':'hideSubItems'
+		    },	
+		    showSubItems : function(event){
+		    	var groupToShow = $(event.target).data("class");
+		    	$("."+groupToShow).slideToggle();
+		    	$(event.target).closest('td').find('.hideWrapperDiv').show();
+		    	$(event.target).closest('.showWrapperDiv').hide();
+		    	event.stopPropagation();
+		    },
+		    hideSubItems:function(event){
+		    	var groupToHide = $(event.target).data("class");
+		    	$("."+groupToHide).slideToggle();
+		    	$(event.target).closest('td').find('.showWrapperDiv').show();
+		    	$(event.target).closest('.hideWrapperDiv').hide();
+		    	event.stopPropagation();
+		    },
 		    updateEstimate : function(event){
 		    	 var selectedItems = $("#itemsInChapter input:checkbox[name=chosenItems]:checked");
-		    	 var chosenItems = [];  
+		    	 var chosenItemsArray = [];  
 		    	 var selectedTable = EstimateModel.model.get("selectedTable");
+		    	 var currentGroup = "";
 				 selectedItems.each(function(index,ele){
-					 var chosenItem = {
-						    "TableName":"",
-							"IndexCode":"",
-							"description":"",
-							"subitemsArray":[]
-					  };
-					  chosenItem.IndexCode = ele.id;
-					  chosenItem.TableName = selectedTable;
-					  chosenItems.push(chosenItem);
+					  var itemGroup = $(ele).data("group");
+					  if(!itemGroup){
+						 //This data is not having sub items
+						 var chosenItem = {
+								    "TableName":"",
+									"IndexCode":"",
+									"description":"",
+									"selectedSubItems":[]
+						 };
+						 chosenItem.TableName = selectedTable;
+						 chosenItem.IndexCode = ele.id;
+						 chosenItemsArray.push(chosenItem);
+					  }else{
+						  //This data item is having sub items.
+						  if(currentGroup != itemGroup){
+							 var chosenItem = {
+								    "TableName":"",
+									"IndexCode":"",
+									"description":"",
+									"selectedSubItems":[]
+							 };
+							 currentGroup = itemGroup;
+							 chosenItem.IndexCode = itemGroup;
+							 chosenItem.selectedSubItems.push(ele.id);
+							 chosenItemsArray.push(chosenItem);
+						  }else{
+							  //More than one sub items is selected from same data.
+							  chosenItemsArray[chosenItemsArray.length - 1].selectedSubItems.push(ele.id);
+						  }	  
+					  }
+					  
 				 });	
-
+				 
+				 function getIndexDatasArray(datasArray){
+					 var indexCodeArr = [];
+		 			 for(var i=0;i<datasArray.length;i++){
+		 				 var subItemsArr = datasArray[i].selectedSubItems;
+		 				 if(subItemsArr.length){
+		 					var stringToSave = datasArray[i].IndexCode+"*"+subItemsArr.join("*");
+		 					indexCodeArr.push(stringToSave);
+		 				 }else{
+		 					indexCodeArr.push(datasArray[i].IndexCode);
+		 				 }
+					 }
+		 			 return indexCodeArr;
+				 }
 				 var exisitngDatas = this.model.get("indexToDatasArray");
-				 var exisitngDataItems = [];
-	 			 for(var i=0;i<exisitngDatas.length;i++){
-	 				exisitngDataItems.push(exisitngDatas[i].IndexCode);
-				 }
-	 			 
-	 			 var chosenDatas = [];
-	 			 for(var i=0;i<chosenItems.length;i++){
-	 				chosenDatas.push(chosenItems[i].IndexCode);
-				 }
-	 			 
+				 var exisitngDataItems = getIndexDatasArray(exisitngDatas);
+	 			 var chosenDatas = getIndexDatasArray(chosenItemsArray);
 	 			 var preSelectedDatasList = []; 
     			 if(exisitngDatas){
         			var preSelectedDatas = exisitngDatas.filter(function(obj){
         				return obj.TableName == selectedTable;
         			});
-	   	 			for(var i=0;i<preSelectedDatas.length;i++){
-	   	 				preSelectedDatasList.push(preSelectedDatas[i].IndexCode);
-	 				}
+        			preSelectedDatasList = getIndexDatasArray(preSelectedDatas);
     			 }
     			if(preSelectedDatasList.length == 0 && chosenDatas.length == 0){
     				//no change
@@ -57,7 +99,7 @@ define(['models/estimateitems_util','views/datacodedetails_view','views/utilitie
     				return;
     			}
     			if(preSelectedDatasList.length == 0 && chosenDatas.length > 0){
-    				var updatedDatas = exisitngDatas.concat(chosenItems);
+    				var updatedDatas = exisitngDatas.concat(chosenItemsArray);
     				this.model.set("indexToDatasArray",updatedDatas);
     				
     				var updatedList = exisitngDataItems.concat(chosenDatas); 
@@ -75,13 +117,13 @@ define(['models/estimateitems_util','views/datacodedetails_view','views/utilitie
     				this.updateSelectedDatasToEstimate(updatedList);
     				return;
     			}
-    			if(preSelectedDatasList.length != 0 && chosenItems.length != 0){
+    			if(preSelectedDatasList.length != 0 && chosenItemsArray.length != 0){
     				//compare
     				var updatedList = [];
-    				if(chosenItems.length <= preSelectedDatasList.length){
+    				if(chosenItemsArray.length <= preSelectedDatasList.length){
     					updatedList = _.difference(preSelectedDatasList, chosenDatas);
     				}
-    				if(chosenItems.length > preSelectedDatasList.length){
+    				if(chosenItemsArray.length > preSelectedDatasList.length){
     					updatedList = _.difference(chosenDatas, preSelectedDatasList);
     				}
 
@@ -98,7 +140,7 @@ define(['models/estimateitems_util','views/datacodedetails_view','views/utilitie
     				var updatedDatas = exisitngDatas.filter(function(obj){
     					return preSelectedDatasList.indexOf(obj.IndexCode) == -1;
     				});
-    				updatedDatas = updatedDatas.concat(chosenItems);
+    				updatedDatas = updatedDatas.concat(chosenItemsArray);
     				this.model.set("indexToDatasArray",updatedDatas);
     				
     				

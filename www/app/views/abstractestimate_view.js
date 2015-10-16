@@ -6,8 +6,8 @@ define(['views/layout/base_itemview','models/estimateitems_util'],function(BaseI
 			model:EstimateModel.model,
 			
 			events:{
-				'tap .addLBD':'dispalyLBDPopup',
-				'tap #saveEstimate':'saveEstimate'
+				'click .addLBD':'dispalyLBDPopup',
+				'click #saveEstimate':'saveEstimate'
 			},
 			initialize : function() {
 				this.model.on('reRenderView',this.reRender, this);
@@ -18,8 +18,9 @@ define(['views/layout/base_itemview','models/estimateitems_util'],function(BaseI
 			updateAmount:function(event){
 				var index = $(event.target).data("index");
 				var absEstimateCost = 0;
-				var itemsInEstimate = EstimateModel.model.get("codeToRates");
-
+				//var itemsInEstimate = EstimateModel.model.get("indexToDatasArray");
+				var codeToDatas = EstimateModel.model.get("codeToDatas");
+				
 				var description = $("#lbdDescription").val();
 				var length = $("#length").val(); //length
 				var breadth = $("#breadth").val(); //breadth
@@ -27,6 +28,7 @@ define(['views/layout/base_itemview','models/estimateitems_util'],function(BaseI
 				
 				var nos1 = $("#nos1").val();
 				var nos2 = $("#nos2").val();
+				var lbdType = $("#getLBDData input:radio[name=lbdType]:checked").val();
 				
 				if(!(nos1 !== "" && nos2 !== "" && length !== "" && breadth !== "" && depth !== "")){
 					$("#mandatoryText").show();
@@ -36,19 +38,6 @@ define(['views/layout/base_itemview','models/estimateitems_util'],function(BaseI
 				$("#getLBDData").popup("close");
 				var totalUnits =  Number(nos1) * Number(nos2) * Number(length) * Number(breadth) * Number(depth);
 				totalUnits = parseFloat(totalUnits).toFixed("2");
-				/*$("#totalUnits"+index).text(totalUnits);
-				//for(var lbd in ){
-					//$("#quantity"+index).text(totalUnits);
-				//}
-				
-				
-				$("#lbdDesc"+index).text(description);
-				$("#length"+index).text(length); //length
-				$("#breadth"+index).text(breadth); //breadth
-				$("#depth"+index).text(depth); //depth
-				
-				$("#Nos1"+index).text(nos1);
-				$("#Nos2"+index).text(nos2);*/
 				
 				var splitArr = index.split("-");
 				var itemId = splitArr[0];
@@ -58,20 +47,14 @@ define(['views/layout/base_itemview','models/estimateitems_util'],function(BaseI
 					subItem = splitArr[1];
 				}
 				
-				//$().insert
-				/*var itemRate = itemsInEstimate[itemId].rate;
-				var totalAmount = parseFloat(itemRate * totalUnits).toFixed("2");
-				$("#totalAmount"+index).text(totalAmount);
-				itemsInEstimate[itemId].totalAmount = totalAmount;*/
-				
 				//Need to modify this logic
-				for(var item in itemsInEstimate){
+				/*for(var item in itemsInEstimate){
 					if(itemsInEstimate[item].totalAmount){
 						absEstimateCost += itemsInEstimate[itemId].totalAmount;
 					}
 				}
 				absEstimateCost = parseFloat(absEstimateCost/100000).toFixed("2");
-				$("#absEstimateCost").text(absEstimateCost);
+				$("#absEstimateCost").text(absEstimateCost);*/
 				
 				var emptyLBDs  =  {
 					"lbddescription":"",
@@ -80,11 +63,12 @@ define(['views/layout/base_itemview','models/estimateitems_util'],function(BaseI
 					'length':"",
 					'breadth':"",
 					'depth':"",
-					'totalUnits':""
+					'totalUnits':"",
+					'lbdType':"add"
 				};
 				
 				var dataItemToLBDs = {
-					"dataItem":itemsInEstimate[itemId].code,
+					"dataItem":codeToDatas[itemId].IndexCode,
 					"subItem":subItem,
 					"lbddescription":description,
 					"nos1":nos1,
@@ -92,24 +76,22 @@ define(['views/layout/base_itemview','models/estimateitems_util'],function(BaseI
 					'length':length,
 					'breadth':breadth,
 					'depth':depth,
-					'totalUnits':totalUnits
+					'totalUnits':totalUnits,
+					'lbdType':lbdType
 				};
-				
-				if(dataItemToLBDs.subItem != ""){
-					var existingLBDs = [].concat(itemsInEstimate[itemId].subBullets[subItem].lbdsArray);
-					existingLBDs.pop();
-					existingLBDs.push(dataItemToLBDs);
-					existingLBDs.push(emptyLBDs);
-					itemsInEstimate[itemId].subBullets[subItem].lbdsArray = existingLBDs;
+
+				var existingLBDs = [].concat(codeToDatas[itemId].lbdsArray);
+				var lbdID = splitArr[splitArr.length-1];					
+				if(existingLBDs.length-1 > lbdID){
+					codeToDatas[itemId].lbdsArray[lbdID] = dataItemToLBDs;	
 				}else{
-					var existingLBDs = [].concat(itemsInEstimate[itemId].lbdsArray);
 					existingLBDs.pop();
 					existingLBDs.push(dataItemToLBDs);
 					existingLBDs.push(emptyLBDs);
-					itemsInEstimate[itemId].lbdsArray = existingLBDs;
+					codeToDatas[itemId].lbdsArray = existingLBDs;					
 				}
-				
-				EstimateModel.model.set("codeToRates",itemsInEstimate);
+
+				EstimateModel.model.set("codeToDatas",codeToDatas);
 				EstimateModel.model.trigger("reRenderView");
 			},
 			
@@ -121,9 +103,7 @@ define(['views/layout/base_itemview','models/estimateitems_util'],function(BaseI
     	 		$("#getLBDData").on('popupbeforeposition',function(){
 	       	 		$("#mandatoryText").hide();
 	    	 		if($("#totalUnits"+index).text() != ""){  	
-	    	 			//fill existing fields
-	    				var nos1 = $("#nos1").val();
-	    				var nos2 = $("#nos2").val();
+	    	 			$("#lbdDescription").val($("#lbdDesc"+index).text());
 	    	 			
 		    	 		$("#nos1").val($("#Nos1"+index).text());
 		    	 		$("#nos2").val($("#Nos2"+index).text());
@@ -131,9 +111,13 @@ define(['views/layout/base_itemview','models/estimateitems_util'],function(BaseI
 		    	 		$("#length").val($("#length"+index).text());
 		    	 		$("#breadth").val($("#breadth"+index).text());
 		    	 		$("#depth").val($("#depth"+index).text());	
+		    	 		
+		    	 		$("#getLBDData input:radio[value="+$("#totalUnits"+index).data("lbdType")+"]").prop('checked',true);
+		    	 		
 	    	 		}else{
 	    	 			//clear all fields
 		    	 		$(".lbdinput").val("");
+		    	 		$("#getLBDData input:radio[value='add']").prop('checked',true);
 	    	 		}
 	    	 		
 		    	 	$("#saveLBD").data('index',index);
@@ -164,7 +148,8 @@ define(['views/layout/base_itemview','models/estimateitems_util'],function(BaseI
 					 console.log('INSERT INTO UserEstimateHistory (EstimateID,nameOfWork,Type,Category,Cost) VALUES ("'+estId+'","'+nameOfWork+'","'+type+'","'+category+'","'+cost+'")');
 				   tx.executeSql('INSERT INTO UserEstimateHistory ("EstimateID","nameOfWork","Category","Type","Cost") VALUES (?,?,?,?,?)',[estId,nameOfWork,type,category,cost],function(tx1){
 					   console.log("inserted history details successfully");
-					   var leadMaterials = self.model.get("listOfLeadMaterials");
+					   self.saveEstimateLBDs(tx1, estId);
+					  /* var leadMaterials = self.model.get("listOfLeadMaterials");
 					   tx1.executeSql('CREATE TABLE IF NOT EXISTS UserLeadData ("EstimateID","material","sourceOfSupply","initialCost","convCharges","seigCharges","totalCost","unit","isMetal","code","loadMeans","unLoadMeans","considerIdleCharges")');
 						for(var material in leadMaterials){
 							var materialRow = leadMaterials[material];
@@ -182,67 +167,48 @@ define(['views/layout/base_itemview','models/estimateitems_util'],function(BaseI
 							var considerIdleCharges = materialRow.considerIdleCharges;
 							  console.log('INSERT INTO UserLeadData (EstimateID,material,sourceOfSupply,initialCost,convCharges,seigCharges,totalCost,unit,isMetal,code,loadMeans,unLoadMeans,considerIdleCharges) VALUES ("'+estId+'","'+material+'","'+sourceOfSupply+'","'+initialCost+'","'+convCharges+'","'+seigCharges+'","'+totalCost+'","'+unit+'","'+isMetal+'","'+code+'","'+loadMeans+'","'+unLoadMeans+'","'+considerIdleCharges+'")')
 							tx1.executeSql('INSERT INTO UserLeadData (EstimateID,material,sourceOfSupply,initialCost,convCharges,seigCharges,totalCost,unit,isMetal,code,loadMeans,unLoadMeans,considerIdleCharges) VALUES ("'+estId+'","'+material+'","'+sourceOfSupply+'","'+initialCost+'","'+convCharges+'","'+seigCharges+'","'+totalCost+'","'+unit+'","'+isMetal+'","'+code+'","'+loadMeans+'","'+unLoadMeans+'","'+considerIdleCharges+'")');		
-						}
-						//Save LBD's
-						tx1.executeSql('CREATE TABLE IF NOT EXISTS UserEstimateLBDs (EstimateID,dataCode,NOs,Length,breadth,depth)');
-						var datasToLBDs = self.model.get("codeToRates");
-						for(var data in datasToLBDs){						
-							var dataCode = '';
-							var NOs = '';
-							var Length = '';
-							var breadth = '';
-							var depth = '';
-							var lbdData = '';
-							if(datasToLBDs[data].subBullets.length > 0){
-								var subBullets = datasToLBDs[data].subBullets;
-								for(var subitem in subBullets){
-									lbdData = subBullets[subitem].lbds;
-									dataCode = lbdData.dataItem +'*'+lbdData.subItem;
-									NOs = lbdData.NOs;
-									Length = lbdData.length;
-									breadth = lbdData.breadth;
-									depth = lbdData.depth;	
-									console.log('INSERT INTO UserEstimateLBDs (EstimateID,dataCode,NOs,Length,breadth,depth) VALUES ("'+estId+'","'+dataCode+'","'+NOs+'","'+Length+'","'+breadth+'","'+depth+'")');
-								  tx.executeSql('INSERT INTO UserEstimateLBDs (EstimateID,dataCode,NOs,Length,breadth,depth) VALUES ("'+estId+'","'+dataCode+'","'+NOs+'","'+Length+'","'+breadth+'","'+depth+'")');
-								}
-							}else{
-								lbdData = datasToLBDs[data].lbds;
-								dataCode = lbdData.dataItem;
-								NOs = lbdData.NOs;
-								Length = lbdData.length;
-								breadth = lbdData.breadth;
-								depth = lbdData.depth;		
-								  console.log('INSERT INTO UserEstimateLBDs (EstimateID,dataCode,NOs,Length,breadth,depth) VALUES ("'+estId+'","'+dataCode+'","'+NOs+'","'+Length+'","'+breadth+'","'+depth+'")');
-								tx.executeSql('INSERT INTO UserEstimateLBDs (EstimateID,dataCode,NOs,Length,breadth,depth) VALUES ("'+estId+'","'+dataCode+'","'+NOs+'","'+Length+'","'+breadth+'","'+depth+'")');
-							}	
-						}
-				   });
-				   
-				   //Save Lead Data
-				  /*
-					
+						}*/
 
-					
-					//Save Data's
-					tx.executeSql('CREATE TABLE IF NOT EXISTS UserEstimateDatas (EstimateID,data,tableName,removedDatas)');
-					var selectedDatas = self.model.get("selectedItemsForEstimate");
-					for(var data in selectedDatas){
-						var dataCode = selectedDatas[data].indexCode;
-						var tableName = selectedDatas[data].tableName;
-						var subItemsArr = selectedDatas[data].selectedSubItems;
-						if(subItemsArr.length > 0){
-							for(var subItemsArr in subItemsArr){
-								dataCode += '*'+subItemsArr[subItemsArr]
-							}
-						}
-						console.log('INSERT INTO UserEstimateDatas (EstimateID,data,tableName,removedDatas) VALUES ("'+estId+'","'+dataCode+'","'+'","'+tableName+'","'+'")');
-					  tx.executeSql('INSERT INTO UserEstimateDatas (EstimateID,data,tableName,removedDatas) VALUES ("'+estId+'","'+dataCode+'","'+'","'+tableName+'","'+'")');
-					}*/
-					
-					
+				   });					
 				},function(error){
 					console.log(error.code);
 				});
+			},
+			saveEstimateLBDs : function(tx,estId){
+				var self = this;
+				tx.executeSql('CREATE TABLE IF NOT EXISTS UserEstimateLBDs ("EstimateID","dataCode","Desc","nos1","nos2","length","breadth","depth","type")');
+				var dataToLBDArray = self.model.get("codeToDatas");
+				var dataIndex = 0;
+				var saveLBDs = function(dataToLBD){
+					dataIndex++;
+					var lbdsArray = dataToLBD.lbdsArray;
+					var dataCode = dataToLBD.IndexCode;
+					var lbdIndex = 0;
+					var insertLBD = function(lbdData){
+						var descr = lbdData.lbddescription;
+						var nos1 = lbdData.nos1;
+						var nos2 = lbdData.nos2;
+						var length = lbdData.length;
+						var breadth = lbdData.breadth;
+						var depth = lbdData.depth;
+						var type = lbdData.lbdType;
+						tx.executeSql('INSERT INTO UserEstimateLBDs ("EstimateID","dataCode","Desc","nos1","nos2","length","breadth","depth","type") VALUES (?,?,?,?,?,?,?,?,?)',
+								[estId,dataCode,descr,nos1,nos2,length,breadth,depth,type],function(tx){
+							lbdIndex++;
+							if(lbdIndex < lbdsArray.length){
+								insertLBD(lbdsArray[lbdIndex])
+							}else{
+								if(dataIndex < dataToLBDArray.length){
+									saveLBDs(dataToLBDArray[dataIndex]);
+								}else{
+									self.model.readEstimateHistory();
+								}
+							}
+						});
+					}
+					insertLBD(lbdsArray[lbdIndex]);
+				}
+				saveLBDs(dataToLBDArray[dataIndex]);
 			},
 			reRender : function(){
 				this.$el.html(this.template(EstimateModel.model.attributes)).trigger("create");

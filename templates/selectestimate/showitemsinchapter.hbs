@@ -38,12 +38,45 @@
 		  {{#each datasArray}}
 			  <tr>
 			    <td>{{add @index 1}}</td>
-			    <td style="width:15%">{{IndexCode}}</td>
-			    <td class="description"><div data-indexcode="{{IndexCode}}" class="info-button">{{{this.Description}}}</div></td>
+			    <td style="width:15%">{{item.IndexCode}}</td>
+			    <td class="description"><div data-indexcode="{{IndexCode}}" class="info-button">{{{item.Description}}}</div></td>
 			    {{#if ../datasAsService}}
-			   		<td><input type="checkbox" name="chosenItems" id="{{this.IndexCode}}"></td>
+			    	{{#if subitemsArray.length}}
+			    		<td>
+			    			<div class="showWrapperDiv">
+			    				<input type="button" class="expandSubItems" data-class="{{../../item.IndexCode}}" data-inline="true" data-icon="plus" data-mini="true" data-iconpos="notext" />
+			    			</div>
+			    			<div class="hideWrapperDiv" style="display:none">
+			    				<input type="button" class="hideSubItems" data-class="{{../../item.IndexCode}}" data-inline="true" data-icon="minus" data-mini="true" data-iconpos="notext" />
+			    			</div>
+			    		</td>
+			    	{{else}}
+			   			<td><input type="checkbox" data-group="{{../../../item.IndexCode}}" name="chosenItems" id="{{this.IndexCode}}"></td>
+			   		{{/if}}
 			    {{/if}}
 			  </tr>
+			  	{{#each this.subitemsArray}}	  
+			   	  <tr class="{{../item.IndexCode}}" style="display:none">  
+				    <td></td>
+				    {{#compare subDataId.length 5 operator=">"}}
+				    	<td style="text-align:right">{{this.subItemID}}</td>
+				    {{else}}
+				    	{{#compare subDataId.length 2 operator=">"}}
+				    		<td style="text-align:center">{{this.subItemID}}</td>
+				    	{{else}}
+				    		<td>{{this.subItemID}}</td>
+				    	{{/compare}}
+				    {{/compare}}
+				    <td>{{this.subItemDesc}}</td>
+				    {{#if ../../datasAsService}}
+				    	{{#isLeaf subDataId}}
+				    		<td><input type="checkbox" name="chosenItems" data-group="{{../../../item.IndexCode}}" id="{{this.subDataId}}"/></td>
+				    	{{else}}
+				    		<td></td> 
+				    	{{/isLeaf}}
+				    {{/if}}
+			   	  </tr> 
+			   {{/each}}
 		  {{/each}}
 	  </tbody>
 	</table>
